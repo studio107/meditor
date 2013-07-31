@@ -73,7 +73,7 @@
                     element = $(element);
                 }
 
-                options['plugins'] = this.preparePlugins(options['plugins']) || [];
+                options['plugins'] = this.preparePlugins(options['plugins']) || {};
 
                 return new EditorCore(element, options, this.i18n);
             },

@@ -1,4 +1,4 @@
-(function(window) {
+(function (window) {
     var Block = Class.extend({
         i18n: {
             'ru': {
@@ -17,8 +17,9 @@
         _name: undefined,
         _number: undefined,
         _htmlBlock: '',
+        _htmlToolbar: '',
 
-        initialize: function(name, parent) {
+        initialize: function (name, parent) {
             this._name = name;
             this._parent = parent;
             this._number = parent.plugins.length - 1;
@@ -26,48 +27,69 @@
             parent._i18n.addToDictionary(this.i18n, this.name);
         },
 
-        getNumber: function() {
+        getNumber: function () {
             return this._number;
         },
 
-        getName: function() {
+        getName: function () {
             return this._name;
         },
 
-        setHtmlBlock: function(html) {
+        setHtmlBlock: function (html) {
             this._htmlBlock = html;
             return this;
         },
 
-        getHtmlBlock: function() {
+        getHtmlBlock: function () {
             return this._htmlBlock;
         },
 
-        getI18nName: function() {
+        getI18nName: function () {
             throw "Not implemented error";
         },
 
-        t: function(source, params) {
+        t: function (source, params) {
             return this._parent.t(source, this.name, params);
         },
 
         events: function () {
             return {
-                onClick: function () {
-                    console.log('onClick', this);
-                },
-                onResize: function () {
-                    console.log('onResize');
-                }
+                onClick: $.noop,
+                onResize: $.noop,
+                // TODO event on close (remove || delete) current block
+                onClose: $.noop
             }
         },
+
+
 
         /**
          * Render html content for block toolbar
          * @returns {string} html
          */
         renderToolbar: function () {
-            return '';
+            var me = this;
+
+            // TODO ugly, refactoring
+            var $toolbar = this._htmlToolbar = $('<nav/>');
+            $toolbar.addClass(this._parent.helpers_class(false));
+
+            var move = this.renderButton(this._parent.move_class(false), '<i class="icon-move"></i>'),
+                del = this.renderButton(this._parent.delete_class(false), '<i class="icon-x"></i>');
+
+            $toolbar.append(move, del);
+
+            return $toolbar;
+        },
+
+        renderResizeHandler: function () {
+            return this.renderButton(this._parent.resizer_class(false));
+        },
+
+        renderButton: function (className, html) {
+            var $button = $('<span/>');
+            $button.addClass(className).append(html || '');
+            return $button;
         },
 
         /**
@@ -81,15 +103,25 @@
          * Render html content of htmlblock for view
          * @returns {string}
          */
-        render: function () {
-            return this.htmlblock;
+        getContent: function () {
+            // TODO remove plugin data for clear html
+            return this.getHtmlBlock();
+        },
+        _render: function() {
+            var block = this.getHtmlBlock(),
+                $toolbar = this.renderToolbar(),
+                $resizer = this.renderResizeHandler();
+
+            var $block = $(block);
+            $block.append($toolbar, $resizer);
+            return $block;
         },
         /**
          * Render html content of htmlblock for editing
          * @returns {string}
          */
-        editable: function () {
-            return this.htmlblock;
+        render: function () {
+            return this._render()[0];
         }
     });
 

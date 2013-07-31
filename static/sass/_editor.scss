@@ -44,7 +44,7 @@ $meditorBorderColorHover: #aaa;
 
     .meditor-block {
       position: relative;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       min-height: 100px;
       outline: 1px solid $meditorBorderColor;
 
@@ -79,6 +79,7 @@ $meditorBorderColorHover: #aaa;
       .meditor-helpers {
         display: none;
         top: 5px;
+        z-index: 2000;
         left: 50%;
         margin-left: -20px;
         position: absolute;

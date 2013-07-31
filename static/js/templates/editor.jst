@@ -4,7 +4,7 @@
         <ul class="dropdown-menu">
             <% _.each(plugins, function(plugin) { %>
             <li>
-                <a class="add-block" data-popup="<%= plugin.options.hasPopup %>" href="#" rel="<%= plugin.name %>">
+                <a class="add-block" data-popup="<%= plugin.options.hasPopup %>" href="#" data-plugin="<%= plugin.getName() %>" rel="<%= plugin.getNumber() %>">
                     <%= plugin.getI18nName() %>
                 </a>
             </li>

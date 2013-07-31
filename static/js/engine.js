@@ -49,6 +49,10 @@ EditorCore.prototype = {
     _i18n: undefined,
 
     plugins: [],
+
+    // TODO refactoring
+    _plugins: {},
+
     blocks: {},
     blocks_menu: {},
 
@@ -78,12 +82,25 @@ EditorCore.prototype = {
         this.editor = editor;
         this.area = area;
 
+        // TODO refactoring
+        this.pluginsInit();
+
         this.setContent();
         $(editor).append(this.createControls(), area);
         this.$element.after(this.editor);
         this.initSortable();
 
         return this;
+    },
+
+    pluginsInit: function() {
+        // TODO refactoring
+        var name;
+
+        for(name in this.options.plugins) {
+            var plugin = this.options.plugins[name];
+            this._plugins[name] = new plugin(name, this);
+        }
     },
 
     t: function (source, category, params) {
@@ -154,6 +171,8 @@ EditorCore.prototype = {
             me.$element.val(me.getContent());
             return true;
         });
+
+        // TODO move to block.js on "onRender" event
         $(document).on('click', me.delete_class(true), function () {
             var confirmMessage = me.t('You really want to remove this block?');
 
@@ -183,8 +202,11 @@ EditorCore.prototype = {
         });
     },
     getPlugin: function (name) {
-        var plugins = this.options.plugins;
-        return name in plugins ? plugins[name] : false;
+        var plugins = this._plugins;
+        if((name in plugins) == false) {
+            name = 'lost';
+        }
+        return plugins[name];
     },
     getBlockPlugin: function (block) {
         return this.plugins[parseInt($(block).attr('rel'))];
@@ -392,8 +414,7 @@ EditorCore.prototype = {
      */
     startResize: function () {
         var $me = this;
-        $('body').addClass('unselectable');
-        $('body').addClass('resizing');
+        $('body').addClass('unselectable').addClass('resizing');
 
         $(document).on('mouseup', function (e) {
             var offset = {'left': e.offsetX, 'top': e.offsetY};
@@ -407,8 +428,7 @@ EditorCore.prototype = {
         $($(this.resizable).prev()).on('mousemove', move_function);
     },
     stop_resize: function () {
-        $('body').removeClass('unselectable');
-        $('body').removeClass('resizing');
+        $('body').removeClass('unselectable').removeClass('resizing');
 
         $(document).off('mouseup');
         $(this.resizable).off('mousemove');
@@ -503,7 +523,7 @@ EditorCore.prototype = {
         var $controls = $('<div/>', {class: this.controls_class(false)}),
             $me = this,
             controlsHtml = this.renderTemplate('/templates/editor.jst', {
-                plugins: this.plugins
+                plugins: this._plugins
             });
 
         $controls
@@ -511,7 +531,9 @@ EditorCore.prototype = {
             .find('.add-block')
             .on('click', function (e) {
                 e.preventDefault();
-                $me.create_block();
+
+                var $data = $(this).data();
+                $me.createBlock($data);
                 return false;
             });
 
@@ -559,18 +581,18 @@ EditorCore.prototype = {
     /**
      * Создание нового блока
      */
-    create_block: function () {
-        var blockHtml = $('<div/>', {
-            class: this.blockClass(false) + ' col-12 first',
-            'data-plugin': 'text'
+    createBlock: function (data) {
+        var $block = $('<div/>', {
+            'data-plugin': data['plugin']
         });
-        this.add_block(blockHtml);
+        $block.addClass(this.blockClass(false) + ' col-12 first');
+        this.addBlock($block);
     },
     /**
      * Добавление нового блока на страничку
      * @param block
      */
-    add_block: function (block) {
+    addBlock: function (block) {
         var row = this.createPureRow();
         var maked = this.makeBlock(block);
         row.append(maked);
@@ -612,15 +634,11 @@ EditorCore.prototype = {
      * @param element
      */
     makeBlock: function (element) {
-        var name = $(element).data('plugin'), pluginClass, editableElement;
+        var name = $(element).data('plugin'),
+            plugin = this.getPlugin(name);
 
-        pluginClass = this.getPlugin(name);
-        if (!pluginClass) {
-            pluginClass = this.getPlugin('lost')
-        }
-
-        editableElement = this.initPlugin(pluginClass, name, element);
-        return this.appendDefaults(editableElement);
+        console.log(plugin);
+        return this.initPlugin(plugin, element);
 
         /* Really ugly code
          if (!(plugin_name && (plugin = this.getPlugin(plugin_name)))) {
@@ -629,9 +647,7 @@ EditorCore.prototype = {
          }
          */
     },
-    initPlugin: function (pluginClass, name, element) {
-        var plugin = new pluginClass(name, this);
-
+    initPlugin: function (plugin, element) {
         this.plugins.push(plugin);
 
         // TODO ugly, refactor it.
@@ -641,42 +657,7 @@ EditorCore.prototype = {
         }
         $(element).attr('data-plugin', name);
 
-        return plugin.setHtmlBlock(element).editable();
-    },
-    /**
-     * Подключение стандартных элементов к блоку
-     * @param block
-     * @returns {*|jQuery|HTMLElement}
-     */
-    appendDefaults: function (block) {
-        // TODO move to ui library and rename method like "renderToolbar" or "renderDefaultToolbar"
-        /**
-         * Создаем хелперы
-         */
-        var helpers = $('<div/>', {
-                class: this.helpers_class(false)
-            }),
-            move = $('<div/>', {
-                class: this.move_class(false),
-                html: '<i class="icon-move"></i>'
-            }),
-            remove = $('<div/>', {
-                class: this.delete_class(false),
-                html: '<i class="icon-x"></i>'
-            });
-        helpers.append(move);
-        helpers.append(remove);
-        $(block).append(helpers);
-
-        /**
-         * Создаем ресайзер
-         */
-        var resizer = $('<div/>', {
-            class: this.resizer_class(false)
-        });
-        $(block).append(resizer);
-
-        return block;
+        return plugin.setHtmlBlock(element).render();
     },
 
     /**
@@ -700,7 +681,7 @@ EditorCore.prototype = {
      */
     cleanBlock: function (block) {
         var plugin = this.getBlockPlugin(block);
-        block = plugin.render();
+        block = plugin.getContent();
 
         $(block).find(this.helpers_class(true) + ', ' + this.resizer_class(true)).remove();
 
