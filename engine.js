@@ -572,7 +572,7 @@ EditorCore.prototype = {
 
         instance.htmlblock = element;
 
-        return element;
+        return instance.editable();
     },
     /**
      * Подключение стандартных элементов к блоку
