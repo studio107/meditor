@@ -1,16 +1,12 @@
-var EditorCore = function (element, options, i18n) {
-    if (element === undefined) return;
-
-    this.element = element;
+var EditorCore = function ($element, options, i18n) {
+    this.$element = $element;
     this.options = $.extend(this.options, options);
     this.cn = this.options.classname;
 
     this._i18n = i18n;
     this._language = options['language'] || i18n.getLanguage();
 
-    this.bind();
-    this.start();
-    return this;
+    return this.init();
 };
 
 EditorCore.prototype = {
@@ -18,11 +14,11 @@ EditorCore.prototype = {
      * Настройки по умолчанию
      */
     options: {
-            plugins: {},
-            language: 'en',
-            option: 'value',
-            classname: 'meditor',
-            localization: {
+        plugins: {},
+        language: 'en',
+        option: 'value',
+        classname: 'meditor',
+        localization: {
             add_block: 'Add block'
         },
         columns: 12,
@@ -32,7 +28,7 @@ EditorCore.prototype = {
     /**
      * Элемент, над которым выполняются действия
      */
-    element: undefined,
+    $element: undefined,
     editor: undefined,
     controls: undefined,
     area: undefined,
@@ -52,33 +48,56 @@ EditorCore.prototype = {
 
     counter: 0,
 
-    t: function(source, category) {
+    init: function() {
+        this.bindEvents();
+
+        this.$element.hide();
+
+        var editor = $('<div/>', {class: this.cn}),
+            controls = $('<div/>', {class: this.controls_class(false)}),
+            area = $('<div/>', {class: this.area_class(false)});
+
+        this.editor = editor;
+        this.controls = controls;
+        this.area = area;
+
+        this.createControls();
+        this.setContent();
+        $(editor).append(controls, area);
+        this.$element.after(this.editor);
+        this.initSortable();
+
+        return this;
+    },
+
+    t: function (source, category) {
         return this._i18n.t(source, category || 'core');
     },
-    block_class: function (dotted) {
+    blockClass: function (dotted) {
         var cn = this.cn + '-block';
         return dotted ? '.' + cn : cn;
     },
-    row_class: function (dotted) {
+    rowClass: function (dotted) {
         var cn = this.cn + '-row';
         return dotted ? '.' + cn : cn;
     },
-    col_class: function (dotted, value) {
+    colClass: function (dotted, value) {
         var append = '';
         if (value)
             append = value.toString();
         var cn = 'col-' + append;
         return dotted ? '.' + cn : cn;
     },
-    highlighted_classes: function () {
+    highlightedClasses: function () {
         return ['top', 'left', 'right', 'bottom'];
     },
-    highlighted_class: function (direction, dotted) {
+    highlightedClass: function (direction, dotted) {
+        var cn;
         if (direction) {
-            var cn = this.cn + '-highlighted-' + direction;
+            cn = this.cn + '-highlighted-' + direction;
             return dotted ? '.' + cn : cn;
         }
-        var cn = '[class*=".' + this.cn + '-highlighted"]';
+        cn = '[class*=".' + this.cn + '-highlighted"]';
         return cn;
     },
     area_class: function (dotted) {
@@ -112,43 +131,28 @@ EditorCore.prototype = {
     /**
      * "Навешиваем" события
      */
-    bind: function () {
-        var $me = this;
-        $($me.element).closest('form').on('submit', function () {
-            $($me.element).val($me.get_content());
+    bindEvents: function () {
+        var me = this;
+
+        this.$element.closest('form').on('submit', function () {
+            me.$element.val(me.getContent());
             return true;
         });
-        $(document).on('click', $me.delete_class(true), function () {
-            $(this).closest($me.block_class(true)).remove();
-            $me.clear_strings();
+        $(document).on('click', me.delete_class(true), function () {
+            $(this).closest(me.blockClass(true)).remove();
+            me.clear_strings();
         });
     },
-    start: function () {
-        $(this.element).hide(0);
 
-        var editor = $('<div/>', {class: this.cn});
-        var controls = $('<div/>', {class: this.controls_class(false)});
-        var area = $('<div/>', {class: this.area_class(false)});
-
-        this.editor = editor;
-        this.controls = controls;
-        this.area = area;
-
-        this.create_controls();
-        this.set_content();
-        $(editor).append(controls, area);
-        $(this.element).after(this.editor);
-        this.init_sortable();
-    },
-    init_sortable: function () {
+    initSortable: function () {
         var $me = this;
-        var moving_selector = this.block_class(true) + ' ' + this.move_class(true);
+        var moving_selector = this.blockClass(true) + ' ' + this.move_class(true);
         $(document).on('mousedown', moving_selector, function () {
-            $me.movable = $(this).closest($me.block_class(true));
+            $me.movable = $(this).closest($me.blockClass(true));
             $me.start_move();
         });
-        $(document).on('mousedown', this.block_class(true) + ' ' + $me.resizer_class(true), function () {
-            $me.resizable = $(this).closest($me.block_class(true));
+        $(document).on('mousedown', this.blockClass(true) + ' ' + $me.resizer_class(true), function () {
+            $me.resizable = $(this).closest($me.blockClass(true));
             $me.resizable_prev = $($me.resizable).prev();
             if ($me.resizable_prev.length) {
                 $me.start_resize();
@@ -158,14 +162,14 @@ EditorCore.prototype = {
             }
         });
     },
-    getPlugin: function(name){
-        if (this.options.plugins[name]){
+    getPlugin: function (name) {
+        if (this.options.plugins[name]) {
             return this.options.plugins[name];
-        }else{
+        } else {
             return false;
         }
     },
-    getBlockPlugin: function(block){
+    getBlockPlugin: function (block) {
         return this.plugins[parseInt($(block).attr('rel'))];
     },
     /**
@@ -178,12 +182,12 @@ EditorCore.prototype = {
         $('body').addClass('moving');
         $(document).on('mouseup', function (e) {
             var offset = {'left': e.offsetX, 'top': e.offsetY};
-            $me.stop_move(e.target, offset);
+            $me.stopMove(e.target, offset);
         });
-        $(this.block_class(true)).on('mouseout', function () {
+        $(this.blockClass(true)).on('mouseout', function () {
             $me.clear_highlight();
         });
-        $(this.block_class(true)).on('mousemove', function (e) {
+        $(this.blockClass(true)).on('mousemove', function (e) {
             var offset = {'left': e.offsetX, 'top': e.offsetY};
             $me.clear_highlight();
             $me.highlight_block(this, offset);
@@ -194,27 +198,26 @@ EditorCore.prototype = {
      * @param drop_to
      * @param offset
      */
-    stop_move: function (drop_to, offset) {
-
+    stopMove: function (drop_to, offset) {
         drop_to = $(drop_to);
         $(this.movable).removeClass(this.moving_class(false));
         $('body').removeClass('unselectable');
         $('body').removeClass('moving');
         this.clear_highlight();
-        $(this.block_class(true)).off('mousemove');
-        $(this.block_class(true)).off('mouseout');
+        $(this.blockClass(true)).off('mousemove');
+        $(this.blockClass(true)).off('mouseout');
         $(document).off('mouseup');
 
 
-        if (!drop_to.hasClass(this.block_class(false)) && (drop_to.closest(this.block_class(true)).length))
-                drop_to = drop_to.closest(this.block_class(true));
+        if (!drop_to.hasClass(this.blockClass(false)) && (drop_to.closest(this.blockClass(true)).length))
+            drop_to = drop_to.closest(this.blockClass(true));
 
-        if (drop_to.hasClass(this.block_class(false)))
+        if (drop_to.hasClass(this.blockClass(false)))
             if (!drop_to.is($(this.movable))) {
 
-                this.dropped($(this.movable), drop_to, this.get_direction(drop_to, offset));
-            } else if (!drop_to.hasClass(this.col_class(false, this.options.columns))) {
-                this.dropped($(this.movable), drop_to, this.get_direction(drop_to, offset, 'y'));
+                this.dropped($(this.movable), drop_to, this.getDirection(drop_to, offset));
+            } else if (!drop_to.hasClass(this.colClass(false, this.options.columns))) {
+                this.dropped($(this.movable), drop_to, this.getDirection(drop_to, offset, 'y'));
             }
 
         this.movable = false;
@@ -228,10 +231,9 @@ EditorCore.prototype = {
     dropped: function (element, to, direction) {
         var $me = this;
 
-
         if (direction == 'top' || direction == 'bottom') {
-            var row = this.create_pure_row();
-            var to_row = to.closest(this.row_class(true));
+            var row = this.createPureRow();
+            var to_row = to.closest(this.rowClass(true));
             this.set_column_value(element, this.options.columns);
             if (!element.hasClass('first'))
                 element.addClass('first');
@@ -269,20 +271,20 @@ EditorCore.prototype = {
     highlight_block: function (highlight_this, offset) {
         this.clear_highlight();
         var element = $(highlight_this);
-        if (element.hasClass(this.block_class(false))) {
+        if (element.hasClass(this.blockClass(false))) {
             var direction = 'top';
             if (!element.is($(this.movable))) {
-                direction = this.get_direction(element, offset);
-            } else if (!element.hasClass(this.col_class(false, this.options.columns))) {
-                direction = this.get_direction(element, offset, 'y');
+                direction = this.getDirection(element, offset);
+            } else if (!element.hasClass(this.colClass(false, this.options.columns))) {
+                direction = this.getDirection(element, offset, 'y');
             } else {
                 return false;
             }
 
             if (direction == 'top' || direction == 'bottom') {
-                element.closest(this.row_class(true)).addClass(this.highlighted_class(direction, false));
+                element.closest(this.rowClass(true)).addClass(this.highlightedClass(direction, false));
             } else {
-                element.addClass(this.highlighted_class(direction, false));
+                element.addClass(this.highlightedClass(direction, false));
             }
         }
     },
@@ -291,11 +293,11 @@ EditorCore.prototype = {
      */
     clear_highlight: function () {
         var i = 0;
-        var directions = this.highlighted_classes();
+        var directions = this.highlightedClasses();
         var direction = '';
         for (i in directions) {
             direction = directions[i];
-            $(this.highlighted_class(direction, true)).removeClass(this.highlighted_class(direction, false));
+            $(this.highlightedClass(direction, true)).removeClass(this.highlightedClass(direction, false));
         }
     },
     /**
@@ -306,12 +308,12 @@ EditorCore.prototype = {
         var last_element = undefined;
         var counted = 0;
 
-        $(this.row_class(true)).each(function () {
+        $(this.rowClass(true)).each(function () {
             if ($(this).children().length == 0) {
                 $(this).remove()
             } else {
                 counted = 0;
-                $(this).children($me.block_class(true)).each(function (index) {
+                $(this).children($me.blockClass(true)).each(function (index) {
                     if (index == 0) {
                         if (!$(this).hasClass('first'))
                             $(this).addClass('first');
@@ -321,7 +323,7 @@ EditorCore.prototype = {
                     counted += $me.get_column_value($(this));
                 });
                 if (counted < $me.options.columns) {
-                    var block = $(this).children($me.block_class(true)).last();
+                    var block = $(this).children($me.blockClass(true)).last();
                     var current = $me.get_column_value(block);
                     $me.set_column_value(block, $me.options.columns - counted + current);
                 }
@@ -331,13 +333,13 @@ EditorCore.prototype = {
     /**
      * Получить направление движения
      */
-    get_direction: function (elem, offset, only) {
+    getDirection: function (elem, offset, only) {
         var direction = 'top';
 
         if (only == 'y') {
             direction = (offset.top / elem.height() > 0.5) ? 'bottom' : 'top';
             return direction;
-        }else if(only == 'x'){
+        } else if (only == 'x') {
             direction = (offset.left / elem.width() > 0.5) ? 'right' : 'left';
             return direction;
         }
@@ -422,13 +424,13 @@ EditorCore.prototype = {
         var classes = $(block)[0].classList;
 
         var cn = '';
-        var col_class = this.col_class(false);
+        var colClass = this.colClass(false);
 
         var i = 0;
         for (i = 0; i < classes.length; i++) {
             cn = classes[i];
-            if (cn.indexOf(col_class) == 0) {
-                return parseInt(cn.substr(col_class.length))
+            if (cn.indexOf(colClass) == 0) {
+                return parseInt(cn.substr(colClass.length))
             }
         }
         return 0;
@@ -440,8 +442,8 @@ EditorCore.prototype = {
      */
     set_column_value: function (block, value) {
         var current = this.get_column_value(block);
-        $(block).removeClass(this.col_class(false, current));
-        $(block).addClass(this.col_class(false, value));
+        $(block).removeClass(this.colClass(false, current));
+        $(block).addClass(this.colClass(false, value));
     },
     /**
      * Увеличение блока
@@ -470,7 +472,7 @@ EditorCore.prototype = {
      * Cоздание чистой строки
      * @returns HTMLElement
      */
-    create_pure_row: function () {
+    createPureRow: function () {
         return $('<div/>', {
             class: this.cn + '-row'
         });
@@ -478,7 +480,7 @@ EditorCore.prototype = {
     /**
      * Добавляем контролы к редактору
      */
-    create_controls: function () {
+    createControls: function () {
         var $me = this;
         var add_block = $('<button/>', {
             class: 'button add-block',
@@ -495,7 +497,7 @@ EditorCore.prototype = {
      */
     create_block: function () {
         var blockHtml = $('<div/>', {
-            class: this.block_class(false) + ' col-12 first',
+            class: this.blockClass(false) + ' col-12 first',
             'data-plugin': 'text'
         });
         this.add_block(blockHtml);
@@ -505,39 +507,39 @@ EditorCore.prototype = {
      * @param block
      */
     add_block: function (block) {
-        var row = this.create_pure_row();
-        var maked = this.make_block(block);
+        var row = this.createPureRow();
+        var maked = this.makeBlock(block);
         row.append(maked);
         $(this.area_class(true)).append(row);
     },
     /**
      * Установка прошлого контента
      */
-    set_content: function () {
-        var content = $(this.element).val();
+    setContent: function () {
+        var content = this.$element.val();
         if (!content) {
             content = $('<div/>', {
                 class: this.cn + '-block col-12 first',
                 'data-plugin': 'text'
             });
         }
-        this.set_content_by_rows(content);
+        this.setContentByRows(content);
     },
     /**
      * Разбиваем чистый блочный контент по строкам
      * @param content
      * @returns html
      */
-    set_content_by_rows: function (content) {
+    setContentByRows: function (content) {
         var $me = this;
         var out = $('<div/>');
-        var row = this.create_pure_row();
-        $(content).filter(this.block_class(true)).each(function (index) {
+        var row = this.createPureRow();
+        $(content).filter(this.blockClass(true)).each(function (index) {
             if ($(this).hasClass('first') && index != 0) {
                 $($me.area).append(row);
-                row = $me.create_pure_row();
+                row = $me.createPureRow();
             }
-            row.append($me.make_block(this));
+            row.append($me.makeBlock(this));
         });
         $($me.area).append(row);
     },
@@ -545,42 +547,44 @@ EditorCore.prototype = {
      * Подготовка блока к добавлению на страничку
      * @param element
      */
-    make_block: function (element) {
-        var plugin_name = $(element).data('plugin');
-        var plugin = undefined;
-        var instance = undefined;
-        if (!(plugin_name && (plugin = this.getPlugin(plugin_name)))){
+    makeBlock: function (element) {
+        var plugin_name = $(element).data('plugin'),
+            plugin = undefined, instance = undefined;
+
+        if (!(plugin_name && (plugin = this.getPlugin(plugin_name)))) {
             plugin_name = 'lost';
             plugin = this.getPlugin(plugin_name);
         }
         instance = new plugin();
-        var editable_element = this.init_plugin(instance,plugin_name,element);
-        return this.append_defaults(editable_element);
+        var editable_element = this.initPlugin(instance, plugin_name, element);
+        return this.appendDefaults(editable_element);
     },
-    init_plugin: function(instance, name, element){
+    initPlugin: function (instance, name, element) {
         instance.name = name;
         this._i18n.addToDictionary(instance.i18n, name);
         this.plugins.push(instance);
 
         instance.number = this.plugins.length - 1;
-        $(element).attr('rel',instance.number);
+        $(element).attr('rel', instance.number);
 
         var plugin_class = name + '-block';
         if (!$(element).hasClass(plugin_class))
             $(element).addClass(plugin_class);
 
-        $(element).attr('data-plugin',name);
+        $(element).attr('data-plugin', name);
 
         instance.htmlblock = element;
 
         return instance.editable();
     },
     /**
+     * @TODO rename method
+     *
      * Подключение стандартных элементов к блоку
      * @param block
      * @returns {*|jQuery|HTMLElement}
      */
-    append_defaults: function(block){
+    appendDefaults: function (block) {
         /**
          * Создаем хелперы
          */
@@ -609,21 +613,31 @@ EditorCore.prototype = {
 
         return block;
     },
-    get_content: function () {
+
+    /**
+     * Получение очищенного контента из блока
+     * @returns {*}
+     */
+    getContent: function () {
         var $me = this;
         var out = $('<div/>');
-        $(this.area).find(this.block_class(true)).each(function () {
-            var cleared = $me.clean_block($(this));
+        $(this.area).find(this.blockClass(true)).each(function () {
+            var cleared = $me.cleanBlock($(this));
             out.append(cleared);
         });
         return out.html();
     },
-    clean_block: function(block){
+    /**
+     * Очистка блока от данных редактора. Используется перед сохранением.
+     *
+     * @param block
+     * @returns {*|string}
+     */
+    cleanBlock: function (block) {
         var plugin = this.getBlockPlugin(block);
         block = plugin.render();
 
-        $(block).find(this.helpers_class(true)).remove();
-        $(block).find(this.resizer_class(true)).remove();
+        $(block).find(this.helpers_class(true) + ', ' + this.resizer_class(true)).remove();
 
         return block;
     }
