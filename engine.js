@@ -36,6 +36,7 @@ EditorCore.prototype = {
     editor: undefined,
     controls: undefined,
     area: undefined,
+    temp: undefined,
     cn: undefined,
 
     _language: undefined,
@@ -129,14 +130,16 @@ EditorCore.prototype = {
         var editor = $('<div/>', {class: this.cn});
         var controls = $('<div/>', {class: this.controls_class(false)});
         var area = $('<div/>', {class: this.area_class(false)});
+        var temp = $('<div/>', {style: 'display: none;'});
 
         this.editor = editor;
         this.controls = controls;
         this.area = area;
+        this.temp = temp;
 
         this.create_controls();
         this.set_content();
-        $(editor).append(controls, area);
+        $(editor).append(controls, area, temp);
         $(this.element).after(this.editor);
         this.init_sortable();
     },
@@ -164,9 +167,6 @@ EditorCore.prototype = {
         }else{
             return false;
         }
-    },
-    getBlockByRel: function(id){
-        return $(this.area).find(this.block_class(true) + '[rel=' + id + ']');
     },
     getBlockPlugin: function(block){
         return this.plugins[parseInt($(block).attr('rel'))];
@@ -508,7 +508,6 @@ EditorCore.prototype = {
         var maked = this.make_block(block);
         row.append(maked);
         $(this.area_class(true)).append(row);
-        this.updateHtmlBlock(this.getBlockByRel($(maked).attr('rel')));
     },
     /**
      * Установка прошлого контента
@@ -521,27 +520,25 @@ EditorCore.prototype = {
                 'data-plugin': 'text'
             });
         }
-        $(this.area).html(this.content_by_rows(content));
-        this.updateHtmlBlocks();
+        this.set_content_by_rows(content);
     },
     /**
      * Разбиваем чистый блочный контент по строкам
      * @param content
      * @returns html
      */
-    content_by_rows: function (content) {
+    set_content_by_rows: function (content) {
         var $me = this;
         var out = $('<div/>');
         var row = this.create_pure_row();
         $(content).filter(this.block_class(true)).each(function (index) {
             if ($(this).hasClass('first') && index != 0) {
-                $(out).append(row);
+                $($me.area).append(row);
                 row = $me.create_pure_row();
             }
             row.append($me.make_block(this));
         });
-        $(out).append(row);
-        return $(out).html();
+        $($me.area).append(row);
     },
     /**
      * Подготовка блока к добавлению на страничку
@@ -564,7 +561,7 @@ EditorCore.prototype = {
         this._i18n.addToDictionary(instance.i18n, name);
         this.plugins.push(instance);
 
-        instance.number = this.plugins.length - 1
+        instance.number = this.plugins.length - 1;
         $(element).attr('rel',instance.number);
 
         plugin_class = name + '-block';
@@ -574,7 +571,8 @@ EditorCore.prototype = {
         $(element).attr('data-plugin',name);
 
         instance.htmlblock = element;
-        return instance.editable();
+
+        return element;
     },
     /**
      * Подключение стандартных элементов к блоку
@@ -607,6 +605,7 @@ EditorCore.prototype = {
             class: this.resizer_class(false)
         });
         $(block).append(resizer);
+
         return block;
     },
     get_content: function () {
@@ -626,15 +625,5 @@ EditorCore.prototype = {
         $(block).find(this.resizer_class(true)).remove();
 
         return block;
-    },
-    updateHtmlBlocks: function(){
-        var $me = this;
-        $(this.area).find(this.block_class(true)).each(function () {
-            $me.updateHtmlBlock(this);
-        });
-    },
-    updateHtmlBlock: function(block){
-        var plugin = this.getBlockPlugin(block);
-        plugin.htmlblock = block;
     }
 };
