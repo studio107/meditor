@@ -80,6 +80,14 @@
         return {
             i18n: i18n,
             init: function(element, options) {
+                if(element == undefined) {
+                    throw "element is undefined";
+                }
+
+                if(typeof element == 'string') {
+                    element = $(element);
+                }
+
                 options['plugins'] = this.preparePlugins(options['plugins']) || [];
 
                 return new EditorCore(element, options, this.i18n);
