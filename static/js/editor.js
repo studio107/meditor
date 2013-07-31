@@ -2,20 +2,9 @@
     "use strict";
 
     var i18n = (function () {
-        var language = 'en',
-            dictionary = {
-                'en': {
-                    'hello world': 'Привет'
-                }
-            };
+        var dictionary = {};
 
         return {
-            setLanguage: function (lang) {
-                language = lang;
-            },
-            getLanguage: function () {
-                return language;
-            },
             addToDictionary: function (dict, category) {
                 for(var l in dict) {
                     if (typeof dictionary[l] === 'undefined') {
@@ -30,11 +19,7 @@
                 }
             },
             getDictionary: function (language) {
-                if (typeof dictionary[language] !== 'undefined') {
-                    return dictionary[language];
-                } else {
-                    return {};
-                }
+                return dictionary[language] || {};
             },
 
             setDictionary: function (dict, lang) {
@@ -44,14 +29,14 @@
                 dictionary[lang] = dict;
             },
 
-            t: function (str, category, params) {
-                var transl = str, dict = this.getDictionary(language);
+            t: function (str, category, params, lang) {
+                var transl = str, dict = this.getDictionary(lang);
 
-                if (typeof category !== 'undefined' && typeof dict[category] !== 'undefined') {
-                    dict = dictionary[category];
+                if (typeof category !== 'undefined' && category in dict) {
+                    dict = dict[category] || {};
                 }
 
-                if (dict[str]) {
+                if (str in dict) {
                     transl = dict[str];
                 }
 
@@ -98,7 +83,7 @@
                 for (i in rawPlugins){
                     name = rawPlugins[i];
 
-                    if (_plugins[name]) {
+                    if (name in _plugins) {
                         plugins[name] = _plugins[name];
                     }
                 }
