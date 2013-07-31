@@ -58,12 +58,11 @@ EditorCore.prototype = {
     counter: 0,
 
     init: function () {
+        // @TODO move to external i18n language file
         this._i18n.addToDictionary({
-            en: {
-                'Add block': 'Add block'
-            },
             ru: {
-                'Add block': 'Добавить блок'
+                'Add block': 'Добавить блок',
+                'You really want to remove this block?': 'Вы действительно хотите удалить данный блок?'
             }
         }, 'core');
 
@@ -157,8 +156,12 @@ EditorCore.prototype = {
             return true;
         });
         $(document).on('click', me.delete_class(true), function () {
-            $(this).closest(me.blockClass(true)).remove();
-            me.clearStrings();
+            var confirmMessage = me.t('You really want to remove this block?');
+
+            if(confirm(confirmMessage)) {
+                $(this).closest(me.blockClass(true)).remove();
+                me.clearStrings();
+            }
         });
     },
 
