@@ -12,22 +12,24 @@
     <link rel="stylesheet" type="text/css" href="/static/fonts/glyphico/style.css" />
 
     <script type="text/javascript" src="static/vendor/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="static/vendor/underscore.js"></script>
 
     <script type="text/javascript" src="static/js/utils.js"></script>
     <script type="text/javascript" src="static/js/core.js"></script>
     <script type="text/javascript" src="static/js/engine.js"></script>
-    <script type="text/javascript" src="static/js/meditor.js"></script>
+    <script type="text/javascript" src="static/js/editor.js"></script>
     <script type="text/javascript" src="static/js/block.js"></script>
 
     <script type="text/javascript" src="static/js/plugins/text.js"></script>
     <script type="text/javascript" src="static/js/plugins/lost.js"></script>
     <script type="text/javascript" src="static/js/plugins/space.js"></script>
+    <script type="text/javascript" src="static/js/plugins/map/map.js"></script>
 
     <script type="text/javascript">
         $(function() {
             var editor = meditor.init('#meditor', {
-                'language': 'ru',
-                'plugins': ['space', 'text']
+                language: 'ru',
+                plugins: ['space', 'text']
             });
         })
     </script>
