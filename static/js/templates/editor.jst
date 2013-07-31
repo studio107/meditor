@@ -1,3 +1,12 @@
 <nav class="meditor-controls">
-    <a href="#" class="button add-block"><%= i18n.core['Add block'] %></a>
+    <section class="button-group dropdown">
+        <a href="#" class="button dropdown-toggle" data-toggle="dropdown"><i class=" icon-add"></i> <%= i18n.core['Add block'] %></a>
+        <ul class="dropdown-menu">
+            <% _.each(plugins, function(name, plugin) { %>
+            <li>
+                <a class="button add-block" data-popup="<%= plugin.options.hasPopup %>" href="#" rel="<%= name %>"><%= plugin.getName() %></a>
+            </li>
+            <% }); %>
+        </ul>
+    </section>
 </nav>

@@ -6,6 +6,11 @@
             'ru': {
                 'Map block': 'Блок с картой'
             }
+        },
+        loadDependency: function() {
+            this.parent.loader.js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js', function() {
+                var map = L.map('block-map-create').setView([51.505, -0.09], 13);
+            })
         }
     });
 

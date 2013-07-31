@@ -1,4 +1,4 @@
-(function(window) {
+(function (window) {
     "use strict";
 
     var i18n = (function () {
@@ -6,7 +6,7 @@
 
         return {
             addToDictionary: function (dict, category) {
-                for(var l in dict) {
+                for (var l in dict) {
                     if (typeof dictionary[l] === 'undefined') {
                         dictionary[l] = {};
                     }
@@ -64,12 +64,12 @@
 
         return {
             i18n: i18n,
-            init: function(element, options) {
-                if(element == undefined) {
+            init: function (element, options) {
+                if (element == undefined) {
                     throw "element is undefined";
                 }
 
-                if(typeof element == 'string') {
+                if (typeof element == 'string') {
                     element = $(element);
                 }
 
@@ -77,10 +77,10 @@
 
                 return new EditorCore(element, options, this.i18n);
             },
-            preparePlugins: function(rawPlugins) {
+            preparePlugins: function (rawPlugins) {
                 var i, name, plugins = {};
 
-                for (i in rawPlugins){
+                for (i in rawPlugins) {
                     name = rawPlugins[i];
 
                     if (name in _plugins) {
@@ -90,11 +90,11 @@
 
                 return plugins
             },
-            pluginAdd: function(name, object) {
+            pluginAdd: function (name, object) {
                 _plugins[name] = object;
 
             },
-            plugins: function() {
+            plugins: function () {
                 return _plugins;
             }
         };

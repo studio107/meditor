@@ -39,7 +39,7 @@ EditorCore.prototype = {
      */
     $element: undefined,
     editor: undefined,
-    controls: undefined,
+    $controls: undefined,
     area: undefined,
     cn: undefined,
 
@@ -71,16 +71,13 @@ EditorCore.prototype = {
         this.$element.hide();
 
         var editor = $('<div/>', {class: this.cn}),
-            controls = $('<div/>', {class: this.controls_class(false)}),
             area = $('<div/>', {class: this.area_class(false)});
 
         this.editor = editor;
-        this.controls = controls;
         this.area = area;
 
-        this.createControls();
         this.setContent();
-        $(editor).append(controls, area);
+        $(editor).append(this.createControls(), area);
         this.$element.after(this.editor);
         this.initSortable();
 
@@ -158,7 +155,7 @@ EditorCore.prototype = {
         $(document).on('click', me.delete_class(true), function () {
             var confirmMessage = me.t('You really want to remove this block?');
 
-            if(confirm(confirmMessage)) {
+            if (confirm(confirmMessage)) {
                 $(this).closest(me.blockClass(true)).remove();
                 me.clearStrings();
             }
@@ -499,15 +496,22 @@ EditorCore.prototype = {
      * Добавляем контролы к редактору
      */
     createControls: function () {
-        var $me = this;
-        var controls = this.renderTemplate('/templates/editor.jst');
+        var $controls = $('<div/>', {class: this.controls_class(false)}),
+            $me = this,
+            controlsHtml = this.renderTemplate('/templates/editor.jst', {
+                plugins: this.plugins
+            });
 
-        $(this.controls).html(controls)
-            .find('.add-block').on('click', function (e) {
+        $controls
+            .html(controlsHtml)
+            .find('.add-block')
+            .on('click', function (e) {
                 e.preventDefault();
                 $me.create_block();
                 return false;
             });
+
+        return this.$controls = $controls;
     },
 
     getBaseUrl: function () {
@@ -600,34 +604,41 @@ EditorCore.prototype = {
         $($me.area).append(row);
     },
     /**
-     * Подготовка блока к добавлению на страничку
+     * Подготовка блока к добавлению на страницу
      * @param element
      */
     makeBlock: function (element) {
-        var plugin_name = $(element).data('plugin'),
-            plugin = undefined, instance = undefined;
+        var name = $(element).data('plugin'), plugin, editableElement;
 
-        if (!(plugin_name && (plugin = this.getPlugin(plugin_name)))) {
-            plugin_name = 'lost';
-            plugin = this.getPlugin(plugin_name);
+        plugin = this.getPlugin(name);
+        if (!plugin) {
+            plugin = this.getPlugin('lost')
         }
 
-        instance = new plugin();
-        var editable_element = this.initPlugin(instance, plugin_name, element);
-        return this.appendDefaults(editable_element);
+        editableElement = this.initPlugin(new plugin(), name, element);
+        return this.appendDefaults(editableElement);
+
+        /* Really ugly code
+         if (!(plugin_name && (plugin = this.getPlugin(plugin_name)))) {
+         plugin_name = 'lost';
+         plugin = this.getPlugin(plugin_name);
+         }
+         */
     },
     initPlugin: function (instance, name, element) {
+        var plugin_class = name + '-block';
+
         instance.name = name;
         this._i18n.addToDictionary(instance.i18n, name);
         this.plugins.push(instance);
 
         instance.number = this.plugins.length - 1;
+
+        // TODO ugly, refactor it.
         $(element).attr('rel', instance.number);
-
-        var plugin_class = name + '-block';
-        if (!$(element).hasClass(plugin_class))
+        if (!$(element).hasClass(plugin_class)) {
             $(element).addClass(plugin_class);
-
+        }
         $(element).attr('data-plugin', name);
 
         instance.htmlblock = element;
@@ -635,27 +646,26 @@ EditorCore.prototype = {
         return instance.editable();
     },
     /**
-     * @TODO rename method
-     *
      * Подключение стандартных элементов к блоку
      * @param block
      * @returns {*|jQuery|HTMLElement}
      */
     appendDefaults: function (block) {
+        // TODO move to ui library and rename method like "renderToolbar" or "renderDefaultToolbar"
         /**
          * Создаем хелперы
          */
         var helpers = $('<div/>', {
-            class: this.helpers_class(false)
-        });
-        var move = $('<div/>', {
-            class: this.move_class(false),
-            html: '<i class="icon-move"></i>'
-        });
-        var remove = $('<div/>', {
-            class: this.delete_class(false),
-            html: '<i class="icon-x"></i>'
-        });
+                class: this.helpers_class(false)
+            }),
+            move = $('<div/>', {
+                class: this.move_class(false),
+                html: '<i class="icon-move"></i>'
+            }),
+            remove = $('<div/>', {
+                class: this.delete_class(false),
+                html: '<i class="icon-x"></i>'
+            });
         helpers.append(move);
         helpers.append(remove);
         $(block).append(helpers);
