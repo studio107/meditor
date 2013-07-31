@@ -36,7 +36,6 @@ EditorCore.prototype = {
     editor: undefined,
     controls: undefined,
     area: undefined,
-    temp: undefined,
     cn: undefined,
 
     _language: undefined,
@@ -130,16 +129,14 @@ EditorCore.prototype = {
         var editor = $('<div/>', {class: this.cn});
         var controls = $('<div/>', {class: this.controls_class(false)});
         var area = $('<div/>', {class: this.area_class(false)});
-        var temp = $('<div/>', {style: 'display: none;'});
 
         this.editor = editor;
         this.controls = controls;
         this.area = area;
-        this.temp = temp;
 
         this.create_controls();
         this.set_content();
-        $(editor).append(controls, area, temp);
+        $(editor).append(controls, area);
         $(this.element).after(this.editor);
         this.init_sortable();
     },
@@ -340,7 +337,11 @@ EditorCore.prototype = {
         if (only == 'y') {
             direction = (offset.top / elem.height() > 0.5) ? 'bottom' : 'top';
             return direction;
+        }else if(only == 'x'){
+            direction = (offset.left / elem.width() > 0.5) ? 'right' : 'left';
+            return direction;
         }
+
         var nw = {'x': 0, 'y': 0};
         var ne = {'x': elem.width(), 'y': 0};
         var sw = {'x': 0, 'y': elem.height()};
