@@ -5,9 +5,10 @@
         htmlblock: undefined,
         i18n: {
             'ru': {
-                'hello world': 'привет бля'
+                'Abstract block': 'Служебный блок'
             }
         },
+
         options: {
             hasPopup: false,
             hasToolbar: false,
