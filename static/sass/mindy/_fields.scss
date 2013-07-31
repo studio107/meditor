@@ -1,0 +1,136 @@
+@mixin fields {
+  input {
+    &[type="radio"], &[type="checkbox"] {
+      position: relative;
+      top: -1px;
+    }
+    &[type="text"], &[type="password"], &[type="email"], &[type="url"], &[type="phone"] {
+      font-family: inherit;
+      font-size: inherit;
+      position: relative;
+      z-index: 2;
+      height: 23px;
+      border: 1px solid #ccc;
+      margin: 0;
+      padding: 1px 2px;
+      background-color: white;
+      color: #333;
+      line-height: 1;
+      border-radius: 1px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+      -webkit-transition: border ease 0.5s;
+      -moz-transition: border ease 0.5s;
+      -ms-transition: border ease 0.5s;
+      -o-transition: border ease 0.5s;
+      transition: border ease 0.5s;
+    }
+  }
+
+  textarea {
+    font-family: inherit;
+    font-size: inherit;
+    position: relative;
+    z-index: 2;
+    height: 23px;
+    border: 1px solid #ccc;
+    margin: 0;
+    padding: 1px 2px;
+    background-color: white;
+    color: #333;
+    line-height: 1;
+    border-radius: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    -webkit-transition: border ease 0.5s;
+    -moz-transition: border ease 0.5s;
+    -ms-transition: border ease 0.5s;
+    -o-transition: border ease 0.5s;
+    transition: border ease 0.5s;
+    line-height: 1.4em;
+  }
+
+  /* Errors and Success */
+
+  .error, .success {
+    margin-left: 5px;
+    font-weight: normal;
+    font-size: 0.85em;
+  }
+
+  input.input-error, textarea.input-error, select.input-error, .input-error {
+    border-color: #da3e5a;
+    box-shadow: 0 0 0 2px rgba(218, 62, 90, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+  }
+
+  input.input-success, textarea.input-success, select.input-success, .input-success {
+    border-color: #18a011;
+    box-shadow: 0 0 0 2px rgba(24, 160, 17, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+  }
+
+  input.input-gray, textarea.input-gray, select.input-gray, .input-gray {
+    border-color: #ccc;
+    box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #5ca9e4;
+    box-shadow: 0 0 0 2px rgba(70, 161, 231, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+  }
+
+  input {
+    &.input-search, &[type="search"] {
+      padding-right: 10px;
+      padding-left: 10px;
+      margin-bottom: 0;
+      border-radius: 15px;
+    }
+  }
+
+  .input-append {
+    display: inline-block;
+    background-color: #eee;
+    height: 23px;
+    border: 1px solid #ccc;
+    margin: 0;
+    padding: 1px 8px;
+    color: #333;
+    font-size: 1em;
+    line-height: 23px;
+  }
+
+  .input-prepend {
+    display: inline-block;
+    background-color: #eee;
+    height: 23px;
+    border: 1px solid #ccc;
+    margin: 0;
+    padding: 1px 8px;
+    color: #333;
+    font-size: 1em;
+    line-height: 23px;
+    margin-right: -1px;
+  }
+
+  .input-append {
+    position: relative;
+    z-index: 1;
+    margin-left: -1px;
+  }
+
+  /* Placeholders */
+  ::-webkit-input-placeholder {
+    color: #999999;
+    padding: 1px 2px;
+  }
+  /* FF19+ */
+  ::-moz-placeholder {
+    color: #999999;
+  }
+  input:-moz-placeholder,
+  textarea:-moz-placeholder {
+    color: #999999;
+  }
+  :-ms-input-placeholder {
+    color: #999999;
+  }
+}

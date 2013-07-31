@@ -1,0 +1,676 @@
+// variables
+$line-height: 1.8 !default;
+$selection: rgb(180, 213, 255) !default;
+
+$georgia: Georgia, Cambria, "Times New Roman", Times, serif;
+$helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$lucida-grande: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+$tahoma: Tahoma, Verdana, Arial, sans-serif;
+$monospace: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+$verdana: Verdana, Geneva, sans-serif;
+$opensans: 'Open Sans', $helvetica;
+$opensans-light: 'Open Sans Light', $helvetica;
+
+// mixins
+@import "compass/css3";
+@import "compass/utilities";
+
+@mixin reset()
+{
+/* ----------------------------------------------------------------- XHTML, HTML4, HTML5 Reset -- */
+  * {
+    @include reset-spacing;
+  }
+
+  a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption,
+  center, cite, code, dd, del, details, dfn, dialog, div, dl, dt, em, embed, fieldset, figcaption, figure,
+  font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, html, i, iframe, img, ins, kbd, label,
+  legend, li, mark, menu, meter, nav, object, ol, output, p, pre, progress, q, rp, rt, ruby, s, samp,
+  section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr,
+  tt, u, ul, var, video, xmp {
+    @include reset-spacing;
+    border: 0;
+    @include reset-fonts;
+    vertical-align: baseline;
+    -moz-font-feature-settings: inherit;
+    -moz-font-language-override: inherit;
+  }
+
+  html {
+    @include reset-spacing;
+    border: 0;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+/* Line-height should always be unitless! */
+  body {
+    line-height: $line-height;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+
+/* Override the default (display: inline) for browsers that do not recognize HTML5 tags. IE8 (and lower) requires a shiv: http://ejohn.org/blog/html5-shiv */
+  article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+
+/* audio, video and canvas (display: inline-block) for browsers that do not recognoze HTML5 tags */
+  audio, canvas, video {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+  }
+
+  audio:not([controls]) {
+    display: none;
+  }
+
+  [hidden] {
+    display: none;
+  }
+
+/* Makes browsers agree. IE + Opera = font-weight: bold. Gecko + WebKit = font-weight: bolder. */
+  b, strong {
+    font-weight: bold;
+  }
+
+/* Tables still need 'cellspacing="0"' in the markup. */
+  table {
+    /*border-collapse: separate;*/
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+/* float:none prevents the span-x classes from breaking table-cell display */
+  th, td, caption {
+    font-weight: normal;
+    /*vertical-align: middle;*/
+    vertical-align: top;
+    text-align: left;
+    float: none !important;
+  }
+
+/* Remove possible quote marks (") from <q>, <blockquote>. */
+  blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+  }
+
+  blockquote, q {
+    quotes: "" "";
+    /*quotes: none;*/
+  }
+
+  .sub, .sup, sub, sup, small {
+    font-size: 75%;
+  }
+
+  .sub, .sup, sub, sup {
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  .sub, sub {
+    bottom: -0.25em;
+  }
+
+  .sup, sup {
+    top: -0.5em;
+  }
+
+/* For IE9. Without, occasionally draws shapes outside the boundaries of <svg> rectangle. */
+  svg {
+    overflow: hidden;
+  }
+
+  svg:not(:root) {
+    overflow: hidden;
+  }
+
+/* Remove annoying border on linked images. */
+  a img {
+    border: none;
+  }
+
+/* For IE. http://css-tricks.com/ie-fix-bicubic-scaling-for-images */
+  img {
+    color: transparent;
+    font-size: 0;
+    vertical-align: middle;
+    -ms-interpolation-mode: bicubic;
+  }
+
+/* For IE6 + IE7: "display: list-item" keeps bullets from disappearing if hasLayout is triggered. */
+  li {
+    display: list-item;
+    margin-left: 0;
+  }
+
+/* Remember to define your own focus styles! */
+  :focus {
+    outline: 0;
+  }
+
+  button,
+  textarea,
+  select,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="email"],
+  input[type="month"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="text"],
+  input[type="time"],
+  input[type="url"],
+  input[type="week"],
+  optgroup {
+    @include reset-fonts;
+    @include reset-spacing;
+    outline: 0;
+    vertical-align: baseline;
+    *vertical-align: middle;
+  }
+
+  optgroup {
+    color: black;
+    font-weight: bold;
+  }
+
+  optgroup::-moz-focus-inner {
+    @include reset-spacing;
+  }
+
+/* Selection colours (easy to forget) */
+  ::selection {
+    background: $selection;
+  }
+
+  ::-moz-selection {
+    background: $selection;
+  }
+
+  img::selection {
+    background: transparent;
+  }
+
+  img::-moz-selection {
+    background: transparent;
+  }
+
+  body {
+    -webkit-tap-highlight-color: rgb(255, 255, 158);
+  }
+
+  pre, code, kbd, samp {
+    font-family: Monaco, monospace, serif;
+    _font-family: 'courier new', monospace;
+    font-size: 1em;
+  }
+
+  pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+/*input:valid, textarea:valid {  }*/
+/*input:invalid, textarea:invalid { background-color: #f0dddd; }*/
+
+  legend {
+    border: 0;
+    padding: 0;
+    *margin-left: -7px;
+    white-space: normal;
+  }
+
+/* ----------------------------------------------------------------- XHTML, HTML4, HTML5 Reset -- */
+
+  .clear {
+    clear: both;
+    height: 0;
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+  }
+}
+
+// Font antialias
+@mixin antialias()
+{
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+// Add percentage of white to a color
+@function tint($color, $percent){
+  @return mix(white, $color, $percent);
+}
+
+// Add percentage of black to a color
+@function shade($color, $percent){
+  @return mix(black, $color, $percent);
+}
+
+// Convert px to em
+@function pxtoem($target, $context){
+  @return ($target/$context)+0em;
+}
+// Convert em to px
+@function emtopx($target, $context){
+  @return ($target*$context)+0px;
+}
+
+@mixin noOuterDimensions {
+  margin: 0;
+  border: 0 none;
+  outline: 0 none;
+  padding: 0;
+}
+
+@mixin reset-list($display: block) {
+  @include noOuterDimensions;
+  display: $display;
+  list-style: none;
+}
+
+@mixin resetList($display: block) {
+  @include reset-list;
+}
+
+@mixin gradient($startColor, $stopColor) {
+  @include background-image(linear-gradient(color-stops($startColor, $stopColor)));
+}
+
+@mixin mopacity($opacity, $hover_opacity: false) {
+  opacity: $opacity;
+  -moz-opacity: $opacity;
+  $opacity: $opacity * 100;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity})";
+  filter: "alpha(opacity=#{$opacity})";
+}
+
+@mixin reset-fonts() {
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+}
+
+@mixin reset-spacing() {
+  margin: 0;
+  padding: 0;
+}
+
+// Clearfix
+// --------
+// For clearing floats like a boss h5bp.com/q
+@mixin clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+
+  @-o-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// respond
+@mixin respond($media){
+  @if $media == smart {
+  // Smartphones (portrait and landscape)
+    @media only screen and (min-device-width: 320px) and (max-device-width: 480px) { @content; }
+  } @else if $media == smart-landscape {
+  // Smartphones (landscape)
+    @media only screen and (min-width: 321px) { @content; }
+  } @else if $media == smart-portait {
+  // Smartphones (portrait)
+    @media only screen and (max-width: 320px) { @content; }
+  } @else if $media == ipad {
+  // iPads (portrait and landscape)
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) { @content; }
+  } @else if $media == ipad-landscape {
+  // iPads (landscape)
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation : landscape) { @content; }
+  } @else if $media == ipad-portait {
+  // iPads (portrait)
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation : portrait) { @content; }
+  } @else if $media == desktop {
+  // Desktops and laptops
+    @media only screen and (min-width: 1224px) { @content; }
+  } @else if $media == large {
+  // Large screens
+    @media only screen and (min-width: 1824px) { @content; }
+  } @else if $media == iphone4 {
+  // iPhone 4
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) { @content; }
+  } @else if $media == normal {
+    @media only screen and (min-width: 959px) { @content; }
+  } @else if $media == medium {
+    @media only screen and (min-width: 479px) { @content; }
+  }
+}
+
+// shadow
+@mixin shadow() {
+  position:relative;
+  border-radius:4px;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-border-radius:4px;
+
+  &:before,
+  &:after {
+    content:"";
+    position:absolute;
+    z-index:-2;
+    bottom:15px;
+    left:10px;
+    width:50%;
+    height:20%;
+    max-width:300px;
+    -webkit-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+    box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+    -webkit-transform:rotate(-3deg);
+    -moz-transform:rotate(-3deg);
+    -ms-transform:rotate(-3deg);
+    -o-transform:rotate(-3deg);
+    transform:rotate(-3deg);
+  }
+
+  &:after {
+    right:10px;
+    left:auto;
+    -webkit-transform:rotate(3deg);
+    -moz-transform:rotate(3deg);
+    -ms-transform:rotate(3deg);
+    -o-transform:rotate(3deg);
+    transform:rotate(3deg);
+  }
+}
+
+@mixin setBackground($color, $size: 1px, $style: solid) {
+  @if $color == none {
+    background-color: transparent;
+    border: 0;
+  } @else {
+    background-color: $color;
+    border: $size $style darken($color,6%);
+  }
+}
+
+@mixin formalize() {
+// `UI Consistency
+//----------------------------------------------------------------------------------------------------
+
+  input[type="search"]::-webkit-search-decoration {
+    display: none;
+  }
+
+  input,
+  select,
+  textarea {
+    // Suppress red glow that Firefox
+    // adds to form fields by default.
+    &:invalid {
+      @include box-shadow(none);
+    }
+  }
+
+  input[type="file"],
+  input[type="radio"],
+  input[type="checkbox"] {
+    &:focus,
+    &:active {
+      @include box-shadow(none);
+    }
+  }
+
+  textarea,
+  select,
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="email"],
+  input[type="month"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="text"],
+  input[type="time"],
+  input[type="url"],
+  input[type="week"] {
+    @include box-sizing(border-box);
+    @include background-clip(padding-box);
+    @include border-radius(0);
+    -webkit-appearance: none;
+    background-color: white;
+    border: 1px solid;
+    border-color: #848484 #c1c1c1 #e1e1e1;
+    color: black;
+    outline: 0;
+    margin: 0;
+    padding: 2px 3px;
+    text-align: left;
+    font-size: inherit;
+    // Leaving out Helvetica Neue, to not throw off size="..."
+    // on inputs. Arial is more reliable, on Windows and OS X.
+    font-family: inherit;
+    height: 1.8em;
+    vertical-align: top;
+    // IE7
+    *padding-top: 2px;
+    *padding-bottom: 1px;
+    *height: auto;
+    &[disabled] {
+      background-color: #eeeeee;
+    }
+  }
+
+  input[disabled],
+  select[disabled],
+  select[disabled] option,
+  select[disabled] optgroup,
+  textarea[disabled]{
+    @include box-shadow(none);
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+    color: #888888;
+    cursor: default;
+  }
+
+// Separate rule for Firefox.
+// Separate rule for IE, too.
+// Cannot stack with WebKit's.
+  input::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    color: #888888;
+  }
+
+  input:-moz-placeholder,
+  textarea:-moz-placeholder {
+    color: #888888;
+  }
+
+  input.placeholder_text,
+  textarea.placeholder_text {
+    color: #888888;
+  }
+
+  textarea,
+  select[size],
+  select[multiple] {
+    height: auto;
+  }
+
+// Set height back to normal,
+// for Opera, WebKit, and IE.
+  select[size="0"],
+  select[size="1"] {
+    height: 1.8em;
+    // IE7
+    *height: auto;
+  }
+
+// Tweaks for Safari + Chrome.
+  @media (-webkit-min-device-pixel-ratio: 0) {
+    select[size],
+    select[multiple],
+    select[multiple][size] {
+      background-image: none;
+      padding-right: 3px;
+    }
+    select,
+    select[size="0"],
+    select[size="1"] {
+      // Base64 encoded "../images/select_arrow.gif"
+      background-image: url(data:image/png;base64,R0lGODlhDQAEAIAAAAAAAP8A/yH5BAEHAAEALAAAAAANAAQAAAILhA+hG5jMDpxvhgIAOw==);
+      background-repeat: no-repeat;
+      background-position: right center;
+      padding-right: 20px;
+    }
+    ::-webkit-validation-bubble-message {
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, black));
+      border: 1px solid;
+      border-color: #747474 #5e5e5e #4f4f4f;
+      color: white;
+      font-family: inherit;
+      //font: 13px / 17px "Lucida Grande", Arial, "Liberation Sans", FreeSans, sans-serif;
+      font-size: inherit;
+      overflow: hidden;
+      padding: 15px 15px 17px;
+      text-shadow: black 0 0 1px;
+      height: 16px;
+    }
+    ::-webkit-validation-bubble-arrow,
+    ::-webkit-validation-bubble-top-outer-arrow,
+    ::-webkit-validation-bubble-top-inner-arrow {
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      background: #666666;
+      border: 0;
+    }
+  }
+
+  textarea {
+    min-height: 40px;
+    overflow: auto;
+    resize: vertical;
+    width: 100%;
+  }
+
+  optgroup {
+    color: black;
+    font-style: normal;
+    font-weight: normal;
+    // Font family repeated, for Firefox.
+    //font-family: Arial, "Liberation Sans", FreeSans, sans-serif;
+    font-family: inherit;
+    // Kill phantom spacing and dotted
+    // border that appears in Firefox.
+    &::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+    }
+  }
+
+// `IE6
+//----------------------------------------------------------------------------------------------------
+
+// Everything below this line is for IE6.
+// Delete it if you don't support it! :)
+
+// Classes are added dynamically via JS,
+// because IE6 doesn't support attribute
+// selectors: .ie6_button, .ie6_input, etc.
+
+// Note: These style rules are somewhat
+// duplicated because IE6 bombs out when
+// it sees attribute selectors. Example:
+
+//   .ie6_button {
+//     This works in IE6.
+//   }
+
+//   .ie6_button,
+//   input[type=submit] {
+//     This doesn't work.
+//   }
+
+  .ie6_input,
+  * html textarea,
+  * html select {
+    background: white;
+    border: 1px solid;
+    border-color: #848484 #c1c1c1 #e1e1e1;
+    color: black;
+    padding: 2px 3px 1px;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    vertical-align: top;
+  }
+
+  * html select {
+    margin-top: 1px;
+  }
+
+  .placeholder_text,
+  .ie6_input_disabled,
+  .ie6_button_disabled {
+    color: #888888;
+  }
+
+  .ie6_input_disabled {
+    background: #eeeeee;
+  }
+}
+
+@mixin text-more {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

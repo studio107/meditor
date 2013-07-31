@@ -1,0 +1,166 @@
+$meditorBorderColorRow: #ccc;
+$meditorBorderColor: #ccc;
+$meditorBorderColorHover: #aaa;
+
+@mixin box-shadow-direction($direction) {
+  $direction_displacement: 8px;
+  $x: 0px;
+  $y: 0px;
+
+  @if $direction == top {
+    $x: 0px;
+    $y: $direction_displacement;
+  } @else if $direction == left {
+    $x: $direction_displacement;
+    $y: 0px;
+  } @else if $direction == bottom {
+    $x: 0px;
+    $y: -$direction_displacement;
+  } @else if $direction == right {
+    $x: -$direction_displacement;
+    $y: 0px;
+  }
+
+  @include box-shadow(inset $x $y 1px -2px #009fc7);
+}
+
+.meditor {
+
+  .meditor-controls {
+
+  }
+
+  .meditor-area {
+    //$gridFluid: false;
+    //@include grid();
+    @include layout;
+
+    .meditor-row {
+      @include inline-block;
+      width: 100%;
+      //outline: 1px solid $meditorBorderColorRow;
+      min-height: 10px;
+    }
+
+    .meditor-block {
+      position: relative;
+      margin-bottom: 10px;
+
+      @for $i from 1 through 12 {
+        &.col-#{$i} {
+          @include column($i);
+
+          &.first {
+            @include column($i, true);
+
+          }
+        }
+      }
+
+      .meditor-resizer {
+        cursor: col-resize;
+        display: block;
+        position: absolute;
+        height: 100%;
+        margin-left: -$gridGutterWidth;
+        width: $gridGutterWidth;
+        top: 0px;
+        left: 0px;
+      }
+
+      &.first {
+        .meditor-resizer {
+          display: none;
+        }
+      }
+
+      .meditor-helpers {
+        display: none;
+        top: 5px;
+        left: 50%;
+        margin-left: -20px;
+        position: absolute;
+        width: 40px;
+        text-align: center;
+
+        .meditor-move {
+          @include border-radius(3px);
+          @include float-left;
+          margin-right: 4px;
+          cursor: move;
+          width: 15px;
+          height: 15px;
+          font-size: 10px;
+          background-color: $meditorBorderColor;
+          border: 1px solid $meditorBorderColorHover;
+        }
+
+        .meditor-delete {
+          @include border-radius(3px);
+          @include float-left;
+          cursor: pointer;
+          width: 15px;
+          height: 15px;
+          font-size: 10px;
+          background-color: $meditorBorderColor;
+          border: 1px solid $meditorBorderColorHover;
+        }
+      }
+
+      min-height: 100px;
+      outline: 1px solid $meditorBorderColor;
+
+      &:hover:not(:active) {
+        outline: 1px solid $meditorBorderColorHover;
+
+        .meditor-helpers {
+          @include inline-block;
+        }
+      }
+
+      &.meditor-moving {
+        //z-index: -1;
+        opacity: 0.3;
+      }
+    }
+
+    // Editable highlights
+    .meditor-highlighted-right {
+      @include box-shadow-direction(right);
+    }
+
+    .meditor-highlighted-left {
+      @include box-shadow-direction(left);
+    }
+
+    .meditor-highlighted-bottom {
+      @include box-shadow-direction(bottom);
+    }
+
+    .meditor-highlighted-top {
+      @include box-shadow-direction(top);
+    }
+  }
+}
+
+.unselectable {
+
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+
+  /*
+    Introduced in IE 10.
+    See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+  */
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.moving {
+  cursor: move !important;
+}
+
+.resizing {
+  cursor: col-resize !important;
+}

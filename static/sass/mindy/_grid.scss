@@ -1,0 +1,92 @@
+// Grid System
+// -----------
+
+// Default 978px grid
+// -------------------------
+$gridFluid: false !default;
+$gridColumns:       12 !default;
+$gridColumnWidth:   54px !default;
+$gridGutterWidth:   30px !default;
+$gridWidth:      978px !default;
+
+@mixin generateGrid($gridFluid) {
+  @if $gridFluid == true  {
+    $gridWidth:      ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1)) !default;
+    $gridColumnWidth:   percentage($gridColumnWidth/$gridWidth);
+    $gridGutterWidth:   percentage($gridGutterWidth/$gridWidth);
+  } @else {
+    @if       $gridWidth == 1378px  { $gridColumns: 16; $gridColumnWidth: 58; $gridGutterWidth: 30; }
+    @else if  $gridWidth == 1218px  { $gridColumns: 16; $gridColumnWidth: 48; $gridGutterWidth: 30; }
+    @else if  $gridWidth == 748px   { $gridColumns: 12; $gridColumnWidth: 44; $gridGutterWidth: 20; }
+    @else if  $gridWidth == 300px   { $gridColumns:  8; $gridColumnWidth: 27; $gridGutterWidth: 12; }
+  }
+}
+
+// column mixin
+@mixin column($n,$first:false) {
+  @include float-left;
+
+  @include grid-column($n, $gridColumnWidth, $gridGutterWidth);
+
+  @if $first == true {
+    margin-left: 0;
+  } @else {
+    margin-left: $gridGutterWidth;
+  }
+}
+
+// print layout styles
+@mixin grid() {
+  @include generateGrid($gridFluid);
+
+  .column {
+    @include float-left;
+
+    margin-left: $gridGutterWidth;
+    @if $gridFluid == true {
+      *margin-left: $gridGutterWidth - (.5 / $gridWidth * 100px * 1%);
+    }
+
+    &:last-child {
+     @include clearfix();
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  @include grid-generate-column($gridFluid, $gridColumns, $gridColumnWidth, $gridGutterWidth);
+}
+
+// base mixins
+@mixin layout() {
+  //@debug "$gridFluid is #{$gridFluid}";
+  @if $gridFluid == true {
+    width: 100%;
+  } @else {
+    width: $gridWidth;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @include clearfix();
+}
+
+@mixin grid-generate-column($gridFluid, $gridColumns, $gridColumnWidth, $gridGutterWidth) {
+  @while $gridColumns > 0 {
+    .column#{$gridColumns} {
+      @extend .column;
+    }
+    .column#{$gridColumns} {
+      @include grid-column($gridColumns, $gridColumnWidth, $gridGutterWidth);
+    }
+    $gridColumns: $gridColumns - 1;
+  }
+}
+
+@mixin grid-column($gridColumns, $gridColumnWidth, $gridGutterWidth) {
+  width: ($gridColumnWidth * $gridColumns) + ($gridGutterWidth * ($gridColumns - 1));
+  @if $gridFluid == true {
+    *width: ($gridColumnWidth * $gridColumns) + ($gridGutterWidth * ($gridColumns - 1)) - (.5 / $gridWidth * 100px * 1%);
+  }
+}

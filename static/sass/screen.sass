@@ -1,0 +1,20 @@
+@import "mindy/mindy"
+@import "mindy/grid"
+@import "mindy/fields"
+@import "mindy/buttons"
+
+@include reset
+@include fields
+
+@import "editor"
+
+body
+  font-size: 13px
+  font-family: $opensans
+  background-color: #f4f4f4
+
+#wrapper
+  @include layout
+  margin: 40px auto
+  background-color: #fff
+  padding: 20px
