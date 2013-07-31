@@ -1,3 +1,15 @@
+/**
+ * TODO class is too big! refactor it
+ *
+ * Editor core class
+ *
+ * @param $element
+ * @param options
+ * @param i18n
+ * @returns {*}
+ * @constructor
+ */
+
 var EditorCore = function ($element, options, i18n) {
     this.$element = $element;
     this.options = $.extend(this.options, options);
@@ -18,9 +30,6 @@ EditorCore.prototype = {
         language: 'en',
         option: 'value',
         classname: 'meditor',
-        localization: {
-            add_block: 'Add block'
-        },
         columns: 12,
         colsize: 54,
         colmargin: 30
@@ -48,7 +57,16 @@ EditorCore.prototype = {
 
     counter: 0,
 
-    init: function() {
+    init: function () {
+        this._i18n.addToDictionary({
+            en: {
+                'Add block': 'Add block'
+            },
+            ru: {
+                'Add block': 'Добавить блок'
+            }
+        }, 'core');
+
         this.bindEvents();
 
         this.$element.hide();
@@ -70,8 +88,8 @@ EditorCore.prototype = {
         return this;
     },
 
-    t: function (source, category) {
-        return this._i18n.t(source, category || 'core');
+    t: function (source, category, params) {
+        return this._i18n.t(source, category || 'core', params || {}, this._language);
     },
     blockClass: function (dotted) {
         var cn = this.cn + '-block';
@@ -140,7 +158,7 @@ EditorCore.prototype = {
         });
         $(document).on('click', me.delete_class(true), function () {
             $(this).closest(me.blockClass(true)).remove();
-            me.clear_strings();
+            me.clearStrings();
         });
     },
 
@@ -149,13 +167,13 @@ EditorCore.prototype = {
         var moving_selector = this.blockClass(true) + ' ' + this.move_class(true);
         $(document).on('mousedown', moving_selector, function () {
             $me.movable = $(this).closest($me.blockClass(true));
-            $me.start_move();
+            $me.startMove();
         });
         $(document).on('mousedown', this.blockClass(true) + ' ' + $me.resizer_class(true), function () {
             $me.resizable = $(this).closest($me.blockClass(true));
             $me.resizable_prev = $($me.resizable).prev();
             if ($me.resizable_prev.length) {
-                $me.start_resize();
+                $me.startResize();
             } else {
                 $me.resizable = undefined;
                 $me.resizable_prev = undefined;
@@ -163,11 +181,8 @@ EditorCore.prototype = {
         });
     },
     getPlugin: function (name) {
-        if (this.options.plugins[name]) {
-            return this.options.plugins[name];
-        } else {
-            return false;
-        }
+        var plugins = this.options.plugins;
+        return name in plugins ? plugins[name] : false;
     },
     getBlockPlugin: function (block) {
         return this.plugins[parseInt($(block).attr('rel'))];
@@ -175,7 +190,7 @@ EditorCore.prototype = {
     /**
      * Начали перетаскивать
      */
-    start_move: function () {
+    startMove: function () {
         var $me = this;
         $($me.movable).addClass($me.moving_class(false));
         $('body').addClass('unselectable');
@@ -185,12 +200,12 @@ EditorCore.prototype = {
             $me.stopMove(e.target, offset);
         });
         $(this.blockClass(true)).on('mouseout', function () {
-            $me.clear_highlight();
+            $me.clearHighlight();
         });
         $(this.blockClass(true)).on('mousemove', function (e) {
             var offset = {'left': e.offsetX, 'top': e.offsetY};
-            $me.clear_highlight();
-            $me.highlight_block(this, offset);
+            $me.clearHighlight();
+            $me.highlightBlock(this, offset);
         });
     },
     /**
@@ -203,7 +218,7 @@ EditorCore.prototype = {
         $(this.movable).removeClass(this.moving_class(false));
         $('body').removeClass('unselectable');
         $('body').removeClass('moving');
-        this.clear_highlight();
+        this.clearHighlight();
         $(this.blockClass(true)).off('mousemove');
         $(this.blockClass(true)).off('mouseout');
         $(document).off('mouseup');
@@ -234,7 +249,7 @@ EditorCore.prototype = {
         if (direction == 'top' || direction == 'bottom') {
             var row = this.createPureRow();
             var to_row = to.closest(this.rowClass(true));
-            this.set_column_value(element, this.options.columns);
+            this.setColumnValue(element, this.options.columns);
             if (!element.hasClass('first'))
                 element.addClass('first');
             row.append(element);
@@ -245,14 +260,14 @@ EditorCore.prototype = {
                 to_row.after(row);
             }
         } else if (direction == 'left' || direction == 'right') {
-            var col_element = $me.get_column_value(element);
-            var col_to = $me.get_column_value(to);
+            var col_element = $me.getColumnValue(element);
+            var col_to = $me.getColumnValue(to);
 
             if (col_to > 1) {
                 var new_col_element = Math.round(col_to / 2);
                 var new_col_to = col_to - new_col_element;
-                $me.set_column_value(element, new_col_element);
-                $me.set_column_value(to, new_col_to);
+                $me.setColumnValue(element, new_col_element);
+                $me.setColumnValue(to, new_col_to);
                 if (direction == 'left') {
                     $(to).before(element);
                 } else if (direction == 'right') {
@@ -261,15 +276,15 @@ EditorCore.prototype = {
             }
         }
 
-        this.clear_strings();
+        this.clearStrings();
     },
     /**
      * Подсветить блок
      * @param highlight_this // HTMLElement
      * @param offset // {'left': int,'top': int}
      */
-    highlight_block: function (highlight_this, offset) {
-        this.clear_highlight();
+    highlightBlock: function (highlight_this, offset) {
+        this.clearHighlight();
         var element = $(highlight_this);
         if (element.hasClass(this.blockClass(false))) {
             var direction = 'top';
@@ -291,7 +306,7 @@ EditorCore.prototype = {
     /**
      * Убрать подсветку блоков
      */
-    clear_highlight: function () {
+    clearHighlight: function () {
         var i = 0;
         var directions = this.highlightedClasses();
         var direction = '';
@@ -303,7 +318,7 @@ EditorCore.prototype = {
     /**
      * Прибираемся в строчках
      */
-    clear_strings: function () {
+    clearStrings: function () {
         var $me = this;
         var last_element = undefined;
         var counted = 0;
@@ -320,12 +335,12 @@ EditorCore.prototype = {
                     } else {
                         $(this).removeClass('first');
                     }
-                    counted += $me.get_column_value($(this));
+                    counted += $me.getColumnValue($(this));
                 });
                 if (counted < $me.options.columns) {
                     var block = $(this).children($me.blockClass(true)).last();
-                    var current = $me.get_column_value(block);
-                    $me.set_column_value(block, $me.options.columns - counted + current);
+                    var current = $me.getColumnValue(block);
+                    $me.setColumnValue(block, $me.options.columns - counted + current);
                 }
             }
         });
@@ -373,7 +388,7 @@ EditorCore.prototype = {
     /**
      * Начали ресайз
      */
-    start_resize: function () {
+    startResize: function () {
         var $me = this;
         $('body').addClass('unselectable');
         $('body').addClass('resizing');
@@ -405,14 +420,14 @@ EditorCore.prototype = {
             displacement = offset.left;
             if (displacement > this.options.colmargin) {
                 if (this.dec_column_value(target, 1)) {
-                    this.inc_column_value($(this.resizable_prev), 1);
+                    this.incColumnValue($(this.resizable_prev), 1);
                 }
             }
         } else if ($(target).is($(this.resizable_prev))) {
             displacement = target.width() - offset.left;
             if (displacement > this.options.colmargin) {
                 if (this.dec_column_value(target, 1)) {
-                    this.inc_column_value($(this.resizable), 1);
+                    this.incColumnValue($(this.resizable), 1);
                 }
             }
         }
@@ -420,7 +435,7 @@ EditorCore.prototype = {
     /**
      * Получение ширины колонки
      */
-    get_column_value: function (block) {
+    getColumnValue: function (block) {
         var classes = $(block)[0].classList;
 
         var cn = '';
@@ -440,8 +455,8 @@ EditorCore.prototype = {
      * @param block
      * @param value
      */
-    set_column_value: function (block, value) {
-        var current = this.get_column_value(block);
+    setColumnValue: function (block, value) {
+        var current = this.getColumnValue(block);
         $(block).removeClass(this.colClass(false, current));
         $(block).addClass(this.colClass(false, value));
     },
@@ -450,9 +465,9 @@ EditorCore.prototype = {
      * @param block
      * @param value
      */
-    inc_column_value: function (block, value) {
-        var curr = this.get_column_value(block);
-        this.set_column_value(block, curr + value);
+    incColumnValue: function (block, value) {
+        var curr = this.getColumnValue(block);
+        this.setColumnValue(block, curr + value);
     },
     /**
      * Уменьшение блока
@@ -460,9 +475,9 @@ EditorCore.prototype = {
      * @param value
      */
     dec_column_value: function (block, value) {
-        var curr = this.get_column_value(block);
+        var curr = this.getColumnValue(block);
         if (curr - value > 0) {
-            this.set_column_value(block, curr - value);
+            this.setColumnValue(block, curr - value);
             return true;
         } else {
             return false;
@@ -482,16 +497,54 @@ EditorCore.prototype = {
      */
     createControls: function () {
         var $me = this;
-        var add_block = $('<button/>', {
-            class: 'button add-block',
-            html: $me.options.localization.add_block
-        });
-        $(add_block).on('click', function () {
-            $me.create_block();
-            return false;
-        });
-        $(this.controls).append(add_block)
+        var controls = this.renderTemplate('/templates/editor.jst');
+
+        $(this.controls).html(controls)
+            .find('.add-block').on('click', function (e) {
+                e.preventDefault();
+                $me.create_block();
+                return false;
+            });
     },
+
+    getBaseUrl: function () {
+        var i, match, path = this.options.baseUrl || undefined, scripts;
+
+        if (!path) {
+            scripts = document.getElementsByTagName("script");
+            i = 0;
+            while (i < scripts.length) {
+                match = scripts[i].src.match(/(^|.*[\\\/])editor(?:.min)?.js(?:\?.*)?$/i);
+                if (match) {
+                    path = match[1];
+                    break;
+                }
+                i++;
+            }
+        }
+        if (path && path.indexOf(":/") === -1) {
+            if (path.indexOf("/") === 0) {
+                path = location.href.match(/^.*?:\/\/[^\/]*/)[0] + path;
+            } else {
+                path = location.href.match(/^[^\?]*\/(?:)/)[0] + path;
+            }
+        }
+
+        if (!path) {
+            throw "The Mindy Editor installation path could not be automatically detected. " +
+                "Please set 'baseUrl' in options before creating editor instances.";
+        }
+        return path;
+    },
+
+    renderTemplate: function (src, data) {
+        var tpl = this.loader.template(this.getBaseUrl() + src),
+            compiled = _.template(tpl);
+        data = data || {};
+        data['i18n'] = this._i18n.getDictionary(this._language);
+        return compiled(data);
+    },
+
     /**
      * Создание нового блока
      */
@@ -555,6 +608,7 @@ EditorCore.prototype = {
             plugin_name = 'lost';
             plugin = this.getPlugin(plugin_name);
         }
+
         instance = new plugin();
         var editable_element = this.initPlugin(instance, plugin_name, element);
         return this.appendDefaults(editable_element);
@@ -640,5 +694,60 @@ EditorCore.prototype = {
         $(block).find(this.helpers_class(true) + ', ' + this.resizer_class(true)).remove();
 
         return block;
+    },
+
+    loader: {
+        _templates: {},
+        css: function (url, media, ie) {
+            // TODO ie conditional comments support
+
+            var link = document.createElement("link");
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            if (media) {
+                link.media = media;
+            }
+            link.href = url;
+            document.getElementsByTagName("head")[0].appendChild(link);
+        },
+        js: function (url, callback) {
+            var script = document.getElementsByTagName('script')[0],
+                newjs = document.createElement('script');
+
+            // IE
+            newjs.onreadystatechange = function () {
+                if (newjs.readyState === 'loaded' || newjs.readyState === 'complete') {
+                    newjs.onreadystatechange = null;
+                    callback();
+                }
+            };
+            // others
+            newjs.onload = function () {
+                callback();
+            };
+            newjs.src = url;
+            script.parentNode.insertBefore(newjs, script);
+        },
+        template: function (src) {
+            var name = src.split('/').pop().replace('.jst'), tpl;
+
+            if ((name in this._templates) == false) {
+                $.ajax({
+                    url: src,
+                    method: 'GET',
+                    dataType: 'html',
+                    async: false,
+                    contentType: 'text',
+                    success: function (data) {
+                        tpl = data;
+                    }
+                });
+
+                $('head').append('<script id="meditor_tpl_' + name + '" type="text/template">' + tpl + '<\/script>');
+                this._templates[name] = tpl;
+            }
+
+            return this._templates[name];
+        }
     }
 };
