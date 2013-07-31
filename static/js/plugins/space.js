@@ -7,8 +7,8 @@
                 'Space block': 'Блок отступ'
             }
         },
-        test: function() {
-
+        getI18nName: function() {
+            return this.t('Space block');
         }
     });
 

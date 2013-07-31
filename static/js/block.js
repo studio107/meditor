@@ -1,8 +1,5 @@
 (function(window) {
     var Block = Class.extend({
-        name: undefined,
-        number: undefined,
-        htmlblock: undefined,
         i18n: {
             'ru': {
                 'Abstract block': 'Служебный блок'
@@ -14,6 +11,44 @@
             hasToolbar: false,
             canVerticalResize: false,
             className: ''
+        },
+
+        _parent: undefined,
+        _name: undefined,
+        _number: undefined,
+        _htmlBlock: '',
+
+        initialize: function(name, parent) {
+            this._name = name;
+            this._parent = parent;
+            this._number = parent.plugins.length - 1;
+
+            parent._i18n.addToDictionary(this.i18n, this.name);
+        },
+
+        getNumber: function() {
+            return this._number;
+        },
+
+        getName: function() {
+            return this._name;
+        },
+
+        setHtmlBlock: function(html) {
+            this._htmlBlock = html;
+            return this;
+        },
+
+        getHtmlBlock: function() {
+            return this._htmlBlock;
+        },
+
+        getI18nName: function() {
+            throw "Not implemented error";
+        },
+
+        t: function(source, params) {
+            return this._parent.t(source, this.name, params);
         },
 
         events: function () {

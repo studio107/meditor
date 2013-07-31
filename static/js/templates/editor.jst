@@ -2,9 +2,11 @@
     <section class="button-group dropdown">
         <a href="#" class="button dropdown-toggle" data-toggle="dropdown"><i class=" icon-add"></i> <%= i18n.core['Add block'] %></a>
         <ul class="dropdown-menu">
-            <% _.each(plugins, function(name, plugin) { %>
+            <% _.each(plugins, function(plugin) { %>
             <li>
-                <a class="button add-block" data-popup="<%= plugin.options.hasPopup %>" href="#" rel="<%= name %>"><%= plugin.getName() %></a>
+                <a class="add-block" data-popup="<%= plugin.options.hasPopup %>" href="#" rel="<%= plugin.name %>">
+                    <%= plugin.getI18nName() %>
+                </a>
             </li>
             <% }); %>
         </ul>

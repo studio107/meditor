@@ -2,22 +2,29 @@
     "use strict";
 
     var TextBlock = meditorBlock.extend({
+        getI18nName: function() {
+            return this.t('Text block');
+        },
+
+        // TODO refactoring
         render: function () {
             var content = $(this.htmlblock).find('.editable').html();
-            $(this.htmlblock).find('.editable').remove();
-            $(this.htmlblock).html(content);
+            $(this._htmlBlock).find('.editable').remove();
+            $(this._htmlBlock).html(content);
 
-            return this.htmlblock;
+            return this._htmlBlock;
         },
+
+        // TODO refactoring
         editable: function () {
-            var content = $(this.htmlblock).html();
-            $(this.htmlblock).html('');
-            $(this.htmlblock).append($('<div/>',{
+            var content = $(this._htmlBlock).html();
+            $(this._htmlBlock).html('');
+            $(this._htmlBlock).append($('<div/>',{
                 'class': 'editable',
                 'style': 'width: 100%;',
                 'html': content,
                 'contenteditable': 'true'}));
-            return this.htmlblock;
+            return this._htmlBlock;
         }
     });
 

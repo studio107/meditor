@@ -1,5 +1,5 @@
 $meditorBorderColorRow: #ccc;
-$meditorBorderColor: #ccc;
+$meditorBorderColor: #f1f1f1;
 $meditorBorderColorHover: #aaa;
 
 @mixin box-shadow-direction($direction) {
@@ -46,7 +46,7 @@ $meditorBorderColorHover: #aaa;
       position: relative;
       margin-bottom: 10px;
       min-height: 100px;
-      //outline: 1px solid $meditorBorderColor;
+      outline: 1px solid $meditorBorderColor;
 
       @for $i from 1 through 12 {
         &.col-#{$i} {

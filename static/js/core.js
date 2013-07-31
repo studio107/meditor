@@ -1,8 +1,6 @@
 var Class = function () {
 };
 Class.prototype = {
-    name: undefined,
-    i18n: {},
     initialize: function () {
     },
     events: function () {
@@ -15,9 +13,6 @@ Class.prototype = {
                 events[event].call(this, arguments);
             }
         }
-    },
-    t: function (source) {
-        this.parent.t(source, this.name);
     }
 };
 Class.extend = function (props) {

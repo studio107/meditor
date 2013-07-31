@@ -34,12 +34,14 @@ EditorCore.prototype = {
         colsize: 54,
         colmargin: 30
     },
+
     /**
      * Элемент, над которым выполняются действия
      */
     $element: undefined,
-    editor: undefined,
     $controls: undefined,
+
+    editor: undefined,
     area: undefined,
     cn: undefined,
 
@@ -496,6 +498,8 @@ EditorCore.prototype = {
      * Добавляем контролы к редактору
      */
     createControls: function () {
+        // TODO к текущему шагу уже должны быть инициализированы плагины
+
         var $controls = $('<div/>', {class: this.controls_class(false)}),
             $me = this,
             controlsHtml = this.renderTemplate('/templates/editor.jst', {
@@ -608,14 +612,14 @@ EditorCore.prototype = {
      * @param element
      */
     makeBlock: function (element) {
-        var name = $(element).data('plugin'), plugin, editableElement;
+        var name = $(element).data('plugin'), pluginClass, editableElement;
 
-        plugin = this.getPlugin(name);
-        if (!plugin) {
-            plugin = this.getPlugin('lost')
+        pluginClass = this.getPlugin(name);
+        if (!pluginClass) {
+            pluginClass = this.getPlugin('lost')
         }
 
-        editableElement = this.initPlugin(new plugin(), name, element);
+        editableElement = this.initPlugin(pluginClass, name, element);
         return this.appendDefaults(editableElement);
 
         /* Really ugly code
@@ -625,25 +629,19 @@ EditorCore.prototype = {
          }
          */
     },
-    initPlugin: function (instance, name, element) {
-        var plugin_class = name + '-block';
+    initPlugin: function (pluginClass, name, element) {
+        var plugin = new pluginClass(name, this);
 
-        instance.name = name;
-        this._i18n.addToDictionary(instance.i18n, name);
-        this.plugins.push(instance);
-
-        instance.number = this.plugins.length - 1;
+        this.plugins.push(plugin);
 
         // TODO ugly, refactor it.
-        $(element).attr('rel', instance.number);
-        if (!$(element).hasClass(plugin_class)) {
-            $(element).addClass(plugin_class);
+        $(element).attr('rel', plugin.getNumber());
+        if (!$(element).hasClass(name + '-block')) {
+            $(element).addClass(name + '-block');
         }
         $(element).attr('data-plugin', name);
 
-        instance.htmlblock = element;
-
-        return instance.editable();
+        return plugin.setHtmlBlock(element).editable();
     },
     /**
      * Подключение стандартных элементов к блоку
