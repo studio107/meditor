@@ -564,7 +564,7 @@ EditorCore.prototype = {
         instance.number = this.plugins.length - 1;
         $(element).attr('rel',instance.number);
 
-        plugin_class = name + '-block';
+        var plugin_class = name + '-block';
         if (!$(element).hasClass(plugin_class))
             $(element).addClass(plugin_class);
 
