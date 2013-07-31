@@ -80,18 +80,22 @@
         return {
             i18n: i18n,
             init: function(element, options) {
-                var i = 0;
-                var plugins = {};
-                if (!options.plugins)
-                    options['plugins'] = [];
+                options['plugins'] = this.preparePlugins(options['plugins']) || [];
 
-                for (i in options.plugins){
-                    var plugin_name = options.plugins[i];
-                    if (_plugins[plugin_name])
-                        plugins[plugin_name] = _plugins[plugin_name]
-                }
-                options['plugins'] = plugins;
                 return new EditorCore(element, options, this.i18n);
+            },
+            preparePlugins: function(rawPlugins) {
+                var i, name, plugins = {};
+
+                for (i in rawPlugins){
+                    name = rawPlugins[i];
+
+                    if (_plugins[name]) {
+                        plugins[name] = _plugins[name];
+                    }
+                }
+
+                return plugins
             },
             pluginAdd: function(name, object) {
                 _plugins[name] = object;
