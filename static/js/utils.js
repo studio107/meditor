@@ -1,3 +1,11 @@
+if (typeof console == 'undefined') {
+    console = {
+        log: function (string) {
+            alert(string);
+        }
+    }
+}
+
 var extend = function (dest) { // (Object[, Object, ...]) ->
     var sources = Array.prototype.slice.call(arguments, 1),
         i, j, len, src;
