@@ -23,27 +23,11 @@
         },
         attachHandlers: function(){
             var $me = this;
-            $(this._htmlBlock).on('click',function(){
-                $(this).find($me.editableClass(true)).focusEnd();
+            $(this._htmlBlock).on('click',function(e){
+                if (!$(e.target).hasClass($me.editableClass(false))){
+                    $(this).find($me.editableClass(true)).focusEnd();
+                }
             })
-        },
-        setCursor: function (pos){
-            var node = (typeof node == "string" ||
-                node instanceof String) ? document.getElementById(node) : node;
-            if(!node){
-                return false;
-            }else if(node.createTextRange){
-                var textRange = node.createTextRange();
-                textRange.collapse(true);
-                textRange.moveEnd(pos);
-                textRange.moveStart(pos);
-                textRange.select();
-                return true;
-            }else if(node.setSelectionRange){
-                node.setSelectionRange(pos,pos);
-                return true;
-            }
-            return false;
         },
         // TODO refactoring
         render: function () {
@@ -66,7 +50,6 @@ new function($) {
             node = tmp.get(0),
             range = null,
             sel = null;
-
         if (document.selection) {
             range = document.body.createTextRange();
             range.moveToElementText(node);
