@@ -37,9 +37,12 @@
 
         setHtmlBlock: function (html) {
             this._htmlBlock = html;
+            this.attachHandlers();
             return this;
         },
-
+        attachHandlers: function(){
+            // Uses after setting content
+        },
         getHtmlBlock: function () {
             return this._htmlBlock;
         },
