@@ -22,8 +22,9 @@
             return this._htmlBlock;
         },
         attachHandlers: function(){
+            var $me = this;
             $(this._htmlBlock).on('click',function(){
-                $(this).find(this.editableClass(true)).setCursorPosition(4);
+                $(this).find($me.editableClass(true)).focusEnd();
             })
         },
         setCursor: function (pos){
@@ -57,16 +58,27 @@
     meditor.pluginAdd('text', TextBlock);
 })(meditor, meditorBlock);
 
+
 new function($) {
-    $.fn.setCursorPosition = function(pos) {
-        if ($(this).get(0).setSelectionRange) {
-            $(this).get(0).setSelectionRange(pos, pos);
-        } else if ($(this).get(0).createTextRange) {
-            var range = $(this).get(0).createTextRange();
-            range.collapse(true);
-            range.moveEnd('character', pos);
-            range.moveStart('character', pos);
+    $.fn.focusEnd = function() {
+        $(this).focus();
+        var tmp = $('<span />').appendTo($(this)),
+            node = tmp.get(0),
+            range = null,
+            sel = null;
+
+        if (document.selection) {
+            range = document.body.createTextRange();
+            range.moveToElementText(node);
             range.select();
+        } else if (window.getSelection) {
+            range = document.createRange();
+            range.selectNode(node);
+            sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
         }
+        tmp.remove();
+        return this;
     }
 }(jQuery);
