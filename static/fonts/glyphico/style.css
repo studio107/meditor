@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="-"] {
 */
-.icon-home, .icon-leftcircle, .icon-starempt, .icon-starfill, .icon-heart, .icon-upload, .icon-download, .icon-export, .icon-logout, .icon-login, .icon-search, .icon-link, .icon-bubble, .icon-undo, .icon-reload, .icon-homereload, .icon-bubblealt, .icon-chat, .icon-cart, .icon-file, .icon-folderopen, .icon-folder, .icon-fullscreen, .icon-minimize, .icon-picture, .icon-off, .icon-remove, .icon-question, .icon-questionalt, .icon-grid, .icon-add, .icon-addalt, .icon-removealt, .icon-close, .icon-closealt, .icon-shuffle, .icon-geo, .icon-change, .icon-mail, .icon-mailalt, .icon-replyflip, .icon-reply, .icon-scale, .icon-zoomin, .icon-zoomout, .icon-cloud, .icon-cloudalt, .icon-cloudrefresh, .icon-cloudreload, .icon-check, .icon-checkalt, .icon-ban, .icon-music, .icon-backspace, .icon-cog, .icon-list, .icon-listalt, .icon-attach, .icon-time, .icon-grid2, .icon-timemachine, .icon-look, .icon-warning, .icon-warningalt, .icon-quest, .icon-questalt, .icon-trash, .icon-edit, .icon-fileadd, .icon-voice, .icon-phone, .icon-photo, .icon-print, .icon-alarm, .icon-compass, .icon-truck, .icon-tag, .icon-info, .icon-warningtr, .icon-lock, .icon-unlock, .icon-key, .icon-user, .icon-users, .icon-useradd, .icon-calend, .icon-movie, .icon-ruble, .icon-dollar, .icon-creditcard, .icon-magic, .icon-iphone, .icon-ipad, .icon-laptop, .icon-clouddownload, .icon-cloudupload, .icon-clouddownloadalt, .icon-clouduploadalt, .icon-cloudcheck, .icon-cloudcheckalt, .icon-cloudlost, .icon-cloudlostalt, .icon-wifi, .icon-move, .icon-x, .icon-tools, .icon-pictures, .icon-cut, .icon-copy, .icon-paste, .icon-pie, .icon-stats, .icon-dashboard, .icon-folderwhite, .icon-folderwhiteopen, .icon-cogs, .icon-downbold, .icon-upbold, .icon-rightbold, .icon-leftbold, .icon-rightcircle, .icon-refresh, .icon-upcircle, .icon-downcircle, .icon-downv, .icon-upv, .icon-rightv, .icon-leftv, .icon-dropdown, .icon-upthin, .icon-rightthin, .icon-leftthin, .icon-downtr, .icon-uptr, .icon-righttr, .icon-facebook, .icon-gpluscircle, .icon-ok, .icon-vk, .icon-ya, .icon-yacircle, .icon-pin, .icon-pincircle, .icon-mailru, .icon-mailrucircle, .icon-skypecircle, .icon-instagram, .icon-instagramcircle, .icon-html5, .icon-smile, .icon-107, .icon-mindy, .icon-lefttr, .icon-facebookcircle, .icon-twitter, .icon-twittercircle, .icon-gplus, .icon-briefcase, .icon-plus-thin, .icon-pages {
+.icon-home, .icon-leftcircle, .icon-starempt, .icon-starfill, .icon-heart, .icon-upload, .icon-download, .icon-export, .icon-logout, .icon-login, .icon-search, .icon-link, .icon-bubble, .icon-undo, .icon-reload, .icon-homereload, .icon-bubblealt, .icon-chat, .icon-cart, .icon-file, .icon-folderopen, .icon-folder, .icon-fullscreen, .icon-minimize, .icon-picture, .icon-off, .icon-remove, .icon-question, .icon-questionalt, .icon-grid, .icon-add, .icon-addalt, .icon-removealt, .icon-close, .icon-closealt, .icon-shuffle, .icon-geo, .icon-change, .icon-mail, .icon-mailalt, .icon-replyflip, .icon-reply, .icon-scale, .icon-zoomin, .icon-zoomout, .icon-cloud, .icon-cloudalt, .icon-cloudrefresh, .icon-cloudreload, .icon-check, .icon-checkalt, .icon-ban, .icon-music, .icon-backspace, .icon-cog, .icon-list, .icon-listalt, .icon-attach, .icon-time, .icon-grid2, .icon-timemachine, .icon-look, .icon-warning, .icon-warningalt, .icon-quest, .icon-questalt, .icon-trash, .icon-edit, .icon-fileadd, .icon-voice, .icon-phone, .icon-photo, .icon-print, .icon-alarm, .icon-compass, .icon-truck, .icon-tag, .icon-info, .icon-warningtr, .icon-lock, .icon-unlock, .icon-key, .icon-user, .icon-users, .icon-useradd, .icon-calend, .icon-movie, .icon-ruble, .icon-dollar, .icon-creditcard, .icon-magic, .icon-iphone, .icon-ipad, .icon-laptop, .icon-clouddownload, .icon-cloudupload, .icon-clouddownloadalt, .icon-clouduploadalt, .icon-cloudcheck, .icon-cloudcheckalt, .icon-cloudlost, .icon-cloudlostalt, .icon-wifi, .icon-move, .icon-x, .icon-tools, .icon-pictures, .icon-cut, .icon-copy, .icon-paste, .icon-pie, .icon-stats, .icon-dashboard, .icon-folderwhite, .icon-folderwhiteopen, .icon-cogs, .icon-downbold, .icon-upbold, .icon-rightbold, .icon-leftbold, .icon-rightcircle, .icon-refresh, .icon-upcircle, .icon-downcircle, .icon-downv, .icon-upv, .icon-rightv, .icon-leftv, .icon-dropdown, .icon-upthin, .icon-rightthin, .icon-leftthin, .icon-downtr, .icon-uptr, .icon-righttr, .icon-facebook, .icon-gpluscircle, .icon-ok, .icon-vk, .icon-ya, .icon-yacircle, .icon-pin, .icon-pincircle, .icon-mailru, .icon-mailrucircle, .icon-skypecircle, .icon-instagram, .icon-instagramcircle, .icon-html5, .icon-smile, .icon-107, .icon-mindy, .icon-lefttr, .icon-facebookcircle, .icon-twitter, .icon-twittercircle, .icon-gplus, .icon-briefcase, .icon-plus-thin, .icon-pages, .icon-bold, .icon-italic, .icon-align-left, .icon-align-center, .icon-align-right, .icon-align-justify, .icon-list-ul, .icon-list-ol, .icon-strikethrough, .icon-underline, .icon-unlink, .icon-link, .icon-quote-left, .icon-indent-left, .icon-indent-right {
 	font-family: 'Glyphico';
 	speak: none;
 	font-style: normal;
@@ -516,4 +516,49 @@ you can use the generic selector below, but it's slower:
 }
 .icon-pages:before {
 	content: "\e09f";
+}
+.icon-bold:before {
+	content: "\f032";
+}
+.icon-italic:before {
+	content: "\f033";
+}
+.icon-align-left:before {
+	content: "\f036";
+}
+.icon-align-center:before {
+	content: "\f037";
+}
+.icon-align-right:before {
+	content: "\f038";
+}
+.icon-align-justify:before {
+	content: "\f039";
+}
+.icon-list-ul:before {
+	content: "\f0ca";
+}
+.icon-list-ol:before {
+	content: "\f0cb";
+}
+.icon-strikethrough:before {
+	content: "\f0cc";
+}
+.icon-underline:before {
+	content: "\f0cd";
+}
+.icon-unlink:before {
+	content: "\f127";
+}
+.icon-link:before {
+	content: "\f0c1";
+}
+.icon-quote-left:before {
+	content: "\f10d";
+}
+.icon-indent-left:before {
+	content: "\f03b";
+}
+.icon-indent-right:before {
+	content: "\f03c";
 }

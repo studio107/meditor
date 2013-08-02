@@ -7,6 +7,10 @@
 @include fields
 
 @import "editor"
+@import "textblock"
+
+i
+  font-style: italic
 
 body
   font-size: 13px
@@ -21,3 +25,22 @@ body
 
 .button
   @include button(#f4f4f4, #535353)
+
+@for $i from 1 through 6
+  h#{$i},
+  .h#{$i}
+    font-size: 28 - ($i*2) + px
+    font-weight: 400
+
+
+#{headings(all)}
+  font-weight: $opensans
+  margin-bottom: 10px
+  b, strong
+    font-weight: 200
+
+.meditor-block
+  ul, ol
+    overflow: auto
+    li
+      margin-left: 30px

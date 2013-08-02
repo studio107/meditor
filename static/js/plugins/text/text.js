@@ -20,14 +20,14 @@
 
         // TODO refactoring
         getContent: function () {
-            var $htmlBlock = $(this._htmlblock),
+            var $htmlBlock = $(this._htmlBlock).clone(),
                 $editable = $htmlBlock.find(this.editableClass(true)),
                 content = $editable.html();
 
             $editable.remove();
             $htmlBlock.html(content);
 
-            return this._htmlBlock;
+            return $htmlBlock;
         },
         attachHandlers: function(){
             var $me = this;
@@ -39,14 +39,17 @@
         },
         // TODO refactoring
         render: function () {
-            var $block = this._render(),
-                $editable = $('<div/>');
-            $editable.addClass(this.editableClass(false)).css('width', '100%').attr('contenteditable', true);
+            var block = this.getHtmlBlock(),
+                $editable = $('<div/>'),
+                html = $(block).html();
+            $(block).html('');
+
+            $editable.addClass(this.editableClass(false)).css('width', '100%').attr('contenteditable', true).html(html);
 
             $($editable).popline();
 
-            $block.append($editable);
-            return $block[0];
+            $(block).append($editable);
+            return this._render()[0];
         }
     });
 
@@ -107,12 +110,25 @@ new function($) {
                 top = event.pageY - bar.outerHeight() - parseInt(target.css('font-size')) / 2;
                 $.popline.current.show({left: left, top: top});
             }
-        }else {
+        } else {
             $.popline.hideAllBar();
         }
     };
 
+    $(document).on('mouseup', function(event){
+        var _this = this;
+        setTimeout((function(){
+            toggleBox.call(_this, event);
+        }), 1);
+    });
+
     var targetEvent = {
+        mouseup: function(event) {
+            var _this = this;
+            setTimeout((function(){
+                toggleBox.call(_this, event);
+            }), 1);
+        },
         mousedown: function(event) {
             $.popline.current = $(this).data("popline");
             $.popline.hideAllBar();
@@ -131,7 +147,9 @@ new function($) {
                 }
                 $.popline.current.show({left: left, top: top});
             }else {
-                $.popline.current.hide();
+                if($.popline.current){
+                    $.popline.current.hide();
+                }
             }
         },
         keydown: function(event) {
@@ -176,16 +194,6 @@ new function($) {
                 var popline = new $.popline(options, this);
             }
         });
-
-        if (!$(document).data("popline-global-binded")) {
-            $(document).mouseup(function(event){
-                var _this = this;
-                setTimeout((function(){
-                    toggleBox.call(_this, event);
-                }), 1);
-            });
-            $(document).data("popline-global-binded", true);
-        }
     };
 
     $.popline = function(options, target) {
@@ -288,7 +296,7 @@ new function($) {
                             $subbar = $("<ul class='subbar'></ul>");
                             $button.append($subbar);
                             makeButtons.call(this, $subbar, button.buttons);
-                            $button.click(function(event) {
+                            /* $button.click(function(event) {
                                 var _this = this;
                                 if (!$(this).hasClass("boxed")) {
                                     me.switchBar($(this), function() {
@@ -298,7 +306,7 @@ new function($) {
                                     });
                                     event.stopPropagation();
                                 }
-                            });
+                            });*/
                         }else if($.isFunction(button.action)) {
                             $button.click((function(button) {
                                 return function(event) {
@@ -347,8 +355,7 @@ new function($) {
                 var _this = this;
                 if (this.bar.is(":visible") && !this.bar.is(":animated")) {
                     this.bar.fadeOut(function(){
-                        _this.bar.find("li").removeClass("boxed").show();
-                        _this.bar.find(".subbar").hide();
+                        _this.bar.find("li").show();
                         _this.bar.find(".textfield").hide();
                         _this.bar.find(".btn").show();
                         for (var i = 0, l = _this.afterHideCallbacks.length; i < l; i++) {

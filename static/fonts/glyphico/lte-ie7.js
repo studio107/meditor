@@ -165,7 +165,22 @@ window.onload = function() {
 			'-icongplus' : '&#xe08c;',
 			'-briefcase' : '&#xe09e;',
 			'-plus-thin' : '&#xe09d;',
-			'-pages' : '&#xe09f;'
+			'-pages' : '&#xe09f;',
+			'-bold' : '&#xf032;',
+			'-italic' : '&#xf033;',
+			'-align-left' : '&#xf036;',
+			'-align-center' : '&#xf037;',
+			'-align-right' : '&#xf038;',
+			'-align-justify' : '&#xf039;',
+			'-list-ul' : '&#xf0ca;',
+			'-list-ol' : '&#xf0cb;',
+			'-strikethrough' : '&#xf0cc;',
+			'-underline' : '&#xf0cd;',
+			'-unlink' : '&#xf127;',
+			'-link' : '&#xf0c1;',
+			'-quote-left' : '&#xf10d;',
+			'-indent-left' : '&#xf03b;',
+			'-indent-right' : '&#xf03c;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

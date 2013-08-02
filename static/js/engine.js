@@ -168,6 +168,7 @@ EditorCore.prototype = {
         var me = this;
 
         this.$element.closest('form').on('submit', function () {
+            ///console.log(me.getContent());
             me.$element.val(me.getContent());
             return true;
         });
@@ -202,11 +203,11 @@ EditorCore.prototype = {
         });
     },
     getPlugin: function (name) {
-        var plugins = this._plugins;
-        if((name in plugins) == false) {
-            name = 'lost';
+        var plugin = this.options.plugins[name];
+        if(!plugin) {
+            plugin = this.options.plugins['lost'];
         }
-        return plugins[name];
+        return new plugin(name, this);
     },
     getBlockPlugin: function (block) {
         return this.plugins[parseInt($(block).attr('rel'))];
@@ -637,8 +638,8 @@ EditorCore.prototype = {
         var name = $(element).data('plugin'),
             plugin = this.getPlugin(name);
 
-        console.log(plugin);
-        return this.initPlugin(plugin, element);
+
+        return this.initPlugin(plugin, element, name);
 
         /* Really ugly code
          if (!(plugin_name && (plugin = this.getPlugin(plugin_name)))) {
@@ -647,7 +648,7 @@ EditorCore.prototype = {
          }
          */
     },
-    initPlugin: function (plugin, element) {
+    initPlugin: function (plugin, element, name) {
         this.plugins.push(plugin);
 
         // TODO ugly, refactor it.
@@ -681,9 +682,11 @@ EditorCore.prototype = {
      */
     cleanBlock: function (block) {
         var plugin = this.getBlockPlugin(block);
+
         block = plugin.getContent();
 
         $(block).find(this.helpers_class(true) + ', ' + this.resizer_class(true)).remove();
+        $(block).removeAttr('rel');
 
         return block;
     },

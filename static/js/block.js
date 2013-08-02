@@ -22,7 +22,7 @@
         initialize: function (name, parent) {
             this._name = name;
             this._parent = parent;
-            this._number = parent.plugins.length - 1;
+            this._number = parent.plugins.length;
 
             parent._i18n.addToDictionary(this.i18n, this.name);
         },
