@@ -38,12 +38,26 @@
 </head>
 <body>
     <section id="wrapper">
-        <form method="POST">
-            <textarea name="editor" id="meditor" cols="30" rows="10"><?php echo $editor ?></textarea>
-            <button class="button">
-                Сохранить
-            </button>
-        </form>
+        <?php
+        if(isset($_GET['show'])) {
+            echo file_get_contents(dirname(__FILE__) . DS . 'data' . DS . $_GET['show']);
+        } else {
+            ?>
+            <form method="POST">
+                <textarea name="editor" id="meditor" cols="30" rows="10"><?php
+                    if(isset($_GET['template'])) {
+                        $editor = file_get_contents(dirname(__FILE__) . DS . 'data' . DS . $_GET['template']);
+                    }
+
+                    echo $editor;
+                ?></textarea>
+                <button class="button">
+                    Сохранить
+                </button>
+            </form>
+        <?php } ?>
+
+        <?php include "saved.php" ?>
     </section>
 </body>
 </html>
