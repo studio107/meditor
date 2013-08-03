@@ -157,6 +157,10 @@ EditorCore.prototype = {
         var cn = this.cn + '-helpers';
         return dotted ? '.' + cn : cn;
     },
+    highlight_helper_class: function (dotted) {
+        var cn = this.cn + '-highlight-helper';
+        return dotted ? '.' + cn : cn;
+    },
     resizer_class: function (dotted) {
         var cn = this.cn + '-resizer';
         return dotted ? '.' + cn : cn;

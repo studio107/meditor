@@ -2,26 +2,35 @@ $meditorBorderColorRow: #ccc;
 $meditorBorderColor: #f1f1f1;
 $meditorBorderColorHover: #aaa;
 
-@mixin box-shadow-direction($direction) {
-  $direction_displacement: 8px;
-  $x: 0px;
-  $y: 0px;
+@mixin highlight-direction($direction) {
+  $width: 2px;
+  background-color: blue;
+  z-index: 100;
+  display: block;
+  position: absolute;
+  content: '';
 
   @if $direction == top {
-    $x: 0px;
-    $y: $direction_displacement;
+    height: $width;
+    left: 0;
+    right: 0;
+    top: 0;
   } @else if $direction == left {
-    $x: $direction_displacement;
-    $y: 0px;
+    width: $width;
+    left: 0;
+    top: 0;
+    bottom: 0;
   } @else if $direction == bottom {
-    $x: 0px;
-    $y: -$direction_displacement;
+    height: $width;
+    left: 0;
+    right: 0;
+    bottom: 0;
   } @else if $direction == right {
-    $x: -$direction_displacement;
-    $y: 0px;
+    width: $width;
+    right: 0;
+    top: 0;
+    bottom: 0;
   }
-
-  @include box-shadow(inset $x $y 1px -2px #009fc7);
 }
 
 .meditor {
@@ -37,14 +46,15 @@ $meditorBorderColorHover: #aaa;
 
     .meditor-row {
       @include inline-block;
+      position: relative;
       width: 100%;
       //outline: 1px solid $meditorBorderColorRow;
       min-height: 10px;
+      margin-bottom: 20px;
     }
 
     .meditor-block {
       position: relative;
-      margin-bottom: 20px;
       min-height: 100px;
       outline: 1px solid $meditorBorderColor;
 
@@ -110,6 +120,10 @@ $meditorBorderColorHover: #aaa;
         }
       }
 
+      .meditor-highlight-helper{
+        display: none;
+      }
+
       &:hover:not(:active) {
         outline: 1px solid $meditorBorderColorHover;
 
@@ -125,20 +139,20 @@ $meditorBorderColorHover: #aaa;
     }
 
     // Editable highlights
-    .meditor-highlighted-right {
-      @include box-shadow-direction(right);
+    .meditor-highlighted-right:after {
+      @include highlight-direction('right');
     }
 
-    .meditor-highlighted-left {
-      @include box-shadow-direction(left);
+    .meditor-highlighted-left:after {
+      @include highlight-direction('left');
     }
 
-    .meditor-highlighted-bottom {
-      @include box-shadow-direction(bottom);
+    .meditor-highlighted-bottom:after {
+      @include highlight-direction('bottom');
     }
 
-    .meditor-highlighted-top {
-      @include box-shadow-direction(top);
+    .meditor-highlighted-top:after {
+      @include highlight-direction('top');
     }
   }
 }

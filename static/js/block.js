@@ -88,7 +88,9 @@
         renderResizeHandler: function () {
             return this.renderButton(this._parent.resizer_class(false));
         },
-
+        renderHighlightHelper: function(){
+            return $('<div/>').addClass(this._parent.highlight_helper_class(false));
+        },
         renderButton: function (className, html) {
             var $button = $('<span/>');
             $button.addClass(className).append(html || '');
@@ -113,10 +115,11 @@
         _render: function() {
             var block = this.getHtmlBlock(),
                 $toolbar = this.renderToolbar(),
+                $highlight = this.renderHighlightHelper(),
                 $resizer = this.renderResizeHandler();
 
             var $block = $(block);
-            $block.append($toolbar, $resizer);
+            $block.append($toolbar, $resizer, $highlight);
             return $block;
         },
         /**
