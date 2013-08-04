@@ -6,9 +6,6 @@
 @include reset
 @include fields
 
-@import "editor"
-@import "textblock"
-
 i
   font-style: italic
 
@@ -18,10 +15,9 @@ body
   background-color: #f4f4f4
 
 #wrapper
-  @include layout
   margin: 40px auto
   background-color: #fff
-  padding: 20px
+  @include box-sizing(border-box)
 
 .button
   @include button(#f4f4f4, #535353)
@@ -40,6 +36,9 @@ body
     font-weight: 200
 
 .meditor-block
+  padding: 4px
+  @include box-sizing(border-box)
+
   ul, ol
     overflow: auto
     li

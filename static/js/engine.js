@@ -111,7 +111,7 @@ EditorCore.prototype = {
         return dotted ? '.' + cn : cn;
     },
     rowClass: function (dotted) {
-        var cn = this.cn + '-row';
+        var cn = 'row';
         return dotted ? '.' + cn : cn;
     },
     colClass: function (dotted, value) {
@@ -225,17 +225,29 @@ EditorCore.prototype = {
         $('body').addClass('unselectable');
         $('body').addClass('moving');
         $(document).on('mouseup', function (e) {
-            var offset = {'left': e.offsetX, 'top': e.offsetY};
+            var offset = $me.calculateOffset(e.target, e);
             $me.stopMove(e.target, offset);
         });
         $(this.blockClass(true)).on('mouseout', function () {
             $me.clearHighlight();
         });
         $(this.blockClass(true)).on('mousemove', function (e) {
-            var offset = {'left': e.offsetX, 'top': e.offsetY};
             $me.clearHighlight();
+            var offset = $me.calculateOffset(this, e);
             $me.highlightBlock(this, offset);
         });
+    },
+    calculateOffset: function(elem, e){
+        var offset = undefined;
+        var element = $(elem).hasClass(this.blockClass(false)) ? $(elem) : $(elem).closest(this.blockClass(true));
+        if (element.length){
+            var top = e.pageY - element.offset()['top'];
+            var left = e.pageX - element.offset()['left'];
+            offset = {'left': left, 'top': top};
+        }else{
+            offset = {'left': e.offsetX, 'top': e.offsetY};
+        }
+        return offset;
     },
     /**
      * Закончили перетаскивать
@@ -276,6 +288,7 @@ EditorCore.prototype = {
         var $me = this;
 
         if (direction == 'top' || direction == 'bottom') {
+
             var row = this.createPureRow();
             var to_row = to.closest(this.rowClass(true));
             this.setColumnValue(element, this.options.columns);
@@ -292,7 +305,7 @@ EditorCore.prototype = {
             var col_element = $me.getColumnValue(element);
             var col_to = $me.getColumnValue(to);
 
-            if (col_to > 1) {
+            if (col_to > 3) {
                 var new_col_element = Math.round(col_to / 2);
                 var new_col_to = col_to - new_col_element;
                 $me.setColumnValue(element, new_col_element);
@@ -328,7 +341,9 @@ EditorCore.prototype = {
             if (direction == 'top' || direction == 'bottom') {
                 element.closest(this.rowClass(true)).addClass(this.highlightedClass(direction, false));
             } else {
-                element.addClass(this.highlightedClass(direction, false));
+                var col_to = this.getColumnValue(element);
+                if (col_to > 3)
+                    element.addClass(this.highlightedClass(direction, false));
             }
         }
     },
@@ -503,7 +518,7 @@ EditorCore.prototype = {
      */
     dec_column_value: function (block, value) {
         var curr = this.getColumnValue(block);
-        if (curr - value > 0) {
+        if (curr - value > 1) {
             this.setColumnValue(block, curr - value);
             return true;
         } else {
@@ -516,7 +531,7 @@ EditorCore.prototype = {
      */
     createPureRow: function () {
         return $('<div/>', {
-            class: this.cn + '-row'
+            class: 'row'
         });
     },
     /**
@@ -602,6 +617,7 @@ EditorCore.prototype = {
         var maked = this.makeBlock(block);
         row.append(maked);
         $(this.area_class(true)).append(row);
+        this.blockAfterRender(block);
     },
     /**
      * Установка прошлого контента
@@ -633,6 +649,7 @@ EditorCore.prototype = {
             row.append($me.makeBlock(this));
         });
         $($me.area).append(row);
+        $me.pluginsAfterRender();
     },
     /**
      * Подготовка блока к добавлению на страницу
@@ -664,7 +681,19 @@ EditorCore.prototype = {
 
         return plugin.setHtmlBlock(element).render();
     },
-
+    blockAfterRender: function(block){
+        var plugin = this.getBlockPlugin(block);
+        this.pluginAfterRender(plugin);
+    },
+    pluginsAfterRender: function(){
+        var key = 0;
+        for (key in this.plugins){
+            this.pluginAfterRender(this.plugins[key]);
+        }
+    },
+    pluginAfterRender: function(plugin){
+        plugin.fireEvent('onAfterRender');
+    },
     /**
      * Получение очищенного контента из блока
      * @returns {*}
@@ -672,11 +701,20 @@ EditorCore.prototype = {
     getContent: function () {
         var $me = this;
         var out = $('<div/>');
-        $(this.area).find(this.blockClass(true)).each(function () {
-            var cleared = $me.cleanBlock($(this));
+        $(this.area).find('.row').each(function () {
+            var cleared = $me.getRowContent($(this));
             out.append(cleared);
         });
         return out.html();
+    },
+    getRowContent: function (row) {
+        var $me = this;
+        var out = $('<div/>').addClass('row');
+        row.find(this.blockClass(true)).each(function () {
+            var cleared = $me.cleanBlock($(this));
+            out.append(cleared);
+        });
+        return out;
     },
     /**
      * Очистка блока от данных редактора. Используется перед сохранением.

@@ -4,7 +4,12 @@ Class.prototype = {
     initialize: function () {
     },
     events: function () {
-        return {};
+        return {
+            onInitialize: function() {
+            },
+            onAfterRender: function() {
+            }
+        };
     },
     fireEvent: function (event) {
         var events = this.events();
@@ -24,6 +29,8 @@ Class.extend = function (props) {
         if (this.initialize) {
             this.initialize.apply(this, arguments);
         }
+
+        this.fireEvent('onInitialize');
     };
 
     // instantiate class without calling constructor

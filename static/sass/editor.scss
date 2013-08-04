@@ -1,3 +1,8 @@
+@import "mindy/mindy";
+@import "mindy/grid";
+@import "mindy/fields";
+@import "mindy/buttons";
+
 $meditorBorderColorRow: #ccc;
 $meditorBorderColor: #f1f1f1;
 $meditorBorderColorHover: #aaa;
@@ -44,7 +49,7 @@ $meditorBorderColorHover: #aaa;
     //@include grid();
     @include layout;
 
-    .meditor-row {
+    .row {
       @include inline-block;
       position: relative;
       width: 100%;
@@ -178,3 +183,5 @@ $meditorBorderColorHover: #aaa;
 .resizing {
   cursor: col-resize !important;
 }
+
+@import "textblock";
