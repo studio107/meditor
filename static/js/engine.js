@@ -678,6 +678,7 @@ EditorCore.prototype = {
             $(element).addClass(name + '-block');
         }
         $(element).attr('data-plugin', name);
+        $(element).data('plugin', name);
 
         return plugin.setHtmlBlock(element).render();
     },

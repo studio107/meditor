@@ -1,0 +1,1120 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000363}}
+.button-container.open {
+  *z-index: 1000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000366}}
+  .button-container.open .dropdown-menu {
+    display: block;
+    margin-top: 1px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000371}}
+  .button-container.open .dropdown-toggle {
+    background-image: none;
+    -webkit-box-shadow: 1px 6px rgba(0, 0, 0, 0.15) inset 0;
+    -moz-box-shadow: 1px 6px rgba(0, 0, 0, 0.15) inset 0;
+    box-shadow: 1px 6px rgba(0, 0, 0, 0.15) inset 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000377}}
+.button-container .button, .button-container .button-group {
+  vertical-align: top; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000385}}
+.button + .button,
+.button + .button-group,
+.button-group + .button,
+.button-group + .button-group {
+  margin-left: 15px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003118}}
+.button-group {
+  position: relative;
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  zoom: 1;
+  *display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000399}}
+  .button-group .button {
+    position: relative;
+    float: left;
+    margin-left: -1px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003105}}
+  .button-group .button + .button {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003108}}
+    .button-group .button + .button:first-child, .button-group .button + .button.dropdown-toggle {
+      -webkit-border-radius: 2px 0 0 2px;
+      -moz-border-radius: 2px 0 0 2px;
+      -ms-border-radius: 2px 0 0 2px;
+      -o-border-radius: 2px 0 0 2px;
+      border-radius: 2px 0 0 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003112}}
+    .button-group .button + .button:last-child, .button-group .button + .button.dropdown-toggle {
+      -webkit-border-radius: 0 2px 2px 0;
+      -moz-border-radius: 0 2px 2px 0;
+      -ms-border-radius: 0 2px 2px 0;
+      -o-border-radius: 0 2px 2px 0;
+      border-radius: 0 2px 2px 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003122}}
+.dropdown {
+  position: relative; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003125}}
+.dropdown-toggle {
+  *margin-bottom: -3px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003128}}
+.dropdown-toggle:active, .open .dropdown-toggle {
+  outline: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003131}}
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  text-indent: -99999px;
+  *text-indent: 0;
+  vertical-align: top;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid black;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  content: "\2193"; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003145}}
+.dropdown .caret {
+  margin-top: 8px;
+  margin-left: 2px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003149}}
+.dropdown:hover .caret, .open.dropdown .caret {
+  opacity: 1;
+  filter: alpha(opacity=100); }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003153}}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 245px;
+  max-width: 245px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003169}}
+  .dropdown-menu.bottom {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003175}}
+  .dropdown-menu.right {
+    right: 0;
+    top: 100%;
+    left: auto; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003185}}
+  .dropdown-menu .divider {
+    border-top: 1px solid #ebebeb;
+    margin-top: 9px;
+    margin-bottom: 10px;
+    padding: 0;
+    cursor: default; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003207}}
+.dropdown-menu a {
+  position: relative;
+  padding: 6px 0 6px 30px;
+  color: #333;
+  text-decoration: none;
+  display: block;
+  clear: both;
+  font-weight: normal;
+  line-height: 18px;
+  white-space: nowrap; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003218}}
+  .dropdown-menu a [class^="icon-"] {
+    position: absolute;
+    left: 7px;
+    top: 6px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003225}}
+.dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
+  text-decoration: none;
+  background-color: #eee; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003231}}
+.dropdown.open {
+  *z-index: 1000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003243}}
+  .dropdown.open .dropdown-menu {
+    display: block; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003249}}
+.button-container .button, .button-container .button-group {
+  vertical-align: top; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003253}}
+.button-group .open {
+  *z-index: 1000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003256}}
+  .button-group .open .dropdown-menu {
+    display: block;
+    margin-top: 1px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003261}}
+  .button-group .open .dropdown-toggle {
+    background-image: none;
+    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15) inset;
+    -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15) inset;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15) inset; }
+
+/* ----------------------------------------------------------------- XHTML, HTML4, HTML5 Reset -- */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000321}}
+* {
+  margin: 0;
+  padding: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000330}}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption,
+center, cite, code, dd, del, details, dfn, dialog, div, dl, dt, em, embed, fieldset, figcaption, figure,
+font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, html, i, iframe, img, ins, kbd, label,
+legend, li, mark, menu, meter, nav, object, ol, output, p, pre, progress, q, rp, rt, ruby, s, samp,
+section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr,
+tt, u, ul, var, video, xmp {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  -moz-font-feature-settings: inherit;
+  -moz-font-language-override: inherit; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000339}}
+html {
+  margin: 0;
+  padding: 0;
+  border: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000344}}
+html, body {
+  height: 100%; }
+
+/* Line-height should always be unitless! */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000349}}
+body {
+  line-height: 1.8;
+  background-color: #fff;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%; }
+
+/* Override the default (display: inline) for browsers that do not recognize HTML5 tags. IE8 (and lower) requires a shiv: http://ejohn.org/blog/html5-shiv */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000357}}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* audio, video and canvas (display: inline-block) for browsers that do not recognoze HTML5 tags */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000362}}
+audio, canvas, video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000368}}
+audio:not([controls]) {
+  display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000372}}
+[hidden] {
+  display: none; }
+
+/* Makes browsers agree. IE + Opera = font-weight: bold. Gecko + WebKit = font-weight: bolder. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000377}}
+b, strong {
+  font-weight: bold; }
+
+/* Tables still need 'cellspacing="0"' in the markup. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000382}}
+table {
+  /*border-collapse: separate;*/
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* float:none prevents the span-x classes from breaking table-cell display */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000389}}
+th, td, caption {
+  font-weight: normal;
+  /*vertical-align: middle;*/
+  vertical-align: top;
+  text-align: left;
+  float: none !important; }
+
+/* Remove possible quote marks (") from <q>, <blockquote>. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000398}}
+blockquote:before, blockquote:after, q:before, q:after {
+  content: ''; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003102}}
+blockquote, q {
+  quotes: "" "";
+  /*quotes: none;*/ }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003107}}
+.sub, .sup, sub, sup, small {
+  font-size: 75%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003111}}
+.sub, .sup, sub, sup {
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003117}}
+.sub, sub {
+  bottom: -0.25em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003121}}
+.sup, sup {
+  top: -0.5em; }
+
+/* For IE9. Without, occasionally draws shapes outside the boundaries of <svg> rectangle. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003126}}
+svg {
+  overflow: hidden; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003130}}
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Remove annoying border on linked images. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003135}}
+a img {
+  border: none; }
+
+/* For IE. http://css-tricks.com/ie-fix-bicubic-scaling-for-images */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003140}}
+img {
+  color: transparent;
+  font-size: 0;
+  vertical-align: middle;
+  -ms-interpolation-mode: bicubic; }
+
+/* For IE6 + IE7: "display: list-item" keeps bullets from disappearing if hasLayout is triggered. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003148}}
+li {
+  display: list-item;
+  margin-left: 0; }
+
+/* Remember to define your own focus styles! */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003154}}
+:focus {
+  outline: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003177}}
+button,
+textarea,
+select,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+optgroup {
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  vertical-align: baseline;
+  *vertical-align: middle; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003185}}
+optgroup {
+  color: black;
+  font-weight: bold; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003190}}
+optgroup::-moz-focus-inner {
+  margin: 0;
+  padding: 0; }
+
+/* Selection colours (easy to forget) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003195}}
+::selection {
+  background: #b4d5ff; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003199}}
+::-moz-selection {
+  background: #b4d5ff; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003203}}
+img::selection {
+  background: transparent; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003207}}
+img::-moz-selection {
+  background: transparent; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003211}}
+body {
+  -webkit-tap-highlight-color: #ffff9e; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003215}}
+pre, code, kbd, samp {
+  font-family: Monaco, monospace, serif;
+  _font-family: 'courier new', monospace;
+  font-size: 1em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003221}}
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word; }
+
+/*input:valid, textarea:valid {  }*/
+/*input:invalid, textarea:invalid { background-color: #f0dddd; }*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003230}}
+legend {
+  border: 0;
+  padding: 0;
+  *margin-left: -7px;
+  white-space: normal; }
+
+/* ----------------------------------------------------------------- XHTML, HTML4, HTML5 Reset -- */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003239}}
+.clear {
+  clear: both;
+  height: 0;
+  visibility: hidden;
+  display: block;
+  font-size: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\000038}}
+#wrapper {
+  width: 978px;
+  margin-left: auto;
+  margin-right: auto;
+  *zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003321}}
+  #wrapper:before, #wrapper:after {
+    display: table;
+    content: "";
+    line-height: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003328}}
+  #wrapper:after {
+    clear: both; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-1 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-1 {
+  display: inline;
+  float: left;
+  width: 54px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-1.first {
+    display: inline;
+    float: left;
+    width: 54px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-2 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-2 {
+  display: inline;
+  float: left;
+  width: 138px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-2.first {
+    display: inline;
+    float: left;
+    width: 138px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-3 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-3 {
+  display: inline;
+  float: left;
+  width: 222px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-3.first {
+    display: inline;
+    float: left;
+    width: 222px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-4 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-4 {
+  display: inline;
+  float: left;
+  width: 306px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-4.first {
+    display: inline;
+    float: left;
+    width: 306px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-5 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-5 {
+  display: inline;
+  float: left;
+  width: 390px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-5.first {
+    display: inline;
+    float: left;
+    width: 390px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-6 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-6 {
+  display: inline;
+  float: left;
+  width: 474px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-6.first {
+    display: inline;
+    float: left;
+    width: 474px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-7 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-7 {
+  display: inline;
+  float: left;
+  width: 558px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-7.first {
+    display: inline;
+    float: left;
+    width: 558px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-8 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-8 {
+  display: inline;
+  float: left;
+  width: 642px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-8.first {
+    display: inline;
+    float: left;
+    width: 642px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-9 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-9 {
+  display: inline;
+  float: left;
+  width: 726px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-9.first {
+    display: inline;
+    float: left;
+    width: 726px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-10 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-10 {
+  display: inline;
+  float: left;
+  width: 810px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-10.first {
+    display: inline;
+    float: left;
+    width: 810px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-11 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-11 {
+  display: inline;
+  float: left;
+  width: 894px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-11.first {
+    display: inline;
+    float: left;
+    width: 894px;
+    margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000312}}
+.col-12 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000316}}
+.col-12 {
+  display: inline;
+  float: left;
+  width: 978px;
+  margin-left: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000317}}
+  .col-12.first {
+    display: inline;
+    float: left;
+    width: 978px;
+    margin-left: 0; }
+
+@media all and (min-width: 0px) and (max-width: 320px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000323}}
+  #wrapper {
+    width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-1 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-1.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-2 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-2.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-3 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-3.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-4 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-4.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-5 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-5.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-6 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-6.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-7 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-7.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-8 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-8.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-9 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-9.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-10 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-10.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-11 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-11.first {
+      width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000327}}
+  .col-12 {
+    margin-left: 0px;
+    width: 100%;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000328}}
+    .col-12.first {
+      width: 100%; } }
+@media all and (min-width: 321px) and (max-width: 978px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000335}}
+  #wrapper {
+    width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000342}}
+  .column, .column12, .column11, .column10, .column9, .column8, .column7, .column6, .column5, .column4, .column3, .column2, .column1 {
+    display: inline;
+    float: left;
+    margin-left: 3.06748%;
+    *margin-left: 3.01636%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000350}}
+    .column:last-child, .column12:last-child, .column11:last-child, .column10:last-child, .column9:last-child, .column8:last-child, .column7:last-child, .column6:last-child, .column5:last-child, .column4:last-child, .column3:last-child, .column2:last-child, .column1:last-child {
+      *zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003321}}
+      .column:last-child:before, .column12:last-child:before, .column11:last-child:before, .column10:last-child:before, .column9:last-child:before, .column8:last-child:before, .column7:last-child:before, .column6:last-child:before, .column5:last-child:before, .column4:last-child:before, .column3:last-child:before, .column2:last-child:before, .column1:last-child:before, .column:last-child:after, .column12:last-child:after, .column11:last-child:after, .column10:last-child:after, .column9:last-child:after, .column8:last-child:after, .column7:last-child:after, .column6:last-child:after, .column5:last-child:after, .column4:last-child:after, .column3:last-child:after, .column2:last-child:after, .column1:last-child:after {
+        display: table;
+        content: "";
+        line-height: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003328}}
+      .column:last-child:after, .column12:last-child:after, .column11:last-child:after, .column10:last-child:after, .column9:last-child:after, .column8:last-child:after, .column7:last-child:after, .column6:last-child:after, .column5:last-child:after, .column4:last-child:after, .column3:last-child:after, .column2:last-child:after, .column1:last-child:after {
+        clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000354}}
+    .column:first-child, .column12:first-child, .column11:first-child, .column10:first-child, .column9:first-child, .column8:first-child, .column7:first-child, .column6:first-child, .column5:first-child, .column4:first-child, .column3:first-child, .column2:first-child, .column1:first-child {
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column12 {
+    width: 100%;
+    *width: 99.94888%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column11 {
+    width: 91.41104%;
+    *width: 91.35992%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column10 {
+    width: 82.82209%;
+    *width: 82.77096%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column9 {
+    width: 74.23313%;
+    *width: 74.182%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column8 {
+    width: 65.64417%;
+    *width: 65.59305%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column7 {
+    width: 57.05521%;
+    *width: 57.00409%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column6 {
+    width: 48.46626%;
+    *width: 48.41513%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column5 {
+    width: 39.8773%;
+    *width: 39.82618%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column4 {
+    width: 31.28834%;
+    *width: 31.23722%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column3 {
+    width: 22.69939%;
+    *width: 22.64826%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column2 {
+    width: 14.11043%;
+    *width: 14.0593%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_grid\.scss}line{font-family:\0000380}}
+  .column1 {
+    width: 5.52147%;
+    *width: 5.47035%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-1 {
+    display: inline;
+    float: left;
+    width: 5.52147%;
+    *width: 5.47035%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-1 {
+    display: inline;
+    float: left;
+    width: 5.52147%;
+    *width: 5.47035%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-1.first {
+      display: inline;
+      float: left;
+      width: 5.52147%;
+      *width: 5.47035%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-2 {
+    display: inline;
+    float: left;
+    width: 14.11043%;
+    *width: 14.0593%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-2 {
+    display: inline;
+    float: left;
+    width: 14.11043%;
+    *width: 14.0593%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-2.first {
+      display: inline;
+      float: left;
+      width: 14.11043%;
+      *width: 14.0593%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-3 {
+    display: inline;
+    float: left;
+    width: 22.69939%;
+    *width: 22.64826%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-3 {
+    display: inline;
+    float: left;
+    width: 22.69939%;
+    *width: 22.64826%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-3.first {
+      display: inline;
+      float: left;
+      width: 22.69939%;
+      *width: 22.64826%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-4 {
+    display: inline;
+    float: left;
+    width: 31.28834%;
+    *width: 31.23722%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-4 {
+    display: inline;
+    float: left;
+    width: 31.28834%;
+    *width: 31.23722%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-4.first {
+      display: inline;
+      float: left;
+      width: 31.28834%;
+      *width: 31.23722%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-5 {
+    display: inline;
+    float: left;
+    width: 39.8773%;
+    *width: 39.82618%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-5 {
+    display: inline;
+    float: left;
+    width: 39.8773%;
+    *width: 39.82618%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-5.first {
+      display: inline;
+      float: left;
+      width: 39.8773%;
+      *width: 39.82618%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-6 {
+    display: inline;
+    float: left;
+    width: 48.46626%;
+    *width: 48.41513%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-6 {
+    display: inline;
+    float: left;
+    width: 48.46626%;
+    *width: 48.41513%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-6.first {
+      display: inline;
+      float: left;
+      width: 48.46626%;
+      *width: 48.41513%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-7 {
+    display: inline;
+    float: left;
+    width: 57.05521%;
+    *width: 57.00409%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-7 {
+    display: inline;
+    float: left;
+    width: 57.05521%;
+    *width: 57.00409%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-7.first {
+      display: inline;
+      float: left;
+      width: 57.05521%;
+      *width: 57.00409%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-8 {
+    display: inline;
+    float: left;
+    width: 65.64417%;
+    *width: 65.59305%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-8 {
+    display: inline;
+    float: left;
+    width: 65.64417%;
+    *width: 65.59305%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-8.first {
+      display: inline;
+      float: left;
+      width: 65.64417%;
+      *width: 65.59305%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-9 {
+    display: inline;
+    float: left;
+    width: 74.23313%;
+    *width: 74.182%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-9 {
+    display: inline;
+    float: left;
+    width: 74.23313%;
+    *width: 74.182%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-9.first {
+      display: inline;
+      float: left;
+      width: 74.23313%;
+      *width: 74.182%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-10 {
+    display: inline;
+    float: left;
+    width: 82.82209%;
+    *width: 82.77096%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-10 {
+    display: inline;
+    float: left;
+    width: 82.82209%;
+    *width: 82.77096%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-10.first {
+      display: inline;
+      float: left;
+      width: 82.82209%;
+      *width: 82.77096%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-11 {
+    display: inline;
+    float: left;
+    width: 91.41104%;
+    *width: 91.35992%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-11 {
+    display: inline;
+    float: left;
+    width: 91.41104%;
+    *width: 91.35992%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-11.first {
+      display: inline;
+      float: left;
+      width: 91.41104%;
+      *width: 91.35992%;
+      margin-left: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000341}}
+  .col-12 {
+    display: inline;
+    float: left;
+    width: 100%;
+    *width: 99.94888%;
+    margin-left: 3.06748%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000344}}
+  .col-12 {
+    display: inline;
+    float: left;
+    width: 100%;
+    *width: 99.94888%;
+    margin-left: 3.06748%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/grid\.sass}line{font-family:\0000345}}
+    .col-12.first {
+      display: inline;
+      float: left;
+      width: 100%;
+      *width: 99.94888%;
+      margin-left: 0; } }

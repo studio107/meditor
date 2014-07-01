@@ -1,0 +1,1017 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000363}}
+.button-container.open {
+  *z-index: 1000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000366}}
+  .button-container.open .dropdown-menu {
+    display: block;
+    margin-top: 1px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000371}}
+  .button-container.open .dropdown-toggle {
+    background-image: none;
+    -webkit-box-shadow: 1px 6px rgba(0, 0, 0, 0.15) inset 0;
+    -moz-box-shadow: 1px 6px rgba(0, 0, 0, 0.15) inset 0;
+    box-shadow: 1px 6px rgba(0, 0, 0, 0.15) inset 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000377}}
+.button-container .button, .button-container .button-group {
+  vertical-align: top; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000385}}
+.button + .button,
+.button + .button-group,
+.button-group + .button,
+.button-group + .button-group {
+  margin-left: 15px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003118}}
+.button-group {
+  position: relative;
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  zoom: 1;
+  *display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\0000399}}
+  .button-group .button {
+    position: relative;
+    float: left;
+    margin-left: -1px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003105}}
+  .button-group .button + .button {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003108}}
+    .button-group .button + .button:first-child, .button-group .button + .button.dropdown-toggle {
+      -webkit-border-radius: 2px 0 0 2px;
+      -moz-border-radius: 2px 0 0 2px;
+      -ms-border-radius: 2px 0 0 2px;
+      -o-border-radius: 2px 0 0 2px;
+      border-radius: 2px 0 0 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003112}}
+    .button-group .button + .button:last-child, .button-group .button + .button.dropdown-toggle {
+      -webkit-border-radius: 0 2px 2px 0;
+      -moz-border-radius: 0 2px 2px 0;
+      -ms-border-radius: 0 2px 2px 0;
+      -o-border-radius: 0 2px 2px 0;
+      border-radius: 0 2px 2px 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003122}}
+.dropdown {
+  position: relative; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003125}}
+.dropdown-toggle {
+  *margin-bottom: -3px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003128}}
+.dropdown-toggle:active, .open .dropdown-toggle {
+  outline: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003131}}
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  text-indent: -99999px;
+  *text-indent: 0;
+  vertical-align: top;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid black;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  content: "\2193"; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003145}}
+.dropdown .caret {
+  margin-top: 8px;
+  margin-left: 2px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003149}}
+.dropdown:hover .caret, .open.dropdown .caret {
+  opacity: 1;
+  filter: alpha(opacity=100); }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003153}}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 245px;
+  max-width: 245px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003169}}
+  .dropdown-menu.bottom {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003175}}
+  .dropdown-menu.right {
+    right: 0;
+    top: 100%;
+    left: auto; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003185}}
+  .dropdown-menu .divider {
+    border-top: 1px solid #ebebeb;
+    margin-top: 9px;
+    margin-bottom: 10px;
+    padding: 0;
+    cursor: default; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003207}}
+.dropdown-menu a {
+  position: relative;
+  padding: 6px 0 6px 30px;
+  color: #333;
+  text-decoration: none;
+  display: block;
+  clear: both;
+  font-weight: normal;
+  line-height: 18px;
+  white-space: nowrap; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003218}}
+  .dropdown-menu a [class^="icon-"] {
+    position: absolute;
+    left: 7px;
+    top: 6px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003225}}
+.dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
+  text-decoration: none;
+  background-color: #eee; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003231}}
+.dropdown.open {
+  *z-index: 1000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003243}}
+  .dropdown.open .dropdown-menu {
+    display: block; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003249}}
+.button-container .button, .button-container .button-group {
+  vertical-align: top; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003253}}
+.button-group .open {
+  *z-index: 1000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003256}}
+  .button-group .open .dropdown-menu {
+    display: block;
+    margin-top: 1px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003261}}
+  .button-group .open .dropdown-toggle {
+    background-image: none;
+    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15) inset;
+    -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15) inset;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15) inset; }
+
+/* ----------------------------------------------------------------- XHTML, HTML4, HTML5 Reset -- */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000321}}
+* {
+  margin: 0;
+  padding: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000330}}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption,
+center, cite, code, dd, del, details, dfn, dialog, div, dl, dt, em, embed, fieldset, figcaption, figure,
+font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, html, i, iframe, img, ins, kbd, label,
+legend, li, mark, menu, meter, nav, object, ol, output, p, pre, progress, q, rp, rt, ruby, s, samp,
+section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr,
+tt, u, ul, var, video, xmp {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  -moz-font-feature-settings: inherit;
+  -moz-font-language-override: inherit; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000339}}
+html {
+  margin: 0;
+  padding: 0;
+  border: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000344}}
+html, body {
+  height: 100%; }
+
+/* Line-height should always be unitless! */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000349}}
+body {
+  line-height: 1.8;
+  background-color: #fff;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%; }
+
+/* Override the default (display: inline) for browsers that do not recognize HTML5 tags. IE8 (and lower) requires a shiv: http://ejohn.org/blog/html5-shiv */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000357}}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* audio, video and canvas (display: inline-block) for browsers that do not recognoze HTML5 tags */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000362}}
+audio, canvas, video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000368}}
+audio:not([controls]) {
+  display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000372}}
+[hidden] {
+  display: none; }
+
+/* Makes browsers agree. IE + Opera = font-weight: bold. Gecko + WebKit = font-weight: bolder. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000377}}
+b, strong {
+  font-weight: bold; }
+
+/* Tables still need 'cellspacing="0"' in the markup. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000382}}
+table {
+  /*border-collapse: separate;*/
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* float:none prevents the span-x classes from breaking table-cell display */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000389}}
+th, td, caption {
+  font-weight: normal;
+  /*vertical-align: middle;*/
+  vertical-align: top;
+  text-align: left;
+  float: none !important; }
+
+/* Remove possible quote marks (") from <q>, <blockquote>. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\0000398}}
+blockquote:before, blockquote:after, q:before, q:after {
+  content: ''; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003102}}
+blockquote, q {
+  quotes: "" "";
+  /*quotes: none;*/ }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003107}}
+.sub, .sup, sub, sup, small {
+  font-size: 75%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003111}}
+.sub, .sup, sub, sup {
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003117}}
+.sub, sub {
+  bottom: -0.25em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003121}}
+.sup, sup {
+  top: -0.5em; }
+
+/* For IE9. Without, occasionally draws shapes outside the boundaries of <svg> rectangle. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003126}}
+svg {
+  overflow: hidden; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003130}}
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Remove annoying border on linked images. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003135}}
+a img {
+  border: none; }
+
+/* For IE. http://css-tricks.com/ie-fix-bicubic-scaling-for-images */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003140}}
+img {
+  color: transparent;
+  font-size: 0;
+  vertical-align: middle;
+  -ms-interpolation-mode: bicubic; }
+
+/* For IE6 + IE7: "display: list-item" keeps bullets from disappearing if hasLayout is triggered. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003148}}
+li {
+  display: list-item;
+  margin-left: 0; }
+
+/* Remember to define your own focus styles! */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003154}}
+:focus {
+  outline: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003177}}
+button,
+textarea,
+select,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+optgroup {
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  vertical-align: baseline;
+  *vertical-align: middle; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003185}}
+optgroup {
+  color: black;
+  font-weight: bold; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003190}}
+optgroup::-moz-focus-inner {
+  margin: 0;
+  padding: 0; }
+
+/* Selection colours (easy to forget) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003195}}
+::selection {
+  background: #b4d5ff; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003199}}
+::-moz-selection {
+  background: #b4d5ff; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003203}}
+img::selection {
+  background: transparent; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003207}}
+img::-moz-selection {
+  background: transparent; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003211}}
+body {
+  -webkit-tap-highlight-color: #ffff9e; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003215}}
+pre, code, kbd, samp {
+  font-family: Monaco, monospace, serif;
+  _font-family: 'courier new', monospace;
+  font-size: 1em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003221}}
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word; }
+
+/*input:valid, textarea:valid {  }*/
+/*input:invalid, textarea:invalid { background-color: #f0dddd; }*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003230}}
+legend {
+  border: 0;
+  padding: 0;
+  *margin-left: -7px;
+  white-space: normal; }
+
+/* ----------------------------------------------------------------- XHTML, HTML4, HTML5 Reset -- */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_mindy\.scss}line{font-family:\00003239}}
+.clear {
+  clear: both;
+  height: 0;
+  visibility: hidden;
+  display: block;
+  font-size: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\000033}}
+input[type="radio"], input[type="checkbox"] {
+  position: relative;
+  top: -1px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\000037}}
+input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="phone"] {
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  z-index: 2;
+  height: 23px;
+  border: 1px solid #ccc;
+  margin: 0;
+  padding: 1px 2px;
+  background-color: white;
+  color: #333;
+  line-height: 1;
+  border-radius: 1px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+  -webkit-transition: border ease 0.5s;
+  -moz-transition: border ease 0.5s;
+  -ms-transition: border ease 0.5s;
+  -o-transition: border ease 0.5s;
+  transition: border ease 0.5s; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\0000329}}
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  z-index: 2;
+  height: 23px;
+  border: 1px solid #ccc;
+  margin: 0;
+  padding: 1px 2px;
+  background-color: white;
+  color: #333;
+  line-height: 1;
+  border-radius: 1px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+  -webkit-transition: border ease 0.5s;
+  -moz-transition: border ease 0.5s;
+  -ms-transition: border ease 0.5s;
+  -o-transition: border ease 0.5s;
+  transition: border ease 0.5s;
+  line-height: 1.4em; }
+
+/* Errors and Success */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\0000353}}
+.error, .success {
+  margin-left: 5px;
+  font-weight: normal;
+  font-size: 0.85em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\0000359}}
+input.input-error, textarea.input-error, select.input-error, .input-error {
+  border-color: #da3e5a;
+  box-shadow: 0 0 0 2px rgba(218, 62, 90, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\0000364}}
+input.input-success, textarea.input-success, select.input-success, .input-success {
+  border-color: #18a011;
+  box-shadow: 0 0 0 2px rgba(24, 160, 17, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\0000369}}
+input.input-gray, textarea.input-gray, select.input-gray, .input-gray {
+  border-color: #ccc;
+  box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\0000374}}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #5ca9e4;
+  box-shadow: 0 0 0 2px rgba(70, 161, 231, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\0000381}}
+input.input-search, input[type="search"] {
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-bottom: 0;
+  border-radius: 15px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\0000389}}
+.input-append {
+  display: inline-block;
+  background-color: #eee;
+  height: 23px;
+  border: 1px solid #ccc;
+  margin: 0;
+  padding: 1px 8px;
+  color: #333;
+  font-size: 1em;
+  line-height: 23px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\00003101}}
+.input-prepend {
+  display: inline-block;
+  background-color: #eee;
+  height: 23px;
+  border: 1px solid #ccc;
+  margin: 0;
+  padding: 1px 8px;
+  color: #333;
+  font-size: 1em;
+  line-height: 23px;
+  margin-right: -1px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\00003114}}
+.input-append {
+  position: relative;
+  z-index: 1;
+  margin-left: -1px; }
+
+/* Placeholders */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\00003121}}
+::-webkit-input-placeholder {
+  color: #999999;
+  padding: 1px 2px; }
+
+/* FF19+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\00003126}}
+::-moz-placeholder {
+  color: #999999; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\00003130}}
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #999999; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_fields\.scss}line{font-family:\00003133}}
+:-ms-input-placeholder {
+  color: #999999; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\000039}}
+i {
+  font-style: italic; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000312}}
+body {
+  font-size: 13px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #f4f4f4; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000317}}
+#wrapper {
+  margin: 40px auto;
+  background-color: white;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000322}}
+.button {
+  text-align: center;
+  text-decoration: none;
+  outline: 0;
+  overflow: visible;
+  margin: 0;
+  vertical-align: top;
+  *padding-top: 2px;
+  *padding-bottom: 0;
+  font-family: inherit;
+  font-size: inherit;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  border: 1px solid #000;
+  padding: 4px 14px 4px 14px;
+  position: relative;
+  cursor: pointer;
+  line-height: 18px;
+  text-shadow: #f6f6f6 0 1px 0;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  background-color: #f4f4f4;
+  border-color: #dbdbdb;
+  border-bottom-color: #cccccc;
+  color: #535353;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f7f3f3), color-stop(100%, #f4f4f4));
+  background-image: -webkit-linear-gradient(#f7f3f3, #f4f4f4);
+  background-image: -moz-linear-gradient(#f7f3f3, #f4f4f4);
+  background-image: -o-linear-gradient(#f7f3f3, #f4f4f4);
+  background-image: linear-gradient(#f7f3f3, #f4f4f4);
+  -webkit-box-shadow: #f7f4f4 0 2px 1px 0 inset;
+  -moz-box-shadow: #f7f4f4 0 2px 1px 0 inset;
+  box-shadow: #f7f4f4 0 2px 1px 0 inset; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003374}}
+  .button::-moz-focus-inner {
+    padding: 0;
+    border: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003379}}
+  .button:hover {
+    text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003300}}
+  .button.pill {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    border-radius: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003304}}
+  .button.sm {
+    font-size: 11px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003311}}
+  .button [class^="icon-"], .button [class*=" icon-"] {
+    height: 18px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003348}}
+  .button.small, .button.mini {
+    height: 14px;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 13px;
+    padding: 4px 10px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003355}}
+    .button.small [class^="icon-"], .button.small [class*=" icon-"], .button.mini [class^="icon-"], .button.mini [class*=" icon-"] {
+      height: 14px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003317}}
+  .button.dropdown-toggle {
+    min-width: 5px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003323}}
+  .button .caret {
+    margin-left: 0;
+    margin-top: 6px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003328}}
+  .button:hover .caret {
+    opacity: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003332}}
+  .button .no-text {
+    min-width: 14px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003336}}
+  .button .xs-no-text {
+    height: 9px;
+    width: 18px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 10px;
+    padding: 4px 2px;
+    min-width: 5px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003426}}
+  .button.back {
+    border-left: none;
+    -webkit-border-radius: 4px 2px 2px 4px;
+    -moz-border-radius: 4px 2px 2px 4px;
+    -ms-border-radius: 4px 2px 2px 4px;
+    -o-border-radius: 4px 2px 2px 4px;
+    border-radius: 4px 2px 2px 4px;
+    /*
+    &:hover:before, &:hover:after {
+      $dark-background-color: shade($background-color, 35%);
+      $button-shadow-color: saturate(shade($background-color, 2%), 5%);
+      $button-light-color: desaturate(tint($background-color, 12%), 5%);
+      $button-highlight-color: transparentize(desaturate(tint($button-light-color, 15%), 5%), 0%);
+
+      background: tint($background-color, 5%);
+
+      @include background-image(linear-gradient(color-stops(lighten(tint($button-light-color, 3%), 1%), tint($background-color, 3%))));
+    }
+
+    &:active:before, &:active:after, &.active:before, &.active:after, &.checked:before, &.checked:after {
+      $border-top-color: shade($background-color, 10%);
+      $border-bottom-color: shade($background-color, 16%);
+
+      background-color: $background-color;
+      border-top-color: $border-top-color;
+      border-bottom-color: $border-bottom-color;
+
+      @include background-image(linear-gradient(color-stops(desaturate(tint($background-color, 12%), 5%), $background-color)));
+      @include box-shadow(shade($background-color, 10%) 0 1px 8px 0 inset);
+    }
+    */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003490}}
+    .button.back:hover {
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -o-transition: all 1s;
+      transition: all 1s;
+      -webkit-transition-duration: 0.2s;
+      -moz-transition-duration: 0.2s;
+      -o-transition-duration: 0.2s;
+      transition-duration: 0.2s;
+      background: #f4f4f4;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f8f8f8), color-stop(100%, #f4f4f4));
+      background-image: -webkit-linear-gradient(#f8f8f8, #f4f4f4);
+      background-image: -moz-linear-gradient(#f8f8f8, #f4f4f4);
+      background-image: -o-linear-gradient(#f8f8f8, #f4f4f4);
+      background-image: linear-gradient(#f8f8f8, #f4f4f4);
+      -webkit-box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset;
+      -moz-box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset;
+      box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003509}}
+    .button.back:active, .button.back.active, .button.back.checked {
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -o-transition: all 1s;
+      transition: all 1s;
+      -webkit-transition-duration: 0.5s;
+      -moz-transition-duration: 0.5s;
+      -o-transition-duration: 0.5s;
+      transition-duration: 0.5s;
+      background-color: #f4f4f4;
+      border-top-color: #dbdbdb;
+      border-bottom-color: #cccccc;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f5f5f5), color-stop(100%, #f4f4f4));
+      background-image: -webkit-linear-gradient(#f5f5f5, #f4f4f4);
+      background-image: -moz-linear-gradient(#f5f5f5, #f4f4f4);
+      background-image: -o-linear-gradient(#f5f5f5, #f4f4f4);
+      background-image: linear-gradient(#f5f5f5, #f4f4f4);
+      -webkit-box-shadow: #dbdbdb 0 1px 8px 0 inset;
+      -moz-box-shadow: #dbdbdb 0 1px 8px 0 inset;
+      box-shadow: #dbdbdb 0 1px 8px 0 inset; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003525}}
+    .button.back [class^="icon-"] {
+      height: 17px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003431}}
+    .button.back:before, .button.back:after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      border-left: 1px solid #dbdbdb;
+      left: -4px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003439}}
+    .button.back:before {
+      height: 48%;
+      bottom: 1px;
+      left: -5px;
+      -webkit-transform: skew(35deg, 0);
+      -moz-transform: skew(35deg, 0);
+      -ms-transform: skew(35deg, 0);
+      -o-transform: skew(35deg, 0);
+      transform: skew(35deg, 0);
+      -webkit-box-shadow: -2px 1px 2px rgba(100, 100, 100, 0.1);
+      -moz-box-shadow: -2px 1px 2px rgba(100, 100, 100, 0.1);
+      box-shadow: -2px 1px 2px rgba(100, 100, 100, 0.1);
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f6f6f6), color-stop(100%, #f4f4f4));
+      background-image: -webkit-linear-gradient(#f6f6f6, #f4f4f4);
+      background-image: -moz-linear-gradient(#f6f6f6, #f4f4f4);
+      background-image: -o-linear-gradient(#f6f6f6, #f4f4f4);
+      background-image: linear-gradient(#f6f6f6, #f4f4f4); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003451}}
+    .button.back:after {
+      height: 50%;
+      left: -5px;
+      top: 1px;
+      -webkit-transform: skew(-35deg, 0);
+      -moz-transform: skew(-35deg, 0);
+      -ms-transform: skew(-35deg, 0);
+      -o-transform: skew(-35deg, 0);
+      transform: skew(-35deg, 0);
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f7f7f7), color-stop(100%, #f6f6f6));
+      background-image: -webkit-linear-gradient(#f7f7f7, #f6f6f6);
+      background-image: -moz-linear-gradient(#f7f7f7, #f6f6f6);
+      background-image: -o-linear-gradient(#f7f7f7, #f6f6f6);
+      background-image: linear-gradient(#f7f7f7, #f6f6f6); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003385}}
+  .button.next {
+    border-right: none;
+    -webkit-border-radius: 2px 4px 4px 2px;
+    -moz-border-radius: 2px 4px 4px 2px;
+    -ms-border-radius: 2px 4px 4px 2px;
+    -o-border-radius: 2px 4px 4px 2px;
+    border-radius: 2px 4px 4px 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003490}}
+    .button.next:hover {
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -o-transition: all 1s;
+      transition: all 1s;
+      -webkit-transition-duration: 0.2s;
+      -moz-transition-duration: 0.2s;
+      -o-transition-duration: 0.2s;
+      transition-duration: 0.2s;
+      background: #f4f4f4;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f8f8f8), color-stop(100%, #f4f4f4));
+      background-image: -webkit-linear-gradient(#f8f8f8, #f4f4f4);
+      background-image: -moz-linear-gradient(#f8f8f8, #f4f4f4);
+      background-image: -o-linear-gradient(#f8f8f8, #f4f4f4);
+      background-image: linear-gradient(#f8f8f8, #f4f4f4);
+      -webkit-box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset;
+      -moz-box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset;
+      box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003509}}
+    .button.next:active, .button.next.active, .button.next.checked {
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -o-transition: all 1s;
+      transition: all 1s;
+      -webkit-transition-duration: 0.5s;
+      -moz-transition-duration: 0.5s;
+      -o-transition-duration: 0.5s;
+      transition-duration: 0.5s;
+      background-color: #f4f4f4;
+      border-top-color: #dbdbdb;
+      border-bottom-color: #cccccc;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f5f5f5), color-stop(100%, #f4f4f4));
+      background-image: -webkit-linear-gradient(#f5f5f5, #f4f4f4);
+      background-image: -moz-linear-gradient(#f5f5f5, #f4f4f4);
+      background-image: -o-linear-gradient(#f5f5f5, #f4f4f4);
+      background-image: linear-gradient(#f5f5f5, #f4f4f4);
+      -webkit-box-shadow: #dbdbdb 0 1px 8px 0 inset;
+      -moz-box-shadow: #dbdbdb 0 1px 8px 0 inset;
+      box-shadow: #dbdbdb 0 1px 8px 0 inset; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003525}}
+    .button.next [class^="icon-"] {
+      height: 17px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003390}}
+    .button.next:before, .button.next:after {
+      border-right: 1px solid #dbdbdb;
+      right: -4px;
+      content: '';
+      position: absolute;
+      width: 15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003399}}
+    .button.next:before {
+      height: 50%;
+      top: 1px;
+      right: -5px;
+      -webkit-transform: skew(35deg, 0);
+      -moz-transform: skew(35deg, 0);
+      -ms-transform: skew(35deg, 0);
+      -o-transform: skew(35deg, 0);
+      transform: skew(35deg, 0);
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f7f7f7), color-stop(100%, #f6f6f6));
+      background-image: -webkit-linear-gradient(#f7f7f7, #f6f6f6);
+      background-image: -moz-linear-gradient(#f7f7f7, #f6f6f6);
+      background-image: -o-linear-gradient(#f7f7f7, #f6f6f6);
+      background-image: linear-gradient(#f7f7f7, #f6f6f6); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003410}}
+    .button.next:after {
+      height: 48%;
+      right: -5px;
+      bottom: 1px;
+      -webkit-transform: skew(-35deg, 0);
+      -moz-transform: skew(-35deg, 0);
+      -ms-transform: skew(-35deg, 0);
+      -o-transform: skew(-35deg, 0);
+      transform: skew(-35deg, 0);
+      -webkit-box-shadow: 2px 1px 2px rgba(100, 100, 100, 0.1);
+      -moz-box-shadow: 2px 1px 2px rgba(100, 100, 100, 0.1);
+      box-shadow: 2px 1px 2px rgba(100, 100, 100, 0.1);
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f6f6f6), color-stop(100%, #f4f4f4));
+      background-image: -webkit-linear-gradient(#f6f6f6, #f4f4f4);
+      background-image: -moz-linear-gradient(#f6f6f6, #f4f4f4);
+      background-image: -o-linear-gradient(#f6f6f6, #f4f4f4);
+      background-image: linear-gradient(#f6f6f6, #f4f4f4); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003490}}
+    .button.next:hover {
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -o-transition: all 1s;
+      transition: all 1s;
+      -webkit-transition-duration: 0.2s;
+      -moz-transition-duration: 0.2s;
+      -o-transition-duration: 0.2s;
+      transition-duration: 0.2s;
+      background: #f4f4f4;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f8f8f8), color-stop(100%, #f4f4f4));
+      background-image: -webkit-linear-gradient(#f8f8f8, #f4f4f4);
+      background-image: -moz-linear-gradient(#f8f8f8, #f4f4f4);
+      background-image: -o-linear-gradient(#f8f8f8, #f4f4f4);
+      background-image: linear-gradient(#f8f8f8, #f4f4f4);
+      -webkit-box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset;
+      -moz-box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset;
+      box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003509}}
+    .button.next:active, .button.next.active, .button.next.checked {
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -o-transition: all 1s;
+      transition: all 1s;
+      -webkit-transition-duration: 0.5s;
+      -moz-transition-duration: 0.5s;
+      -o-transition-duration: 0.5s;
+      transition-duration: 0.5s;
+      background-color: #f4f4f4;
+      border-top-color: #dbdbdb;
+      border-bottom-color: #cccccc;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f5f5f5), color-stop(100%, #f4f4f4));
+      background-image: -webkit-linear-gradient(#f5f5f5, #f4f4f4);
+      background-image: -moz-linear-gradient(#f5f5f5, #f4f4f4);
+      background-image: -o-linear-gradient(#f5f5f5, #f4f4f4);
+      background-image: linear-gradient(#f5f5f5, #f4f4f4);
+      -webkit-box-shadow: #dbdbdb 0 1px 8px 0 inset;
+      -moz-box-shadow: #dbdbdb 0 1px 8px 0 inset;
+      box-shadow: #dbdbdb 0 1px 8px 0 inset; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003525}}
+    .button.next [class^="icon-"] {
+      height: 17px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003490}}
+  .button:hover {
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    background: #f4f4f4;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f8f8f8), color-stop(100%, #f4f4f4));
+    background-image: -webkit-linear-gradient(#f8f8f8, #f4f4f4);
+    background-image: -moz-linear-gradient(#f8f8f8, #f4f4f4);
+    background-image: -o-linear-gradient(#f8f8f8, #f4f4f4);
+    background-image: linear-gradient(#f8f8f8, #f4f4f4);
+    -webkit-box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset;
+    -moz-box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset;
+    box-shadow: #c4c4c4 0 1px 1px 0, #f0eeee 0 -2px 2px 0 inset, #f6f6f6 0 2px 3px 0 inset; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003509}}
+  .button:active, .button.active, .button.checked {
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    background-color: #f4f4f4;
+    border-top-color: #dbdbdb;
+    border-bottom-color: #cccccc;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f5f5f5), color-stop(100%, #f4f4f4));
+    background-image: -webkit-linear-gradient(#f5f5f5, #f4f4f4);
+    background-image: -moz-linear-gradient(#f5f5f5, #f4f4f4);
+    background-image: -o-linear-gradient(#f5f5f5, #f4f4f4);
+    background-image: linear-gradient(#f5f5f5, #f4f4f4);
+    -webkit-box-shadow: #dbdbdb 0 1px 8px 0 inset;
+    -moz-box-shadow: #dbdbdb 0 1px 8px 0 inset;
+    box-shadow: #dbdbdb 0 1px 8px 0 inset; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/mindy\/_buttons\.scss}line{font-family:\00003525}}
+  .button [class^="icon-"] {
+    height: 17px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000326}}
+h1,
+.h1 {
+  font-size: 26px;
+  font-weight: 400; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000326}}
+h2,
+.h2 {
+  font-size: 24px;
+  font-weight: 400; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000326}}
+h3,
+.h3 {
+  font-size: 22px;
+  font-weight: 400; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000326}}
+h4,
+.h4 {
+  font-size: 20px;
+  font-weight: 400; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000326}}
+h5,
+.h5 {
+  font-size: 18px;
+  font-weight: 400; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000326}}
+h6,
+.h6 {
+  font-size: 16px;
+  font-weight: 400; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000332}}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-bottom: 10px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000335}}
+  h1 b, h1 strong, h2 b, h2 strong, h3 b, h3 strong, h4 b, h4 strong, h5 b, h5 strong, h6 b, h6 strong {
+    font-weight: 200; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000338}}
+.meditor-block {
+  padding: 4px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000342}}
+  .meditor-block ul, .meditor-block ol {
+    overflow: auto; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/HAPPY\/Users\/antonokulov\/php\/meditor\/app\/www\/static\/sass\/screen\.sass}line{font-family:\0000344}}
+    .meditor-block ul li, .meditor-block ol li {
+      margin-left: 30px; }
