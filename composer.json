@@ -1,0 +1,25 @@
+{
+    "name": "studio107/meditor",
+    "description": "Responsive WYSIWYG Editor",
+    "type": "library",
+    "keywords": [
+        "wysiwyg"
+    ],
+    "homepage": "https://github.com/studio107/meditor",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maxim Falaleev",
+            "email": "max@studio107.ru",
+            "role": "lead"
+        },
+        {
+            "name": "Anton Okulov",
+            "email": "qantus@mail.ru",
+            "role": "developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/studio107/meditor"
+    }
+}

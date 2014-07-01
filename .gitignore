@@ -1,3 +1,10 @@
 .idea
 .sass-cache
-data
+*.swp
+.tern-port
+.DS_Store
+node_modules
+bower_components
+*.sublime*
+*.yml
+vendor
