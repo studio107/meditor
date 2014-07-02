@@ -64,39 +64,6 @@
             }
         },
 
-
-
-        /**
-         * Render html content for block toolbar
-         * @returns {string} html
-         */
-        renderToolbar: function () {
-            var me = this;
-
-            // TODO ugly, refactoring
-            var $toolbar = this._htmlToolbar = $('<nav/>');
-            $toolbar.addClass(this._parent.helpers_class(false));
-
-            var move = this.renderButton(this._parent.move_class(false), '<i class="icon-move"></i>'),
-                del = this.renderButton(this._parent.delete_class(false), '<i class="icon-x"></i>');
-
-            $toolbar.append(move, del);
-
-            return $toolbar;
-        },
-
-        renderResizeHandler: function () {
-            return this.renderButton(this._parent.resizer_class(false));
-        },
-        renderHighlightHelper: function(){
-            return $('<div/>').addClass(this._parent.highlight_helper_class(false));
-        },
-        renderButton: function (className, html) {
-            var $button = $('<span/>');
-            $button.addClass(className).append(html || '');
-            return $button;
-        },
-
         /**
          * Render html content for block popup
          * @returns {string} html
@@ -113,14 +80,8 @@
             return this.getHtmlBlock();
         },
         _render: function() {
-            var block = this.getHtmlBlock(),
-                $toolbar = this.renderToolbar(),
-                $highlight = this.renderHighlightHelper(),
-                $resizer = this.renderResizeHandler();
-
-            var $block = $(block);
-            $block.append($toolbar, $resizer, $highlight);
-            return $block;
+            var block = this.getHtmlBlock();
+            return $(block);
         },
         /**
          * Render html content of htmlblock for editing

@@ -1,7 +1,7 @@
 <nav class="meditor-controls">
     <section class="button-group dropdown">
-        <a href="#" class="button dropdown-toggle" data-toggle="dropdown"><i class=" icon-add"></i> <%= i18n.core['Add block'] %></a>
-        <ul class="dropdown-menu">
+        <a href="#" class="button dropdown" data-dropdown="drop" data-toggle="dropdown"><i class=" icon-add"></i> <%= i18n.core['Add block'] %></a>
+        <ul data-dropdown-content class="f-dropdown" id="drop">
             <% _.each(plugins, function(plugin) { %>
             <li>
                 <a class="add-block" data-popup="<%= plugin.options.hasPopup %>" href="#" data-plugin="<%= plugin.getName() %>" rel="<%= plugin.getNumber() %>">
@@ -12,3 +12,11 @@
         </ul>
     </section>
 </nav>
+<div class="meditor-helpers">
+    <span class="meditor-move">
+        <i class="fa fa-arrows"></i>
+    </span>
+    <span class="meditor-delete">
+        <i class="fa fa-trash-o"></i>
+    </span>
+</div>

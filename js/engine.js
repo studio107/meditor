@@ -59,6 +59,7 @@ EditorCore.prototype = {
     movable: undefined,
     resizable: undefined,
     resizable_prev: undefined,
+    helperable: undefined,
     i18n: undefined,
 
     counter: 0,
@@ -114,11 +115,15 @@ EditorCore.prototype = {
         var cn = 'row';
         return dotted ? '.' + cn : cn;
     },
+    columnClass: function (dotted) {
+        var cn = 'column';
+        return dotted ? '.' + cn : cn;
+    },
     colClass: function (dotted, value) {
         var append = '';
         if (value)
             append = value.toString();
-        var cn = 'col-' + append;
+        var cn = 'large-' + append;
         return dotted ? '.' + cn : cn;
     },
     highlightedClasses: function () {
@@ -132,6 +137,9 @@ EditorCore.prototype = {
         }
         cn = '[class*=".' + this.cn + '-highlighted"]';
         return cn;
+    },
+    movingClasses: function() {
+        return this.rowClass(true) + ', ' + this.columnClass(true) + ', ' + this.blockClass(true);
     },
     area_class: function (dotted) {
         var cn = this.cn + '-area';
@@ -157,10 +165,6 @@ EditorCore.prototype = {
         var cn = this.cn + '-helpers';
         return dotted ? '.' + cn : cn;
     },
-    highlight_helper_class: function (dotted) {
-        var cn = this.cn + '-highlight-helper';
-        return dotted ? '.' + cn : cn;
-    },
     resizer_class: function (dotted) {
         var cn = this.cn + '-resizer';
         return dotted ? '.' + cn : cn;
@@ -182,21 +186,55 @@ EditorCore.prototype = {
             var confirmMessage = me.t('You really want to remove this block?');
 
             if (confirm(confirmMessage)) {
-                $(this).closest(me.blockClass(true)).remove();
+                me.helperable.remove();
+                me.hideHelper();
                 me.clearStrings();
             }
         });
-    },
 
+        $(document).on('mouseover', 'body:not(.moving, .resizing) ' + me.blockClass(true), function (e) {
+            me.showHelper($(e.target));
+        });
+
+        $(document).on('mouseout', me.blockClass(true), function (e) {
+            if ($(e.relatedTarget).closest(me.helpers_class(true)).length <= 0){
+                me.hideHelper();
+            }
+        });
+    },
+    showHelper: function(element) {
+        var helpers = $(this.editor).find(this.helpers_class(true));
+
+        helpers.css({
+            'display': 'block'
+        });
+
+        var element_width = element.width();
+        var helpers_width = helpers.width();
+
+        helpers.css({
+            'margin-left': -helpers_width/2,
+            'top': element.offset().top,
+            'left': element.offset().left + element_width/2
+        });
+        this.helperable = element;
+    },
+    hideHelper: function() {
+        var helpers = $(this.editor).find(this.helpers_class(true));
+        helpers.css({
+            'display': 'none'
+        });
+        this.helperable = undefined;
+    },
     initSortable: function () {
         var $me = this;
-        var moving_selector = this.blockClass(true) + ' ' + this.move_class(true);
+        var moving_selector = this.move_class(true);
         $(document).on('mousedown', moving_selector, function () {
-            $me.movable = $(this).closest($me.blockClass(true));
+            $me.movable = $me.helperable;
             $me.startMove();
         });
-        $(document).on('mousedown', this.blockClass(true) + ' ' + $me.resizer_class(true), function () {
-            $me.resizable = $(this).closest($me.blockClass(true));
+        $(document).on('mousedown', this.columnClass(true) + ' ' + $me.resizer_class(true), function () {
+            $me.resizable = $me.findColumn($(this));
             $me.resizable_prev = $($me.resizable).prev();
             if ($me.resizable_prev.length) {
                 $me.startResize();
@@ -226,28 +264,29 @@ EditorCore.prototype = {
         $('body').addClass('moving');
         $(document).on('mouseup', function (e) {
             var offset = $me.calculateOffset(e.target, e);
-            $me.stopMove(e.target, offset);
+            $me.stopMove($(e.target), offset);
         });
-        $(this.blockClass(true)).on('mouseout', function () {
+        $(this.movingClasses()).on('mouseout', function () {
             $me.clearHighlight();
         });
-        $(this.blockClass(true)).on('mousemove', function (e) {
-            $me.clearHighlight();
-            var offset = $me.calculateOffset(this, e);
-            $me.highlightBlock(this, offset);
+        $(this.movingClasses()).on('mousemove', function (e) {
+            var offset = $me.calculateOffset(e.target, e);
+            $me.highlightBlock($(e.target), offset);
         });
     },
     calculateOffset: function(elem, e){
-        var offset = undefined;
-        var element = $(elem).hasClass(this.blockClass(false)) ? $(elem) : $(elem).closest(this.blockClass(true));
-        if (element.length){
-            var top = e.pageY - element.offset()['top'];
-            var left = e.pageX - element.offset()['left'];
-            offset = {'left': left, 'top': top};
-        }else{
-            offset = {'left': e.offsetX, 'top': e.offsetY};
+        var top = e.offsetY;
+        var left = e.offsetX;
+
+        var element = this.findColumn(elem);
+        if (!element.length && this.isRow(elem)){
+            element = elem;
         }
-        return offset;
+        if (element.length){
+            top = e.pageY - element.offset()['top'];
+            left = e.pageX - element.offset()['left'];
+        }
+        return {'left': left, 'top': top};
     },
     /**
      * Закончили перетаскивать
@@ -260,60 +299,70 @@ EditorCore.prototype = {
         $('body').removeClass('unselectable');
         $('body').removeClass('moving');
         this.clearHighlight();
-        $(this.blockClass(true)).off('mousemove');
-        $(this.blockClass(true)).off('mouseout');
+        $(this.movingClasses()).off('mousemove');
+        $(this.movingClasses()).off('mouseout');
         $(document).off('mouseup');
 
-
-        if (!drop_to.hasClass(this.blockClass(false)) && (drop_to.closest(this.blockClass(true)).length))
-            drop_to = drop_to.closest(this.blockClass(true));
-
-        if (drop_to.hasClass(this.blockClass(false)))
-            if (!drop_to.is($(this.movable))) {
-
-                this.dropped($(this.movable), drop_to, this.getDirection(drop_to, offset));
-            } else if (!drop_to.hasClass(this.colClass(false, this.options.columns))) {
-                this.dropped($(this.movable), drop_to, this.getDirection(drop_to, offset, 'y'));
-            }
+        var dropped_to = this.findColumn(drop_to);
+        var direction = drop_to.is($(this.movable)) ? 'y' : 'xy';
+        if (!dropped_to.length && this.isRow(drop_to)){
+            dropped_to = drop_to;
+            direction = 'y';
+        }
+        if (dropped_to.length) {
+            var drop_from = this.findColumn(this.movable);
+            this.dropped($(this.movable), drop_from, dropped_to, this.getDirection(drop_to, offset, direction));
+        }
 
         this.movable = false;
     },
     /**
      * Расчет изменений
      * @param element
-     * @param to
+     * @param drop_from
+     * @param drop_to (element column or row only)
      * @param direction
      */
-    dropped: function (element, to, direction) {
+    dropped: function (element, drop_from, drop_to, direction) {
         var $me = this;
+
+        var col_to = this.isRow(drop_to) ? 12 : this.getColumnValue(drop_to);
 
         if (direction == 'top' || direction == 'bottom') {
 
-            var row = this.createPureRow();
-            var to_row = to.closest(this.rowClass(true));
-            this.setColumnValue(element, this.options.columns);
-            if (!element.hasClass('first'))
-                element.addClass('first');
-            row.append(element);
+            // Добавляем новую строку
+            if (col_to == this.options.columns) {
+                var to_row = this.isRow(drop_to) ? drop_to : drop_to.closest(this.rowClass(true));
+                var row = this.wrapToRowColumn(element);
 
-            if (direction == 'top') {
-                to_row.before(row);
-            } else if (direction == 'bottom') {
-                to_row.after(row);
+                if (direction == 'top') {
+                    to_row.before(row);
+                } else if (direction == 'bottom') {
+                    to_row.after(row);
+                }
+            // Добавляем в хвост столбца
+            } else {
+                if (direction == 'top') {
+                    drop_to.prepend(element);
+                } else if (direction == 'bottom') {
+                    drop_to.append(element);
+                }
             }
-        } else if (direction == 'left' || direction == 'right') {
-            var col_element = $me.getColumnValue(element);
-            var col_to = $me.getColumnValue(to);
 
+        } else if (direction == 'left' || direction == 'right') {
             if (col_to > 3) {
                 var new_col_element = Math.round(col_to / 2);
                 var new_col_to = col_to - new_col_element;
-                $me.setColumnValue(element, new_col_element);
-                $me.setColumnValue(to, new_col_to);
+
+                this.setColumnValue(drop_to, new_col_to);
+
+                var $newColumn = this.wrapToColumn(element);
+                $newColumn = $me.setColumnValue($newColumn, new_col_element);
+
                 if (direction == 'left') {
-                    $(to).before(element);
+                    $(drop_to).before($newColumn);
                 } else if (direction == 'right') {
-                    $(to).after(element)
+                    $(drop_to).after($newColumn)
                 }
             }
         }
@@ -322,29 +371,32 @@ EditorCore.prototype = {
     },
     /**
      * Подсветить блок
-     * @param highlight_this // HTMLElement
+     * @param element // HTMLElement
      * @param offset // {'left': int,'top': int}
      */
-    highlightBlock: function (highlight_this, offset) {
+    highlightBlock: function (element, offset) {
         this.clearHighlight();
-        var element = $(highlight_this);
-        if (element.hasClass(this.blockClass(false))) {
+        var $column = this.findColumn(element);
+        if ($column.length) {
             var direction = 'top';
-            if (!element.is($(this.movable))) {
-                direction = this.getDirection(element, offset);
-            } else if (!element.hasClass(this.colClass(false, this.options.columns))) {
-                direction = this.getDirection(element, offset, 'y');
+            if (!$column.is($(this.movable))) {
+                direction = this.getDirection($column, offset);
+            } else if ($column.hasClass(this.colClass(false, this.options.columns))) {
+                direction = this.getDirection($column, offset, 'y');
             } else {
                 return false;
             }
 
             if (direction == 'top' || direction == 'bottom') {
-                element.closest(this.rowClass(true)).addClass(this.highlightedClass(direction, false));
+                $column.addClass(this.highlightedClass(direction, false));
             } else {
-                var col_to = this.getColumnValue(element);
+                var col_to = this.getColumnValue($column);
                 if (col_to > 3)
-                    element.addClass(this.highlightedClass(direction, false));
+                    $column.addClass(this.highlightedClass(direction, false));
             }
+        } else if(this.isRow(element)) {
+            direction = this.getDirection(element, offset, 'y');
+            element.addClass(this.highlightedClass(direction, false));
         }
     },
     /**
@@ -364,28 +416,39 @@ EditorCore.prototype = {
      */
     clearStrings: function () {
         var $me = this;
-        var last_element = undefined;
         var counted = 0;
 
-        $(this.rowClass(true)).each(function () {
-            if ($(this).children().length == 0) {
-                $(this).remove()
-            } else {
-                counted = 0;
-                $(this).children($me.blockClass(true)).each(function (index) {
-                    if (index == 0) {
-                        if (!$(this).hasClass('first'))
-                            $(this).addClass('first');
-                    } else {
-                        $(this).removeClass('first');
-                    }
+        $($me.area).find($me.rowClass(true)).each(function () {
+            counted = 0;
+            $(this).find($me.columnClass(true)).each(function () {
+                if ($(this).find($me.blockClass(true)).length > 0){
                     counted += $me.getColumnValue($(this));
-                });
-                if (counted < $me.options.columns) {
-                    var block = $(this).children($me.blockClass(true)).last();
-                    var current = $me.getColumnValue(block);
-                    $me.setColumnValue(block, $me.options.columns - counted + current);
+                } else {
+                    $(this).remove();
                 }
+            });
+
+            if (counted > 0 && counted < $me.options.columns) {
+                var need_append = $me.options.columns - counted;
+                var count_blocks = $(this).find($me.columnClass(true)).length;
+
+                var append_per_block = Math.round(need_append / count_blocks);
+                var append_last_block = need_append - append_per_block * (count_blocks - 1);
+
+                $(this).find($me.columnClass(true)).each(function(index){
+                    var column = $(this);
+                    var current = $me.getColumnValue(column);
+
+                    if (index == count_blocks - 1) {
+                        $me.setColumnValue(column, current+append_last_block);
+                    }else{
+                        $me.setColumnValue(column, current+append_per_block);
+                    }
+                });
+            }
+
+            if ($(this).find($me.columnClass(true)).length == 0) {
+                $(this).remove();
             }
         });
     },
@@ -478,7 +541,7 @@ EditorCore.prototype = {
      * Получение ширины колонки
      */
     getColumnValue: function (block) {
-        var classes = $(block)[0].classList;
+        var classes = block[0].classList;
 
         var cn = '';
         var colClass = this.colClass(false);
@@ -498,9 +561,11 @@ EditorCore.prototype = {
      * @param value
      */
     setColumnValue: function (block, value) {
+        var $block = $(block);
         var current = this.getColumnValue(block);
-        $(block).removeClass(this.colClass(false, current));
-        $(block).addClass(this.colClass(false, value));
+        $block.removeClass(this.colClass(false, current));
+        $block.addClass(this.colClass(false, value));
+        return $block;
     },
     /**
      * Увеличение блока
@@ -525,6 +590,9 @@ EditorCore.prototype = {
             return false;
         }
     },
+    createResizeHandler: function () {
+        return $('<span/>').addClass(this.resizer_class(false));
+    },
     /**
      * Cоздание чистой строки
      * @returns HTMLElement
@@ -533,6 +601,48 @@ EditorCore.prototype = {
         return $('<div/>', {
             class: 'row'
         });
+    },
+    /**
+     * Cоздание чистого блока
+     * @returns HTMLElement
+     */
+    createPureColumn: function () {
+        return $('<div/>', {
+            class: this.columnClass(false) + ' large-12'
+        }).append(this.createResizeHandler());
+    },
+    /**
+     * Обернуть элемент в строку и столбец
+     * @returns HTMLElement
+     */
+    wrapToRowColumn: function ($element) {
+        var row = this.createPureRow();
+        return row.append(this.createPureColumn().append($element));
+    },
+    /**
+     * Обернуть элемент в столбец
+     * @returns HTMLElement
+     */
+    wrapToColumn: function ($element) {
+        return this.createPureColumn().append($element);
+    },
+    /**
+     * Поиск колонки
+     * @returns HTMLElement
+     */
+    findColumn: function (element) {
+        var $element = $(element);
+        if ($element && $element.length > 0){
+            return $element.closest(this.columnClass(true));
+        }
+        return $();
+    },
+    /**
+     * Проверка на строку
+     * @returns bool
+     */
+    isRow: function (element) {
+        return $(element).hasClass(this.rowClass(false));
     },
     /**
      * Добавляем контролы к редактору
@@ -605,7 +715,7 @@ EditorCore.prototype = {
         var $block = $('<div/>', {
             'data-plugin': data['plugin']
         });
-        $block.addClass(this.blockClass(false) + ' col-12 first');
+        $block.addClass(this.blockClass(false));
         this.addBlock($block);
     },
     /**
@@ -614,8 +724,10 @@ EditorCore.prototype = {
      */
     addBlock: function (block) {
         var row = this.createPureRow();
+        var column = this.createPureColumn();
         var maked = this.makeBlock(block);
-        row.append(maked);
+        column.append(maked);
+        row.append(column);
         $(this.area_class(true)).append(row);
         this.blockAfterRender(block);
     },
@@ -625,10 +737,18 @@ EditorCore.prototype = {
     setContent: function () {
         var content = this.$element.val();
         if (!content) {
-            content = $('<div/>', {
-                class: this.cn + '-block col-12 first',
+            var block = $('<div/>', {
                 'data-plugin': 'text'
             });
+            block.addClass(this.blockClass(false));
+
+            var row = this.createPureRow();
+            var column = this.createPureColumn();
+            var maked = this.makeBlock(block);
+            column.append(maked);
+            row.append(column);
+
+            content = $('<div/>').append(row);
         }
         this.setContentByRows(content);
     },
@@ -639,16 +759,18 @@ EditorCore.prototype = {
      */
     setContentByRows: function (content) {
         var $me = this;
-        var out = $('<div/>');
         var row = this.createPureRow();
-        $(content).filter(this.blockClass(true)).each(function (index) {
-            if ($(this).hasClass('first') && index != 0) {
-                $($me.area).append(row);
-                row = $me.createPureRow();
-            }
-            row.append($me.makeBlock(this));
+        $(content).find($me.rowClass(true)).each(function (index) {
+            row = $me.createPureRow();
+            $(this).find($me.columnClass(true)).each(function(index){
+                var column = $me.createPureColumn();
+                $(this).find($me.blockClass(true)).each(function(index){
+                    column.append($me.makeBlock(this));
+                });
+                row.append(column);
+            });
+            $($me.area).append(row);
         });
-        $($me.area).append(row);
         $me.pluginsAfterRender();
     },
     /**
@@ -659,15 +781,7 @@ EditorCore.prototype = {
         var name = $(element).data('plugin'),
             plugin = this.getPlugin(name);
 
-
         return this.initPlugin(plugin, element, name);
-
-        /* Really ugly code
-         if (!(plugin_name && (plugin = this.getPlugin(plugin_name)))) {
-         plugin_name = 'lost';
-         plugin = this.getPlugin(plugin_name);
-         }
-         */
     },
     initPlugin: function (plugin, element, name) {
         this.plugins.push(plugin);
@@ -702,7 +816,7 @@ EditorCore.prototype = {
     getContent: function () {
         var $me = this;
         var out = $('<div/>');
-        $(this.area).find('.row').each(function () {
+        $(this.area).find(this.rowClass(true)).each(function () {
             var cleared = $me.getRowContent($(this));
             out.append(cleared);
         });
@@ -710,7 +824,7 @@ EditorCore.prototype = {
     },
     getRowContent: function (row) {
         var $me = this;
-        var out = $('<div/>').addClass('row');
+        var out = $('<div/>').addClass(this.rowClass(false));
         row.find(this.blockClass(true)).each(function () {
             var cleared = $me.cleanBlock($(this));
             out.append(cleared);
