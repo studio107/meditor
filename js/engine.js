@@ -193,7 +193,10 @@ EditorCore.prototype = {
         });
 
         $(document).on('mouseover', 'body:not(.moving, .resizing) ' + me.blockClass(true), function (e) {
-            me.showHelper($(e.target));
+            var element = $(e.target).closest(me.blockClass(true));
+            if (element.length >= 0){
+                me.showHelper(element);
+            }
         });
 
         $(document).on('mouseout', me.blockClass(true), function (e) {

@@ -139,6 +139,10 @@ $column-gutter: 30px;
         //z-index: -1;
         opacity: 0.3;
       }
+
+      * {
+        outline: none;
+      }
     }
   }
 
