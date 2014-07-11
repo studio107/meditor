@@ -60,7 +60,8 @@
                 onClick: $.noop,
                 onResize: $.noop,
                 // TODO event on close (remove || delete) current block
-                onClose: $.noop
+                onClose: $.noop,
+                onAfterRender: $.noop
             }
         },
 

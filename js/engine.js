@@ -90,7 +90,7 @@ EditorCore.prototype = {
         $(editor).append(this.createControls(), area);
         this.$element.after(this.editor);
         this.initSortable();
-
+        this.pluginsAfterRender();
         return this;
     },
 
@@ -204,6 +204,14 @@ EditorCore.prototype = {
                 me.hideHelper();
             }
         });
+
+        $(document).on('selectstart', me.blockClass(true), function(e){
+            if ($('body').hasClass('unselectable')){
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        });
     },
     showHelper: function(element) {
         var helpers = $(this.editor).find(this.helpers_class(true));
@@ -257,13 +265,19 @@ EditorCore.prototype = {
     getBlockPlugin: function (block) {
         return this.plugins[parseInt($(block).attr('rel'))];
     },
+    setUnselectable: function() {
+        $('body').addClass('unselectable');
+    },
+    setSelectable: function() {
+        $('body').removeClass('unselectable');
+    },
     /**
      * Начали перетаскивать
      */
     startMove: function () {
         var $me = this;
         $($me.movable).addClass($me.moving_class(false));
-        $('body').addClass('unselectable');
+        $me.setUnselectable();
         $('body').addClass('moving');
         $(document).on('mouseup', function (e) {
             var offset = $me.calculateOffset(e.target, e);
@@ -299,7 +313,7 @@ EditorCore.prototype = {
     stopMove: function (drop_to, offset) {
         drop_to = $(drop_to);
         $(this.movable).removeClass(this.moving_class(false));
-        $('body').removeClass('unselectable');
+        this.setSelectable();
         $('body').removeClass('moving');
         this.clearHighlight();
         $(this.movingClasses()).off('mousemove');
@@ -743,12 +757,11 @@ EditorCore.prototype = {
             var block = $('<div/>', {
                 'data-plugin': 'text'
             });
-            block.addClass(this.blockClass(false));
+            block.addClass(this.blockClass(false)).addClass('text-block');
 
             var row = this.createPureRow();
             var column = this.createPureColumn();
-            var maked = this.makeBlock(block);
-            column.append(maked);
+            column.append(block);
             row.append(column);
 
             content = $('<div/>').append(row);
@@ -774,7 +787,6 @@ EditorCore.prototype = {
             });
             $($me.area).append(row);
         });
-        $me.pluginsAfterRender();
     },
     /**
      * Подготовка блока к добавлению на страницу
