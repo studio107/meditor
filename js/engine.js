@@ -336,8 +336,6 @@ EditorCore.prototype = {
 
         var col_to = this.isRow(drop_to) ? 12 : this.getColumnValue(drop_to);
 
-        console.log(drop_to, direction);
-
         if (direction == 'top' || direction == 'bottom') {
 
             // Добавляем новую строку
