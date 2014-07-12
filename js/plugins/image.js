@@ -20,17 +20,12 @@
 
             $(this._htmlBlock).on('drop', function(event){
                 event.preventDefault();
-                if ($(event.target).is(this)){
-                    event.preventDefault();
-                    var dataTransfer = event.originalEvent.dataTransfer;
-                    if (dataTransfer && dataTransfer.files) {
-                        $me.droppedFiles(dataTransfer.files, $(event.target));
-                    }
-                    return false;
+                var dataTransfer = event.originalEvent.dataTransfer;
+                if (dataTransfer && dataTransfer.files) {
+                    $me.droppedFiles(dataTransfer.files, $(this));
                 }
                 return false;
             })
-
         },
         droppedFiles: function(files, block){
             var $me = this;
