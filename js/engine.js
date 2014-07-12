@@ -126,17 +126,9 @@ EditorCore.prototype = {
         var cn = 'large-' + append;
         return dotted ? '.' + cn : cn;
     },
-    highlightedClasses: function () {
-        return ['top', 'left', 'right', 'bottom'];
-    },
-    highlightedClass: function (direction, dotted) {
-        var cn;
-        if (direction) {
-            cn = this.cn + '-highlighted-' + direction;
-            return dotted ? '.' + cn : cn;
-        }
-        cn = '[class*=".' + this.cn + '-highlighted"]';
-        return cn;
+    highlighterClass: function (dotted) {
+        var cn = this.cn + '-highlighter';
+        return dotted ? '.' + cn : cn;
     },
     movingClasses: function() {
         return this.rowClass(true) + ', ' + this.columnClass(true) + ', ' + this.blockClass(true);
@@ -181,7 +173,6 @@ EditorCore.prototype = {
             return true;
         });
 
-        // TODO move to block.js on "onRender" event
         $(document).on('click', me.delete_class(true), function () {
             var confirmMessage = me.t('You really want to remove this block?');
 
@@ -328,7 +319,7 @@ EditorCore.prototype = {
         }
         if (dropped_to.length) {
             var drop_from = this.findColumn(this.movable);
-            this.dropped($(this.movable), drop_from, dropped_to, this.getDirection(drop_to, offset, direction));
+            this.dropped($(this.movable), drop_from, dropped_to, this.getDirection(dropped_to, offset, direction));
         }
 
         this.movable = false;
@@ -344,6 +335,8 @@ EditorCore.prototype = {
         var $me = this;
 
         var col_to = this.isRow(drop_to) ? 12 : this.getColumnValue(drop_to);
+
+        console.log(drop_to, direction);
 
         if (direction == 'top' || direction == 'bottom') {
 
@@ -405,28 +398,33 @@ EditorCore.prototype = {
             }
 
             if (direction == 'top' || direction == 'bottom') {
-                $column.addClass(this.highlightedClass(direction, false));
+                this.highlightElement($column, direction);
             } else {
                 var col_to = this.getColumnValue($column);
-                if (col_to > 3)
-                    $column.addClass(this.highlightedClass(direction, false));
+                if (col_to > 3){
+                    this.highlightElement($column, direction);
+                }
             }
         } else if(this.isRow(element)) {
             direction = this.getDirection(element, offset, 'y');
-            element.addClass(this.highlightedClass(direction, false));
+            this.highlightElement(element, direction);
         }
+        return false;
+    },
+    /**
+     * Подсветить конкретный элемент
+     * @param element // HTMLElement
+     * @param direction // string left|top|right|bottom
+     */
+    highlightElement: function (element, direction) {
+        var highlighter = $('<div/>').addClass(this.highlighterClass(false)).addClass(direction);
+        element.append(highlighter);
     },
     /**
      * Убрать подсветку блоков
      */
     clearHighlight: function () {
-        var i = 0;
-        var directions = this.highlightedClasses();
-        var direction = '';
-        for (i in directions) {
-            direction = directions[i];
-            $(this.highlightedClass(direction, true)).removeClass(this.highlightedClass(direction, false));
-        }
+        $(this.highlighterClass(true)).remove();
     },
     /**
      * Прибираемся в строчках
@@ -508,7 +506,6 @@ EditorCore.prototype = {
 
         return direction;
     },
-
     /**
      * Начали ресайз
      */
@@ -518,7 +515,7 @@ EditorCore.prototype = {
 
         $(document).on('mouseup', function (e) {
             var offset = {'left': e.offsetX, 'top': e.offsetY};
-            $me.stop_resize(e.target, offset);
+            $me.stopResize(e.target, offset);
         });
         var move_function = function (e) {
             var offset = {'left': e.offsetX, 'top': e.offsetY};
@@ -527,7 +524,7 @@ EditorCore.prototype = {
         $(this.resizable).on('mousemove', move_function);
         $($(this.resizable).prev()).on('mousemove', move_function);
     },
-    stop_resize: function () {
+    stopResize: function (target, offset) {
         $('body').removeClass('unselectable').removeClass('resizing');
 
         $(document).off('mouseup');
