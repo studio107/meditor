@@ -283,8 +283,10 @@ EditorCore.prototype = {
         });
     },
     calculateOffset: function(elem, e){
-        var top = e.offsetY;
-        var left = e.offsetX;
+        var event = e.originalEvent;
+        
+        var top = event.offsetY?event.offsetY:event.layerY;
+        var left = event.offsetX?event.offsetX:event.layerX;
 
         var element = this.findColumn(elem);
         if (!element.length && this.isRow(elem)){
@@ -512,11 +514,19 @@ EditorCore.prototype = {
         $('body').addClass('unselectable').addClass('resizing');
 
         $(document).on('mouseup', function (e) {
-            var offset = {'left': e.offsetX, 'top': e.offsetY};
+            var event = e.originalEvent;
+            var offset = {
+                'left': event.offsetX?event.offsetX:event.layerX,
+                'top': event.offsetY?event.offsetY:event.layerY
+            };
             $me.stopResize(e.target, offset);
         });
         var move_function = function (e) {
-            var offset = {'left': e.offsetX, 'top': e.offsetY};
+            var event = e.originalEvent;
+            var offset = {
+                'left': event.offsetX?event.offsetX:event.layerX,
+                'top': event.offsetY?event.offsetY:event.layerY
+            };
             $me.resizing(e.currentTarget, offset);
         };
         $(this.resizable).on('mousemove', move_function);
@@ -531,19 +541,19 @@ EditorCore.prototype = {
     },
     resizing: function (target, offset) {
         var displacement = 0;
-        target = $(target);
+        var $target = $(target);
 
-        if ($(target).is($(this.resizable))) {
+        if ($target.is($(this.resizable))) {
             displacement = offset.left;
             if (displacement > this.options.colmargin) {
-                if (this.dec_column_value(target, 1)) {
+                if (this.dec_column_value($target, 1)) {
                     this.incColumnValue($(this.resizable_prev), 1);
                 }
             }
-        } else if ($(target).is($(this.resizable_prev))) {
-            displacement = target.width() - offset.left;
+        } else if ($target.is($(this.resizable_prev))) {
+            displacement = $target.width() - offset.left;
             if (displacement > this.options.colmargin) {
-                if (this.dec_column_value(target, 1)) {
+                if (this.dec_column_value($target, 1)) {
                     this.incColumnValue($(this.resizable), 1);
                 }
             }
