@@ -284,7 +284,7 @@ EditorCore.prototype = {
     },
     calculateOffset: function(elem, e){
         var event = e.originalEvent;
-        
+
         var top = event.offsetY?event.offsetY:event.layerY;
         var left = event.offsetX?event.offsetX:event.layerX;
 

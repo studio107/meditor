@@ -29,16 +29,12 @@ var sassOpts = {
 };
 
 var dst = {
-    js: 'dist/js',
     css: 'dist/css',
     images: 'dist/images',
     sass: './css'
 };
 
 var paths = {
-    js: [
-        'src/js/**/*.js'
-    ],
     images: 'images/**/*',
     sass: [
         'scss/**/*.scss'
@@ -51,13 +47,6 @@ var paths = {
 gulp.task('fonts', function() {
     return gulp.src('vendor/font-awesome/fonts/*')
         .pipe(gulp.dest('dist/fonts'));
-});
-
-gulp.task('js', function() {
-    return gulp.src(paths.js)
-    // .pipe(uglify())
-    .pipe(concat(version + '.all.js'))
-        .pipe(gulp.dest(dst.js));
 });
 
 gulp.task('images', function() {
