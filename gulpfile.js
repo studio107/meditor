@@ -24,29 +24,42 @@ var imagesOpts = {
 
 var sassOpts = {
     includePaths: [
-        '/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets'
+        '/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets',
+        'bower_components/foundation/scss',
+        'bower_components/mindy-sass/mindy'
     ]
 };
 
 var dst = {
+    js: 'dist/js',
     css: 'dist/css',
     images: 'dist/images',
-    sass: './css'
+    sass: './css',
+    fonts: 'dist/fonts'
 };
 
 var paths = {
+    js: [
+        'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/fastclick/lib/fastclick.js',
+        'bower_components/foundation/js/foundation.min.js',
+        'bower_components/underscore/underscore.js',
+    ],
     images: 'images/**/*',
     sass: [
         'scss/**/*.scss'
     ],
     css: [
-        'css/**/*.css'
+        'css/**/*.css',
+        'bower_components/foundation/css/normalize.css',
+        'bower_components/foundation/css/foundation.css',
+        'bower_components/fontawesome/css/font-awesome.min.css'
     ]
 };
 
 gulp.task('fonts', function() {
-    return gulp.src('vendor/font-awesome/fonts/*')
-        .pipe(gulp.dest('dist/fonts'));
+    return gulp.src('bower_components/fontawesome/fonts/*')
+        .pipe(gulp.dest(dst.fonts));
 });
 
 gulp.task('images', function() {
@@ -62,9 +75,14 @@ gulp.task('sass', function() {
         .pipe(gulp.dest(dst.sass));
 });
 
+gulp.task('js', function() {
+    return gulp.src(paths.js)
+        .pipe(concat(version + '.all.js'))
+        .pipe(gulp.dest(dst.js));
+});
+
 gulp.task('css', ['sass'], function() {
     return gulp.src(paths.css)
-        .pipe(gulp.dest(dst.sass))
         .pipe(minifyCSS(minifyOpts))
         .pipe(concat(version + '.all.css'))
         .pipe(gulp.dest(dst.css));
@@ -79,7 +97,7 @@ gulp.task('watch', ['default'], function() {
             }, 300);
         };
 
-//    gulp.watch(paths.js, ['js']).on('change', liveReloadCallback);
+    gulp.watch(paths.js, ['js']).on('change', liveReloadCallback);
     gulp.watch(paths.images, ['images']);
     gulp.watch(paths.sass, ['css']).on('change', liveReloadCallback);
 });
@@ -92,5 +110,5 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['clean'], function() {
-    return gulp.start('css', 'fonts', 'images');
+    return gulp.start('css', 'js', 'fonts', 'images');
 });
