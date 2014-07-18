@@ -901,7 +901,7 @@ EditorCore.prototype = {
             script.parentNode.insertBefore(newjs, script);
         },
         template: function (src) {
-            var name = src.split('/').pop().replace('.jst'), tpl;
+            var name = src.split('/').pop().replace('.jst',''), tpl;
 
             if ((name in this._templates) == false) {
                 $.ajax({
