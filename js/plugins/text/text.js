@@ -21,8 +21,9 @@
         // TODO refactoring
         getContent: function () {
             var $htmlBlock = $(this._htmlBlock).clone(),
-                $editable = $htmlBlock.find(this.editableClass(true)),
-                content = $editable.html();
+                $editable = $htmlBlock.find(this.editableClass(true));
+
+            var content = CKEDITOR.instances[$editable.attr('id')].getData();
 
             $editable.remove();
             $htmlBlock.html(content);
@@ -64,7 +65,8 @@
             CKEDITOR.disableAutoInline = true;
             $('.text-block').each(function(){
                 var editable = $(this).find(me.editableClass(true));
-                if (editable.length && !editable.hasClass('cke_editable')){
+                if (editable.length && !editable.hasClass('enabled')){
+                    editable.addClass('enabled');
                     CKEDITOR.inline( editable.attr('id') );
                 }
             });

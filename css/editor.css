@@ -1,28 +1,37 @@
+.meditor p {
+  margin: 0;
+  padding: 0; }
 .meditor .meditor-controls {
   margin-bottom: 15px; }
 .meditor .meditor-helpers {
   display: none;
-  top: 5px;
   z-index: 2000;
   position: absolute;
-  width: auto;
+  width: 25px;
   text-align: center;
-  margin-top: 5px; }
+  margin-top: 10px;
+  margin-left: -3px; }
   .meditor .meditor-helpers > span {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
+    display: block;
     padding: 0;
-    float: left;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
+    height: 25px;
+    line-height: 25px;
     font-size: 13px;
-    margin: 0 2px;
-    background-color: #ccc;
-    border: 1px solid #777; }
+    background-color: #E6E6E6;
+    border-bottom: 1px solid #D5D5D5; }
+    .meditor .meditor-helpers > span:first-child {
+      -webkit-border-radius: 3px 3px 0 0;
+      -moz-border-radius: 3px 3px 0 0;
+      -ms-border-radius: 3px 3px 0 0;
+      -o-border-radius: 3px 3px 0 0;
+      border-radius: 3px 3px 0 0; }
+    .meditor .meditor-helpers > span:last-child {
+      -webkit-border-radius: 0 0 3px 3px;
+      -moz-border-radius: 0 0 3px 3px;
+      -ms-border-radius: 0 0 3px 3px;
+      -o-border-radius: 0 0 3px 3px;
+      border-radius: 0 0 3px 3px;
+      border-bottom: none; }
   .meditor .meditor-helpers .meditor-move {
     cursor: move; }
   .meditor .meditor-helpers .meditor-delete {
@@ -36,28 +45,30 @@
     cursor: col-resize;
     display: block;
     position: absolute;
-    height: 100%;
     margin-left: -15px;
     width: 30px;
-    top: 0px;
-    left: 0px; }
+    top: -10px;
+    left: 0px;
+    bottom: -10px; }
+    .meditor .meditor-area .row .column .meditor-resizer:hover {
+      background-color: #dadada; }
   .meditor .meditor-area .row .column.large-12 .meditor-resizer {
     display: none; }
 .meditor .meditor-area .meditor-block {
   position: relative;
-  min-height: 70px;
-  -webkit-box-shadow: 0 0 0 1px #ccc;
-  -moz-box-shadow: 0 0 0 1px #ccc;
-  -ms-box-shadow: 0 0 0 1px #ccc;
-  -o-box-shadow: 0 0 0 1px #ccc;
-  box-shadow: 0 0 0 1px #ccc;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px; }
+  min-height: 70px; }
   .meditor .meditor-area .meditor-block.meditor-moving {
     opacity: 0.3; }
+  .meditor .meditor-area .meditor-block:hover:after {
+    border: 1px solid #ccc;
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: -10px;
+    right: -10px;
+    top: -10px;
+    bottom: -10px;
+    z-index: -10; }
   .meditor .meditor-area .meditor-block * {
     outline: none; }
 .meditor .meditor-highlighter {

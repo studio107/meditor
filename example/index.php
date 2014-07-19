@@ -26,7 +26,28 @@
 </head>
 <body>
 
-<textarea name="editor" id="meditor" cols="30" rows="10"></textarea>
+<?php if (isset($_POST['editor'])) {
+    $name = isset($_GET['file']) ? $_GET['file'] : time();
+    file_put_contents(__DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $name, $_POST['editor']);
+    ?>
+    <h1>File saved!</h1>
+    <?php
+}else{ ?>
+
+<form action="" method="post">
+    <?php
+    $value = '';
+    if (isset($_GET['file'])){
+        $value = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $_GET['file']);
+    } ?>
+
+    <input type="hidden" name="opened" value="<?php echo isset($_GET['file']) ? $_GET['file'] : ''?>"/>
+    <textarea name="editor" id="meditor" cols="30" rows="10"><?php echo $value ?></textarea>
+
+    <button class="button" type="submit">Save</button>
+</form>
+
+<?php } ?>
 <script>
     var editor = meditor.init('#meditor', {
         language: 'ru',

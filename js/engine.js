@@ -168,9 +168,7 @@ EditorCore.prototype = {
         var me = this;
 
         this.$element.closest('form').on('submit', function () {
-            ///console.log(me.getContent());
             me.$element.val(me.getContent());
-            return true;
         });
 
         $(document).on('click', me.delete_class(true), function () {
@@ -212,12 +210,10 @@ EditorCore.prototype = {
         });
 
         var element_width = element.width();
-        var helpers_width = helpers.width();
 
         helpers.css({
-            'margin-left': -helpers_width/2,
             'top': element.offset().top,
-            'left': element.offset().left + element_width/2
+            'left': element.offset().left + element_width
         });
         this.helperable = element;
     },
@@ -770,6 +766,8 @@ EditorCore.prototype = {
             row.append(column);
 
             content = $('<div/>').append(row);
+        }else{
+            content = $('<div/>').html(content);
         }
         this.setContentByRows(content);
     },
@@ -784,7 +782,7 @@ EditorCore.prototype = {
         $(content).find($me.rowClass(true)).each(function (index) {
             row = $me.createPureRow();
             $(this).find($me.columnClass(true)).each(function(index){
-                var column = $me.createPureColumn();
+                var column = $(this).append($me.createResizeHandler());
                 $(this).find($me.blockClass(true)).each(function(index){
                     column.append($me.makeBlock(this));
                 });
@@ -844,10 +842,14 @@ EditorCore.prototype = {
     },
     getRowContent: function (row) {
         var $me = this;
-        var out = $('<div/>').addClass(this.rowClass(false));
-        row.find(this.blockClass(true)).each(function () {
-            var cleared = $me.cleanBlock($(this));
-            out.append(cleared);
+        var out = $('<div/>').addClass($me.rowClass(false));
+        row.find($me.columnClass(true)).each(function () {
+            var out_column = $(this).clone().html('');
+            $(this).find($me.blockClass(true)).each(function () {
+                var cleared = $me.cleanBlock($(this));
+                out_column.append(cleared);
+            });
+            out.append(out_column);
         });
         return out;
     },

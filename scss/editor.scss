@@ -13,38 +13,51 @@ $meditorBorderColor: #ccc;
 $meditorBorderColorHover: #777;
 $meditorBorderColorMove: #555;
 $meditorBorderWidthMove: 3px;
+$meditorHelperBg: #E6E6E6;
+$meditorHelperBorder: #D5D5D5;
 
 $column-gutter: 30px;
 
 .meditor {
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
   .meditor-controls {
     margin-bottom: 15px;
   }
 
   .meditor-helpers {
+    $helperHeight: 25px;
+
     display: none;
-    top: 5px;
     z-index: 2000;
     position: absolute;
-    width: auto;
+    width: $helperHeight;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-left: -3px;
 
     &>span {
-      @include border-radius(3px);
-
+      display: block;
       padding: 0;
-      float: left;
-
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
+      height: $helperHeight;
+      line-height: $helperHeight;
 
       font-size: 13px;
-      margin: 0 2px;
 
-      background-color: $meditorBorderColor;
-      border: 1px solid $meditorBorderColorHover;
+      background-color: $meditorHelperBg;
+      border-bottom: 1px solid $meditorHelperBorder;
+
+      &:first-child {
+        @include border-radius(3px 3px 0 0);
+      }
+
+      &:last-child {
+        @include border-radius(0 0 3px 3px);
+        border-bottom: none;
+      }
     }
 
     .meditor-move {
@@ -70,11 +83,15 @@ $column-gutter: 30px;
           cursor: col-resize;
           display: block;
           position: absolute;
-          height: 100%;
           margin-left: -$column-gutter/2;
           width: $column-gutter;
-          top: 0px;
+          top: -10px;
           left: 0px;
+          bottom: -10px;
+
+          &:hover {
+            background-color: #dadada;
+          }
         }
 
         &.large-12 {
@@ -88,11 +105,23 @@ $column-gutter: 30px;
     .meditor-block {
       position: relative;
       min-height: 70px;
-      @include box-shadow(0 0 0 1px $meditorBorderColor);
-      @include border-radius(3px);
 
       &.meditor-moving {
         opacity: 0.3;
+      }
+
+      &:hover {
+        &:after {
+          border: 1px solid $meditorBorderColor;
+          content: ' ';
+          display: block;
+          position: absolute;
+          left: -10px;
+          right: -10px;
+          top: -10px;
+          bottom: -10px;
+          z-index: -10;
+        }
       }
 
       * {
@@ -136,8 +165,6 @@ $column-gutter: 30px;
     }
   }
 }
-
-
 
 .unselectable {
   -webkit-touch-callout: none;
