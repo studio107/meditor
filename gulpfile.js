@@ -35,7 +35,8 @@ var dst = {
     css: 'dist/css',
     images: 'dist/images',
     sass: './css',
-    fonts: 'dist/fonts'
+    fonts: 'dist/fonts',
+    vendors: './vendors'
 };
 
 var paths = {
@@ -43,8 +44,9 @@ var paths = {
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/fastclick/lib/fastclick.js',
         'bower_components/foundation/js/foundation.min.js',
-        'bower_components/underscore/underscore.js',
+        'bower_components/underscore/underscore.js'
     ],
+
     images: 'images/**/*',
     sass: [
         'scss/**/*.scss'
@@ -56,6 +58,11 @@ var paths = {
         'bower_components/fontawesome/css/font-awesome.min.css'
     ]
 };
+
+gulp.task('ckeditor', function() {
+    return gulp.src('bower_components/ckeditor/**')
+        .pipe(gulp.dest('vendors/ckeditor'));
+});
 
 gulp.task('fonts', function() {
     return gulp.src('bower_components/fontawesome/fonts/*')
@@ -110,5 +117,5 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['clean'], function() {
-    return gulp.start('css', 'js', 'fonts', 'images');
+    return gulp.start('css', 'js', 'fonts', 'images', 'ckeditor');
 });
