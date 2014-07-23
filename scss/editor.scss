@@ -16,6 +16,8 @@ $meditorBorderWidthMove: 3px;
 $meditorHelperBg: #E6E6E6;
 $meditorHelperBorder: #D5D5D5;
 
+$meditorMinHeightBlock: 70px;
+
 $column-gutter: 30px;
 
 .meditor {
@@ -89,12 +91,32 @@ $column-gutter: 30px;
           left: 0px;
           bottom: -10px;
 
+          &:after {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            border-left: 1px dashed #cacaca;
+            display: none;
+            content: ' ';
+          }
+
           &:hover {
-            background-color: #dadada;
+            &:after {
+              display: block;
+            }
           }
         }
 
-        &.large-12 {
+        &.resizing {
+          .meditor-resizer {
+            &:after {
+              display: block;
+            }
+          }
+        }
+
+        &:first-child {
           .meditor-resizer {
             display: none;
           }
@@ -104,10 +126,36 @@ $column-gutter: 30px;
 
     .meditor-block {
       position: relative;
-      min-height: 70px;
+      min-height: $meditorMinHeightBlock;
 
       &.meditor-moving {
         opacity: 0.3;
+      }
+
+      // Plug. ex: Click here to edit text / upload image
+      .plug {
+        background-color: #F8F8F8;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        display: none;
+
+        line-height: $meditorMinHeightBlock;
+        text-align: center;
+
+        color: #CECECE;
+        font-size: 14px;
+
+        .plug-info {
+          display: inline-block;
+          line-height: 1.2;
+        }
+      }
+
+      &.plugged .plug {
+        display: block;
       }
 
       &:hover {

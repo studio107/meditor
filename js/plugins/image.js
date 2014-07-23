@@ -27,6 +27,19 @@
                 return false;
             })
         },
+        renderPlug: function(){
+            var $plug = this.makePlug();
+            $plug.append($('<div/>').addClass('plug-info').html(this.t('Drop image here')));
+            return $plug;
+        },
+        render: function () {
+            var block = this.getHtmlBlock();
+            $(block).append(this.renderPlug());
+            if ($(block).find('img').length <= 0) {
+                this.showPlug();
+            }
+            return this._render()[0]
+        },
         droppedFiles: function(files, block){
             var $me = this;
             if (files.length > 0){
@@ -37,7 +50,8 @@
             }
         },
         insertFile: function(file, data, block){
-            block.html('');
+            this.hidePlug();
+            block.find('img').remove();
             var $img = $('<img/>').attr('src', data);
             block.append($img);
         },

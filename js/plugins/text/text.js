@@ -6,14 +6,6 @@
             var cn = 'text-editable';
             return dotted ? '.' + cn : cn;
         },
-        textToolbarClass: function(dotted){
-            var cn = 'text-toolbar';
-            return dotted ? '.' + cn : cn;
-        },
-        textBoldClass: function(dotted){
-            var cn = 'text-bold';
-            return dotted ? '.' + cn : cn;
-        },
         getI18nName: function () {
             return this.t('Text block');
         },
@@ -33,10 +25,16 @@
         attachHandlers: function(){
             var $me = this;
             $(this._htmlBlock).on('click',function(e){
-                if ($(e.target).is(this)){
+                if ($(e.target).is(this) || $(e.target).closest('.plug').length > 0){
+                    $me.hidePlug();
                     $(this).find($me.editableClass(true)).focusEnd();
                 }
             });
+        },
+        renderPlug: function(){
+            var $plug = this.makePlug();
+            $plug.append($('<div/>').addClass('plug-info').html(this.t('Click here to edit text')));
+            return $plug;
         },
         // TODO refactoring
         render: function () {
@@ -50,6 +48,11 @@
             $editable.attr('id', id);
 
             $(block).append($editable);
+            $(block).append(this.renderPlug());
+            if (!html){
+                this.showPlug();
+            }
+
             return this._render()[0];
         },
         events: function () {

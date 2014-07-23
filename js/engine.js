@@ -78,7 +78,7 @@ EditorCore.prototype = {
         this.$element.hide();
 
         var editor = $('<div/>', {class: this.cn}),
-            area = $('<div/>', {class: this.area_class(false)});
+            area = $('<div/>', {class: this.areaClass(false)});
 
         this.editor = editor;
         this.area = area;
@@ -130,35 +130,47 @@ EditorCore.prototype = {
         var cn = this.cn + '-highlighter';
         return dotted ? '.' + cn : cn;
     },
+    plugClass: function (dotted) {
+        var cn = 'plug';
+        return dotted ? '.' + cn : cn;
+    },
+    pluggedClass: function (dotted) {
+        var cn = 'plugged';
+        return dotted ? '.' + cn : cn;
+    },
     movingClasses: function() {
         return this.rowClass(true) + ', ' + this.columnClass(true) + ', ' + this.blockClass(true);
     },
-    area_class: function (dotted) {
+    areaClass: function (dotted) {
         var cn = this.cn + '-area';
         return dotted ? '.' + cn : cn;
     },
-    controls_class: function (dotted) {
+    controlsClass: function (dotted) {
         var cn = this.cn + '-controls';
         return dotted ? '.' + cn : cn;
     },
-    move_class: function (dotted) {
+    moveClass: function (dotted) {
         var cn = this.cn + '-move';
         return dotted ? '.' + cn : cn;
     },
-    delete_class: function (dotted) {
+    deleteClass: function (dotted) {
         var cn = this.cn + '-delete';
         return dotted ? '.' + cn : cn;
     },
-    moving_class: function (dotted) {
+    movingClass: function (dotted) {
         var cn = this.cn + '-moving';
         return dotted ? '.' + cn : cn;
     },
-    helpers_class: function (dotted) {
+    helpersClass: function (dotted) {
         var cn = this.cn + '-helpers';
         return dotted ? '.' + cn : cn;
     },
-    resizer_class: function (dotted) {
+    resizerClass: function (dotted) {
         var cn = this.cn + '-resizer';
+        return dotted ? '.' + cn : cn;
+    },
+    resizingClass: function (dotted) {
+        var cn = 'resizing';
         return dotted ? '.' + cn : cn;
     },
     /**
@@ -171,7 +183,7 @@ EditorCore.prototype = {
             me.$element.val(me.getContent());
         });
 
-        $(document).on('click', me.delete_class(true), function () {
+        $(document).on('click', me.deleteClass(true), function () {
             var confirmMessage = me.t('You really want to remove this block?');
 
             if (confirm(confirmMessage)) {
@@ -189,7 +201,7 @@ EditorCore.prototype = {
         });
 
         $(document).on('mouseout', me.blockClass(true), function (e) {
-            if ($(e.relatedTarget).closest(me.helpers_class(true)).length <= 0){
+            if ($(e.relatedTarget).closest(me.helpersClass(true)).length <= 0){
                 me.hideHelper();
             }
         });
@@ -203,7 +215,7 @@ EditorCore.prototype = {
         });
     },
     showHelper: function(element) {
-        var helpers = $(this.editor).find(this.helpers_class(true));
+        var helpers = $(this.editor).find(this.helpersClass(true));
 
         helpers.css({
             'display': 'block'
@@ -218,7 +230,7 @@ EditorCore.prototype = {
         this.helperable = element;
     },
     hideHelper: function() {
-        var helpers = $(this.editor).find(this.helpers_class(true));
+        var helpers = $(this.editor).find(this.helpersClass(true));
         helpers.css({
             'display': 'none'
         });
@@ -226,12 +238,12 @@ EditorCore.prototype = {
     },
     initSortable: function () {
         var $me = this;
-        var moving_selector = this.move_class(true);
+        var moving_selector = this.moveClass(true);
         $(document).on('mousedown', moving_selector, function () {
             $me.movable = $me.helperable;
             $me.startMove();
         });
-        $(document).on('mousedown', this.columnClass(true) + ' ' + $me.resizer_class(true), function () {
+        $(document).on('mousedown', this.columnClass(true) + ' ' + $me.resizerClass(true), function () {
             $me.resizable = $me.findColumn($(this));
             $me.resizable_prev = $($me.resizable).prev();
             if ($me.resizable_prev.length) {
@@ -263,7 +275,7 @@ EditorCore.prototype = {
      */
     startMove: function () {
         var $me = this;
-        $($me.movable).addClass($me.moving_class(false));
+        $($me.movable).addClass($me.movingClass(false));
         $me.setUnselectable();
         $('body').addClass('moving');
         $(document).on('mouseup', function (e) {
@@ -301,7 +313,7 @@ EditorCore.prototype = {
      */
     stopMove: function (drop_to, offset) {
         drop_to = $(drop_to);
-        $(this.movable).removeClass(this.moving_class(false));
+        $(this.movable).removeClass(this.movingClass(false));
         this.setSelectable();
         $('body').removeClass('moving');
         this.clearHighlight();
@@ -507,7 +519,7 @@ EditorCore.prototype = {
      */
     startResize: function () {
         var $me = this;
-        $('body').addClass('unselectable').addClass('resizing');
+        $('body').addClass('unselectable').addClass(this.resizingClass(false));
 
         $(document).on('mouseup', function (e) {
             var event = e.originalEvent;
@@ -525,6 +537,8 @@ EditorCore.prototype = {
             };
             $me.resizing(e.currentTarget, offset);
         };
+
+        $(this.resizable).addClass(this.resizingClass(false));
         $(this.resizable).on('mousemove', move_function);
         $($(this.resizable).prev()).on('mousemove', move_function);
     },
@@ -532,6 +546,8 @@ EditorCore.prototype = {
         $('body').removeClass('unselectable').removeClass('resizing');
 
         $(document).off('mouseup');
+
+        $(this.resizable).removeClass(this.resizingClass(false));
         $(this.resizable).off('mousemove');
         $($(this.resizable).prev()).off('mousemove');
     },
@@ -609,7 +625,7 @@ EditorCore.prototype = {
         }
     },
     createResizeHandler: function () {
-        return $('<span/>').addClass(this.resizer_class(false));
+        return $('<span/>').addClass(this.resizerClass(false));
     },
     /**
      * Cоздание чистой строки
@@ -668,7 +684,7 @@ EditorCore.prototype = {
     createControls: function () {
         // TODO к текущему шагу уже должны быть инициализированы плагины
 
-        var $controls = $('<div/>', {class: this.controls_class(false)}),
+        var $controls = $('<div/>', {class: this.controlsClass(false)}),
             $me = this,
             controlsHtml = this.renderTemplate('/templates/editor.jst', {
                 plugins: this._plugins
@@ -746,7 +762,7 @@ EditorCore.prototype = {
         var maked = this.makeBlock(block);
         column.append(maked);
         row.append(column);
-        $(this.area_class(true)).append(row);
+        $(this.areaClass(true)).append(row);
         this.blockAfterRender(block);
     },
     /**
@@ -782,6 +798,7 @@ EditorCore.prototype = {
         $(content).find($me.rowClass(true)).each(function (index) {
             row = $me.createPureRow();
             $(this).find($me.columnClass(true)).each(function(index){
+                $(this).find($me.resizerClass(true)).remove();
                 var column = $(this).append($me.createResizeHandler());
                 $(this).find($me.blockClass(true)).each(function(index){
                     column.append($me.makeBlock(this));
@@ -864,7 +881,10 @@ EditorCore.prototype = {
 
         block = plugin.getContent();
 
-        $(block).find(this.helpers_class(true) + ', ' + this.resizer_class(true)).remove();
+        $(block).find(this.helpersClass(true)).remove();
+        $(block).find(this.resizerClass(true)).remove();
+        $(block).find(this.plugClass(true)).remove();
+
         $(block).removeAttr('rel');
 
         return block;

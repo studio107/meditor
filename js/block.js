@@ -72,6 +72,37 @@
         renderPopup: function () {
             return '';
         },
+
+        /**
+         * Make clean plug
+         * @returns {*|jQuery}
+         */
+        makePlug: function() {
+            return $('<div/>').addClass(this._parent.plugClass(false));
+        },
+
+        /**
+         * Render plug for block
+         * @returns {string} html
+         */
+        renderPlug: function () {
+            return this.makePlug();
+        },
+
+        /**
+         * Show plug for block
+         */
+        showPlug: function() {
+            $(this._htmlBlock).addClass('plugged');
+        },
+
+        /**
+         * Hide plug
+         */
+        hidePlug: function() {
+            $(this._htmlBlock).removeClass('plugged');
+        },
+
         /**
          * Render html content of htmlblock for view
          * @returns {string}
