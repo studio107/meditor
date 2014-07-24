@@ -94,11 +94,11 @@ EditorCore.prototype = {
         return this;
     },
 
-    pluginsInit: function() {
+    pluginsInit: function () {
         // TODO refactoring
         var name;
 
-        for(name in this.options.plugins) {
+        for (name in this.options.plugins) {
             var plugin = this.options.plugins[name];
             this._plugins[name] = new plugin(name, this);
         }
@@ -138,7 +138,7 @@ EditorCore.prototype = {
         var cn = 'plugged';
         return dotted ? '.' + cn : cn;
     },
-    movingClasses: function() {
+    movingClasses: function () {
         return this.rowClass(true) + ', ' + this.columnClass(true) + ', ' + this.blockClass(true);
     },
     areaClass: function (dotted) {
@@ -195,26 +195,26 @@ EditorCore.prototype = {
 
         $(document).on('mouseover', 'body:not(.moving, .resizing) ' + me.blockClass(true), function (e) {
             var element = $(e.target).closest(me.blockClass(true));
-            if (element.length >= 0){
+            if (element.length >= 0) {
                 me.showHelper(element);
             }
         });
 
         $(document).on('mouseout', me.blockClass(true), function (e) {
-            if ($(e.relatedTarget).closest(me.helpersClass(true)).length <= 0){
+            if ($(e.relatedTarget).closest(me.helpersClass(true)).length <= 0) {
                 me.hideHelper();
             }
         });
 
-        $(document).on('selectstart', me.blockClass(true), function(e){
-            if ($('body').hasClass('unselectable')){
+        $(document).on('selectstart', me.blockClass(true), function (e) {
+            if ($('body').hasClass('unselectable')) {
                 e.preventDefault();
                 e.stopPropagation();
                 return false;
             }
         });
     },
-    showHelper: function(element) {
+    showHelper: function (element) {
         var helpers = $(this.editor).find(this.helpersClass(true));
 
         helpers.css({
@@ -229,7 +229,7 @@ EditorCore.prototype = {
         });
         this.helperable = element;
     },
-    hideHelper: function() {
+    hideHelper: function () {
         var helpers = $(this.editor).find(this.helpersClass(true));
         helpers.css({
             'display': 'none'
@@ -256,7 +256,7 @@ EditorCore.prototype = {
     },
     getPlugin: function (name) {
         var plugin = this.options.plugins[name];
-        if(!plugin) {
+        if (!plugin) {
             plugin = this.options.plugins['lost'];
         }
         return new plugin(name, this);
@@ -264,10 +264,10 @@ EditorCore.prototype = {
     getBlockPlugin: function (block) {
         return this.plugins[parseInt($(block).attr('rel'))];
     },
-    setUnselectable: function() {
+    setUnselectable: function () {
         $('body').addClass('unselectable');
     },
-    setSelectable: function() {
+    setSelectable: function () {
         $('body').removeClass('unselectable');
     },
     /**
@@ -290,17 +290,17 @@ EditorCore.prototype = {
             $me.highlightBlock($(e.target), offset);
         });
     },
-    calculateOffset: function(elem, e){
+    calculateOffset: function (elem, e) {
         var event = e.originalEvent;
 
-        var top = event.offsetY?event.offsetY:event.layerY;
-        var left = event.offsetX?event.offsetX:event.layerX;
+        var top = event.offsetY ? event.offsetY : event.layerY;
+        var left = event.offsetX ? event.offsetX : event.layerX;
 
         var element = this.findColumn(elem);
-        if (!element.length && this.isRow(elem)){
+        if (!element.length && this.isRow(elem)) {
             element = elem;
         }
-        if (element.length){
+        if (element.length) {
             top = e.pageY - element.offset()['top'];
             left = e.pageX - element.offset()['left'];
         }
@@ -323,7 +323,7 @@ EditorCore.prototype = {
 
         var dropped_to = this.findColumn(drop_to);
         var direction = drop_to.is($(this.movable)) ? 'y' : 'xy';
-        if (!dropped_to.length && this.isRow(drop_to)){
+        if (!dropped_to.length && this.isRow(drop_to)) {
             dropped_to = drop_to;
             direction = 'y';
         }
@@ -358,7 +358,7 @@ EditorCore.prototype = {
                 } else if (direction == 'bottom') {
                     to_row.after(row);
                 }
-            // Добавляем в хвост столбца
+                // Добавляем в хвост или голову столбца
             } else {
                 if (direction == 'top') {
                     drop_to.prepend(element);
@@ -405,15 +405,21 @@ EditorCore.prototype = {
                 return false;
             }
 
+            var col_to = this.getColumnValue($column);
+
             if (direction == 'top' || direction == 'bottom') {
-                this.highlightElement($column, direction);
+                if (col_to == this.options.columns) {
+                    var $element = $column.closest(this.rowClass(true));
+                    this.highlightElement($element, direction);
+                } else {
+                    this.highlightElement($column, direction);
+                }
             } else {
-                var col_to = this.getColumnValue($column);
-                if (col_to > 3){
+                if (col_to > 3) {
                     this.highlightElement($column, direction);
                 }
             }
-        } else if(this.isRow(element)) {
+        } else if (this.isRow(element)) {
             direction = this.getDirection(element, offset, 'y');
             this.highlightElement(element, direction);
         }
@@ -425,6 +431,23 @@ EditorCore.prototype = {
      * @param direction // string left|top|right|bottom
      */
     highlightElement: function (element, direction) {
+        // Меняем подсветку текущего блока на следующий (дабы выделение не скакало как бешеное)
+        if (this.isRow(element) && direction == 'bottom') {
+            var next = element.next(this.rowClass(true));
+            if (next.length > 0) {
+                element = $(next[0]);
+                direction = 'top';
+            }
+        }
+
+        if (this.isColumn(element) && direction == 'right') {
+            var next = element.next(this.columnClass(true));
+            if (next.length > 0) {
+                element = $(next[0]);
+                direction = 'left';
+            }
+        }
+
         var highlighter = $('<div/>').addClass(this.highlighterClass(false)).addClass(direction);
         element.append(highlighter);
     },
@@ -444,7 +467,7 @@ EditorCore.prototype = {
         $($me.area).find($me.rowClass(true)).each(function () {
             counted = 0;
             $(this).find($me.columnClass(true)).each(function () {
-                if ($(this).find($me.blockClass(true)).length > 0){
+                if ($(this).find($me.blockClass(true)).length > 0) {
                     counted += $me.getColumnValue($(this));
                 } else {
                     $(this).remove();
@@ -458,14 +481,14 @@ EditorCore.prototype = {
                 var append_per_block = Math.round(need_append / count_blocks);
                 var append_last_block = need_append - append_per_block * (count_blocks - 1);
 
-                $(this).find($me.columnClass(true)).each(function(index){
+                $(this).find($me.columnClass(true)).each(function (index) {
                     var column = $(this);
                     var current = $me.getColumnValue(column);
 
                     if (index == count_blocks - 1) {
-                        $me.setColumnValue(column, current+append_last_block);
-                    }else{
-                        $me.setColumnValue(column, current+append_per_block);
+                        $me.setColumnValue(column, current + append_last_block);
+                    } else {
+                        $me.setColumnValue(column, current + append_per_block);
                     }
                 });
             }
@@ -524,16 +547,16 @@ EditorCore.prototype = {
         $(document).on('mouseup', function (e) {
             var event = e.originalEvent;
             var offset = {
-                'left': event.offsetX?event.offsetX:event.layerX,
-                'top': event.offsetY?event.offsetY:event.layerY
+                'left': event.offsetX ? event.offsetX : event.layerX,
+                'top': event.offsetY ? event.offsetY : event.layerY
             };
             $me.stopResize(e.target, offset);
         });
         var move_function = function (e) {
             var event = e.originalEvent;
             var offset = {
-                'left': event.offsetX?event.offsetX:event.layerX,
-                'top': event.offsetY?event.offsetY:event.layerY
+                'left': event.offsetX ? event.offsetX : event.layerX,
+                'top': event.offsetY ? event.offsetY : event.layerY
             };
             $me.resizing(e.currentTarget, offset);
         };
@@ -551,6 +574,7 @@ EditorCore.prototype = {
         $(this.resizable).off('mousemove');
         $($(this.resizable).prev()).off('mousemove');
     },
+
     resizing: function (target, offset) {
         var displacement = 0;
         var $target = $(target);
@@ -571,6 +595,7 @@ EditorCore.prototype = {
             }
         }
     },
+
     /**
      * Получение ширины колонки
      */
@@ -589,6 +614,7 @@ EditorCore.prototype = {
         }
         return 0;
     },
+
     /**
      * Установка ширины колонки
      * @param block
@@ -601,6 +627,7 @@ EditorCore.prototype = {
         $block.addClass(this.colClass(false, value));
         return $block;
     },
+
     /**
      * Увеличение блока
      * @param block
@@ -610,6 +637,7 @@ EditorCore.prototype = {
         var curr = this.getColumnValue(block);
         this.setColumnValue(block, curr + value);
     },
+
     /**
      * Уменьшение блока
      * @param block
@@ -624,9 +652,11 @@ EditorCore.prototype = {
             return false;
         }
     },
+
     createResizeHandler: function () {
         return $('<span/>').addClass(this.resizerClass(false));
     },
+
     /**
      * Cоздание чистой строки
      * @returns HTMLElement
@@ -636,6 +666,7 @@ EditorCore.prototype = {
             class: 'row'
         });
     },
+
     /**
      * Cоздание чистого блока
      * @returns HTMLElement
@@ -645,6 +676,7 @@ EditorCore.prototype = {
             class: this.columnClass(false) + ' large-12'
         }).append(this.createResizeHandler());
     },
+
     /**
      * Обернуть элемент в строку и столбец
      * @returns HTMLElement
@@ -653,6 +685,7 @@ EditorCore.prototype = {
         var row = this.createPureRow();
         return row.append(this.createPureColumn().append($element));
     },
+
     /**
      * Обернуть элемент в столбец
      * @returns HTMLElement
@@ -660,23 +693,33 @@ EditorCore.prototype = {
     wrapToColumn: function ($element) {
         return this.createPureColumn().append($element);
     },
+
     /**
      * Поиск колонки
      * @returns HTMLElement
      */
     findColumn: function (element) {
         var $element = $(element);
-        if ($element && $element.length > 0){
+        if ($element && $element.length > 0) {
             return $element.closest(this.columnClass(true));
         }
         return $();
     },
+
     /**
      * Проверка на строку
      * @returns bool
      */
     isRow: function (element) {
         return $(element).hasClass(this.rowClass(false));
+    },
+
+    /**
+     * Проверка на столбец
+     * @returns bool
+     */
+    isColumn: function (element) {
+        return $(element).hasClass(this.columnClass(false));
     },
     /**
      * Добавляем контролы к редактору
@@ -782,7 +825,7 @@ EditorCore.prototype = {
             row.append(column);
 
             content = $('<div/>').append(row);
-        }else{
+        } else {
             content = $('<div/>').html(content);
         }
         this.setContentByRows(content);
@@ -797,10 +840,10 @@ EditorCore.prototype = {
         var row = this.createPureRow();
         $(content).find($me.rowClass(true)).each(function (index) {
             row = $me.createPureRow();
-            $(this).find($me.columnClass(true)).each(function(index){
+            $(this).find($me.columnClass(true)).each(function (index) {
                 $(this).find($me.resizerClass(true)).remove();
                 var column = $(this).append($me.createResizeHandler());
-                $(this).find($me.blockClass(true)).each(function(index){
+                $(this).find($me.blockClass(true)).each(function (index) {
                     column.append($me.makeBlock(this));
                 });
                 row.append(column);
@@ -831,17 +874,17 @@ EditorCore.prototype = {
 
         return plugin.setHtmlBlock(element).render();
     },
-    blockAfterRender: function(block){
+    blockAfterRender: function (block) {
         var plugin = this.getBlockPlugin(block);
         this.pluginAfterRender(plugin);
     },
-    pluginsAfterRender: function(){
+    pluginsAfterRender: function () {
         var key = 0;
-        for (key in this.plugins){
+        for (key in this.plugins) {
             this.pluginAfterRender(this.plugins[key]);
         }
     },
-    pluginAfterRender: function(plugin){
+    pluginAfterRender: function (plugin) {
         plugin.fireEvent('onAfterRender');
     },
     /**
@@ -923,7 +966,7 @@ EditorCore.prototype = {
             script.parentNode.insertBefore(newjs, script);
         },
         template: function (src) {
-            var name = src.split('/').pop().replace('.jst',''), tpl;
+            var name = src.split('/').pop().replace('.jst', ''), tpl;
 
             if ((name in this._templates) == false) {
                 $.ajax({
