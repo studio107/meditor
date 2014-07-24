@@ -157,8 +157,12 @@ EditorCore.prototype = {
         var cn = this.cn + '-delete';
         return dotted ? '.' + cn : cn;
     },
-    settingsClass: function (dotted) {
+    settingsClass: function (dotted, part) {
         var cn = this.cn + '-settings';
+        part = part||false;
+        if (part) {
+            cn += '-' + part;
+        }
         return dotted ? '.' + cn : cn;
     },
     movingClass: function (dotted) {
@@ -176,6 +180,9 @@ EditorCore.prototype = {
     resizingClass: function (dotted) {
         var cn = 'resizing';
         return dotted ? '.' + cn : cn;
+    },
+    settingsId: function (name) {
+        return 'settings-' + name;
     },
     /**
      * "Навешиваем" события

@@ -1,0 +1,62 @@
+.meditor-settings-modal.mmodal-container {
+  .mmodal-content {
+    padding: 0;
+    width: 500px;
+    @include border-radius(0px);
+  }
+
+  .mmodal-close{
+    height: 30px;
+    width: 30px;
+    top: 0;
+    right: -30px;
+    background-color: #181818;
+    color: #E5E5E5;
+    line-height: 22px;
+    text-align: center;
+  }
+}
+
+.meditor-settings-form {
+  fieldset {
+    border: none;
+    padding: 0 30px 20px 30px;
+    margin: 0;
+    border-bottom: 1px solid #E5E5E5;
+
+    legend {
+      padding-top: 20px;
+    }
+
+    legend + .meditor-settings-row {
+      margin-top: 10px;
+    }
+
+    .meditor-settings-row {
+      margin-bottom: 10px;
+
+      .meditor-settings-input {
+        margin: 0;
+      }
+
+      .meditor-settings-errors {
+        margin: 0;
+        list-style: none;
+
+        li {
+          margin-bottom: 3px;
+          font-size: 14px;
+          color: #E3410F;
+        }
+      }
+    }
+  }
+
+  .meditor-settings-buttons {
+    padding: 20px;
+
+    button {
+      margin: 0;
+    }
+  }
+}

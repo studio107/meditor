@@ -148,3 +148,45 @@
 .image-block img {
   width: 100%; }
 
+.meditor-settings-modal.mmodal-container .mmodal-content {
+  padding: 0;
+  width: 500px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px; }
+.meditor-settings-modal.mmodal-container .mmodal-close {
+  height: 30px;
+  width: 30px;
+  top: 0;
+  right: -30px;
+  background-color: #181818;
+  color: #E5E5E5;
+  line-height: 22px;
+  text-align: center; }
+
+.meditor-settings-form fieldset {
+  border: none;
+  padding: 0 30px 20px 30px;
+  margin: 0;
+  border-bottom: 1px solid #E5E5E5; }
+  .meditor-settings-form fieldset legend {
+    padding-top: 20px; }
+  .meditor-settings-form fieldset legend + .meditor-settings-row {
+    margin-top: 10px; }
+  .meditor-settings-form fieldset .meditor-settings-row {
+    margin-bottom: 10px; }
+    .meditor-settings-form fieldset .meditor-settings-row .meditor-settings-input {
+      margin: 0; }
+    .meditor-settings-form fieldset .meditor-settings-row .meditor-settings-errors {
+      margin: 0;
+      list-style: none; }
+      .meditor-settings-form fieldset .meditor-settings-row .meditor-settings-errors li {
+        margin-bottom: 3px;
+        font-size: 14px;
+        color: #E3410F; }
+.meditor-settings-form .meditor-settings-buttons {
+  padding: 20px; }
+  .meditor-settings-form .meditor-settings-buttons button {
+    margin: 0; }

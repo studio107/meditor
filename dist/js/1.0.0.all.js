@@ -2204,7 +2204,7 @@ c.compute_dimensions()}else a.S("[data-orbit]",a.scope).each(function(b,c){var d
                 onAfterOpen: $.noop,
                 onBeforeClose: $.noop,
                 onAfterClose: $.noop,
-                onSubmit: 'default' 
+                onSubmit: 'default'
             };
             this.locked = true;
 

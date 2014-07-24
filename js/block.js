@@ -73,13 +73,16 @@
             var fieldsets = this.getFieldsets();
             var fields = this.getFields();
 
-            var $form = $('<form></form>');
+            var $form = $('<form></form>').addClass(this._parent.settingsClass(false, 'form'));
 
             for (var key in fieldsets) {
                 $form.append(this.renderFieldset(fieldsets[key], fields))
             }
 
-            $form.append($('<button type="submit"></button>').html(this.t('Save')));
+            var $buttons = $('<div></div>').addClass(this._parent.settingsClass(false, 'buttons'));
+            $buttons.append($('<button type="submit"></button>').html(this.t('Save')));
+
+            $form.append($buttons);
             return $form;
         },
 
@@ -95,16 +98,29 @@
         },
 
         renderField: function (name, field) {
+            var input = '';
             switch (field.type) {
                 case 'select':
                     var multiple = false;
                     if (field.multiple) {
                         multiple = field.multiple;
                     }
-                    return this.renderSelect(name, field.getValue(), field.values, multiple);
+                    input = this.renderSelect(name, field.getValue(), field.values, multiple);
                     break;
             }
-            return '';
+
+            var id = this._parent.settingsId(name);
+
+            var row = $('<div></div>').addClass(this._parent.settingsClass(false, 'row'));
+            row.append($('<label></label>').html(field.label).attr('for', '#' + id));
+            row.append(input.attr('id', id).addClass(this._parent.settingsClass(false, 'input')));
+            row.append($('<ul></ul>').addClass(this._parent.settingsClass(false, 'errors')));
+
+            if (field.hint) {
+                row.append($('<div></div>').addClass(this._parent.settingsClass(false, 'hint')).html(field.hint));
+            }
+
+            return row;
         },
 
         renderSelect: function (name, value, values, multiple) {
@@ -138,7 +154,8 @@
                 {
                     name: this.t('Main settings'),
                     fields: [
-                        'small'
+                        'small',
+                        'medium'
                     ]
                 }
             ];
@@ -150,24 +167,26 @@
                 small: {
                     type: 'select',
                     multiple: false,
+                    label: this.t('Small screen'),
                     values: {
                         'default': this.t('Default action'),
-                        'small-1': this.t('1 column'),
-                        'small-2': this.t('2 columns'),
-                        'small-3': this.t('3 columns'),
-                        'small-4': this.t('4 columns'),
-                        'small-5': this.t('5 columns'),
-                        'small-6': this.t('6 columns'),
-                        'small-7': this.t('7 columns'),
-                        'small-8': this.t('8 columns'),
-                        'small-9': this.t('9 columns'),
-                        'small-10': this.t('10 columns'),
-                        'small-11': this.t('11 columns'),
-                        'small-12': this.t('12 columns')
+                        'small-1': this.t('Columns: ') + 1,
+                        'small-2': this.t('Columns: ') + 2,
+                        'small-3': this.t('Columns: ') + 3,
+                        'small-4': this.t('Columns: ') + 4,
+                        'small-5': this.t('Columns: ') + 5,
+                        'small-6': this.t('Columns: ') + 6,
+                        'small-7': this.t('Columns: ') + 7,
+                        'small-8': this.t('Columns: ') + 8,
+                        'small-9': this.t('Columns: ') + 9,
+                        'small-10': this.t('Columns: ') + 10,
+                        'small-11': this.t('Columns: ') + 11,
+                        'small-12': this.t('Columns: ') + 12
                     },
                     getValue: function () {
                         var value = 'default';
-                        $(me._htmlBlock).classes(function(c){
+                        var $column = me._parent.findColumn(me._htmlBlock);
+                        $column.classes(function(c){
                             if (c.startsWith('small-')) {
                                 value = c;
                             }
@@ -175,16 +194,61 @@
                         return [value];
                     },
                     setValue: function (value) {
-                        console.log('Set value');
-                        console.log(value);
+                        var $column = me._parent.findColumn(me._htmlBlock);
+                        $column.classes(function(c){
+                            if (c.startsWith('small-')) {
+                                $column.removeClass(c);
+                            }
+                        });
+                        if (value != 'default') {
+                            $column.addClass(value);
+                        }
                     },
-                    /**
-                     * Returns false if valid or string array with errors
-                     * @param value
-                     * @returns {boolean}
-                     */
                     validate: function (value) {
-                        console.log('Validation');
+                        return false;
+                    }
+                },
+                medium: {
+                    type: 'select',
+                    multiple: false,
+                    label: this.t('Medium screen'),
+                    values: {
+                        'default': this.t('Default action'),
+                        'medium-1': this.t('Columns: ') + 1,
+                        'medium-2': this.t('Columns: ') + 2,
+                        'medium-3': this.t('Columns: ') + 3,
+                        'medium-4': this.t('Columns: ') + 4,
+                        'medium-5': this.t('Columns: ') + 5,
+                        'medium-6': this.t('Columns: ') + 6,
+                        'medium-7': this.t('Columns: ') + 7,
+                        'medium-8': this.t('Columns: ') + 8,
+                        'medium-9': this.t('Columns: ') + 9,
+                        'medium-10': this.t('Columns: ') + 10,
+                        'medium-11': this.t('Columns: ') + 11,
+                        'medium-12': this.t('Columns: ') + 12
+                    },
+                    getValue: function () {
+                        var value = 'default';
+                        var $column = me._parent.findColumn(me._htmlBlock);
+                        $column.classes(function(c){
+                            if (c.startsWith('medium-')) {
+                                value = c;
+                            }
+                        });
+                        return [value];
+                    },
+                    setValue: function (value) {
+                        var $column = me._parent.findColumn(me._htmlBlock);
+                        $column.classes(function(c){
+                            if (c.startsWith('medium-')) {
+                                $column.removeClass(c);
+                            }
+                        });
+                        if (value != 'default') {
+                            $column.addClass(value);
+                        }
+                    },
+                    validate: function (value) {
                         return false;
                     }
                 }
@@ -193,6 +257,7 @@
 
         showSettings: function () {
             var me = this;
+            this._parent.hideHelper();
             $(this.renderSettings()).mmodal({
                 onSubmit: function(element) {
                     var form = $(element).closest('form');
@@ -201,10 +266,30 @@
                     var errors = me.validateSettings(data, fields);
                     if (errors === false) {
                         me.setSettings(data, fields);
+                        $('.mmodal-close').trigger('click');
+                    }else{
+                        me.showSettingsErrors(errors);
                     }
                     return false;
-                }
+                },
+                skin: this._parent.settingsClass(false, 'modal')
             });
+        },
+
+        showSettingsErrors: function (errors) {
+            for (var name in errors) {
+                var id = this._parent.settingsId(name);
+                var error_list = errors[name];
+
+                var $errors_list = $('#' + id).siblings(this._parent.settingsClass(true,'errors'));
+                $errors_list.html('');
+
+                for (var key in error_list) {
+                    var error = error_list[key];
+                    var $li = $('<li></li>').html(error);
+                    $errors_list.append($li);
+                }
+            }
         },
 
         setSettings: function (data, fields) {
@@ -212,11 +297,9 @@
                 var field_data = data[key];
 
                 var name = field_data.name;
-                var value = field_data.value;
-
                 var field = fields[name];
 
-                var field_errors = field.setValue(value);
+                field.setValue(field_data.value);
             }
         },
 
