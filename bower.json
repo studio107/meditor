@@ -16,6 +16,7 @@
         "underscore": ">= 1.6.0",
         "foundation": ">= 5.3.0",
         "fontawesome": ">= 4.0.0",
+        "mmodal": "*",
         "ckeditor": "4"
     }
 }

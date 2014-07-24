@@ -44,12 +44,14 @@ var paths = {
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/fastclick/lib/fastclick.js',
         'bower_components/foundation/js/foundation.min.js',
-        'bower_components/underscore/underscore.js'
+        'bower_components/underscore/underscore.js',
+        'bower_components/mmodal/js/jquery.mindy.modal.js'
     ],
 
     images: 'images/**/*',
     sass: [
-        'scss/**/*.scss'
+        'scss/**/*.scss',
+        'bower_components/mmodal/scss/jquery.mmodal.scss'
     ],
     css: [
         'css/**/*.css',

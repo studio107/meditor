@@ -157,6 +157,10 @@ EditorCore.prototype = {
         var cn = this.cn + '-delete';
         return dotted ? '.' + cn : cn;
     },
+    settingsClass: function (dotted) {
+        var cn = this.cn + '-settings';
+        return dotted ? '.' + cn : cn;
+    },
     movingClass: function (dotted) {
         var cn = this.cn + '-moving';
         return dotted ? '.' + cn : cn;
@@ -191,6 +195,12 @@ EditorCore.prototype = {
                 me.hideHelper();
                 me.clearStrings();
             }
+        });
+
+        $(document).on('click', me.settingsClass(true), function () {
+            var plugin = me.getBlockPlugin(me.helperable);
+            plugin.showSettings();
+            return false;
         });
 
         $(document).on('mouseover', 'body:not(.moving, .resizing) ' + me.blockClass(true), function (e) {
