@@ -998,6 +998,7 @@ EditorCore.prototype = {
         $(block).find(this.helpersClass(true)).remove();
         $(block).find(this.resizerClass(true)).remove();
         $(block).find(this.plugClass(true)).remove();
+        $(block).find(this.heightResizerClass(true)).remove();
 
         $(block).removeAttr('rel');
 
