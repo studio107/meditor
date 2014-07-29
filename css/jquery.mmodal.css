@@ -39,19 +39,10 @@
     border-radius: 5px;
     -webkit-background-clip: padding;
     -moz-background-clip: padding;
-    -ms-background-clip: padding;
-    -o-background-clip: padding;
-    background-clip: padding;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-    -ms-background-clip: padding-box;
-    -o-background-clip: padding-box;
     background-clip: padding-box;
-    -webkit-box-shadow: 3px 4px 35px rgba(92, 99, 100, 0.27);
-    -moz-box-shadow: 3px 4px 35px rgba(92, 99, 100, 0.27);
-    -ms-box-shadow: 3px 4px 35px rgba(92, 99, 100, 0.27);
-    -o-box-shadow: 3px 4px 35px rgba(92, 99, 100, 0.27);
-    box-shadow: 3px 4px 35px rgba(92, 99, 100, 0.27);
+    -webkit-box-shadow: compact(3px 4px 35px rgba(92, 99, 100, 0.27), false, false, false, false, false, false, false, false, false);
+    -moz-box-shadow: compact(3px 4px 35px rgba(92, 99, 100, 0.27), false, false, false, false, false, false, false, false, false);
+    box-shadow: compact(3px 4px 35px rgba(92, 99, 100, 0.27), false, false, false, false, false, false, false, false, false);
     padding: 30px;
     background-color: white; }
 
@@ -66,7 +57,6 @@
       -o-border-radius: 0;
       border-radius: 0;
       overflow-y: auto; } }
-
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
   .mmodal-container {
     width: 100% !important;
@@ -78,7 +68,6 @@
       -o-border-radius: 0;
       border-radius: 0;
       overflow-y: auto; } }
-
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .mmodal-container {
     width: 100% !important;

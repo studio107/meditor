@@ -32,7 +32,8 @@ EditorCore.prototype = {
         classname: 'meditor',
         columns: 12,
         colsize: 54,
-        colmargin: 30
+        colmargin: 30,
+        minHeightBlock: 95
     },
 
     /**
@@ -89,7 +90,7 @@ EditorCore.prototype = {
         this.setContent();
         $(editor).append(this.createControls(), area);
         this.$element.after(this.editor);
-        this.initSortable();
+        this.initGrid();
         this.pluginsAfterRender();
         return this;
     },
@@ -159,7 +160,7 @@ EditorCore.prototype = {
     },
     settingsClass: function (dotted, part) {
         var cn = this.cn + '-settings';
-        part = part||false;
+        part = part || false;
         if (part) {
             cn += '-' + part;
         }
@@ -179,6 +180,18 @@ EditorCore.prototype = {
     },
     resizingClass: function (dotted) {
         var cn = 'resizing';
+        return dotted ? '.' + cn : cn;
+    },
+    heightResizerClass: function (dotted) {
+        var cn = this.cn + '-height-resizer';
+        return dotted ? '.' + cn : cn;
+    },
+    heightResizingClass: function (dotted) {
+        var cn = 'height-resizing';
+        return dotted ? '.' + cn : cn;
+    },
+    heightBlockResizingClass: function (dotted) {
+        var cn = 'height-block-resizing';
         return dotted ? '.' + cn : cn;
     },
     settingsId: function (name) {
@@ -210,14 +223,15 @@ EditorCore.prototype = {
             return false;
         });
 
-        $(document).on('mouseover', 'body:not(.moving, .resizing) ' + me.blockClass(true), function (e) {
+        $(document).on('mouseover', 'body:not(.moving, .resizing, .height-resizing) ' + me.blockClass(true), function (e) {
             var element = $(e.target).closest(me.blockClass(true));
+
             if (element.length >= 0) {
                 me.showHelper(element);
             }
         });
 
-        $(document).on('mouseout', me.blockClass(true), function (e) {
+        $(document).on('mouseout', 'body:not(.height-resizing) ' + me.blockClass(true), function (e) {
             if ($(e.relatedTarget).closest(me.helpersClass(true)).length <= 0) {
                 me.hideHelper();
             }
@@ -253,7 +267,7 @@ EditorCore.prototype = {
         });
         this.helperable = undefined;
     },
-    initSortable: function () {
+    initGrid: function () {
         var $me = this;
         var moving_selector = this.moveClass(true);
         $(document).on('mousedown', moving_selector, function () {
@@ -269,6 +283,10 @@ EditorCore.prototype = {
                 $me.resizable = undefined;
                 $me.resizable_prev = undefined;
             }
+        });
+        $(document).on('mousedown', this.blockClass(true) + ' ' + $me.heightResizerClass(true), function () {
+            $me.resizable = $(this).closest($me.blockClass(true));
+            $me.startHeightResize();
         });
     },
     getPlugin: function (name) {
@@ -582,8 +600,9 @@ EditorCore.prototype = {
         $(this.resizable).on('mousemove', move_function);
         $($(this.resizable).prev()).on('mousemove', move_function);
     },
+
     stopResize: function (target, offset) {
-        $('body').removeClass('unselectable').removeClass('resizing');
+        $('body').removeClass('unselectable').removeClass(this.resizingClass(false));
 
         $(document).off('mouseup');
 
@@ -613,6 +632,41 @@ EditorCore.prototype = {
         }
     },
 
+    startHeightResize: function () {
+        var $me = this;
+        $('body').addClass('unselectable').addClass(this.heightResizingClass(false));
+
+        $($me.resizable).addClass($me.heightBlockResizingClass(false));
+
+        $(document).on('mousemove', function (e) {
+            var resizable_offset = $($me.resizable).offset();
+            var offset = {
+                'left': e.pageX - resizable_offset.left,
+                'top': e.pageY - resizable_offset.top
+            };
+            $me.heightResize(offset);
+        });
+
+        $(document).on('mouseup', function (e) {
+            $me.stopHeightResize();
+        });
+    },
+    heightResize: function (offset) {
+        var height = this.options.minHeightBlock;
+        if (offset.top >= this.options.minHeightBlock) {
+            height = offset.top;
+        }
+        $(this.resizable).css({
+            'min-height': height
+        });
+    },
+    stopHeightResize: function () {
+        $('body').removeClass('unselectable').removeClass(this.heightResizingClass(false));
+        $(document).off('mouseup');
+        $(document).off('mousemove');
+        $(this.resizable).removeClass(this.heightBlockResizingClass(false));
+        this.resizable = undefined;
+    },
     /**
      * Получение ширины колонки
      */

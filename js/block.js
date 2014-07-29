@@ -354,6 +354,24 @@
         },
 
         /**
+         * Make height resizer
+         * @returns {*|jQuery}
+         */
+        makeHeightResizer: function() {
+            var $heightResizer = $('<div/>');
+            $heightResizer.append('<i class="fa fa-sort"></i>');
+            return $heightResizer.addClass(this._parent.heightResizerClass(false));
+        },
+
+        /**
+         * Render plug for block
+         * @returns {string} html
+         */
+        renderHeightResizer: function () {
+            return this.makeHeightResizer();
+        },
+
+        /**
          * Render html content of htmlblock for view
          * @returns {string}
          */

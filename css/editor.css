@@ -17,8 +17,8 @@
     height: 25px;
     line-height: 25px;
     font-size: 13px;
-    background-color: #E6E6E6;
-    border-bottom: 1px solid #D5D5D5; }
+    background-color: #e6e6e6;
+    border-bottom: 1px solid #d5d5d5; }
     .meditor .meditor-helpers > span:first-child {
       -webkit-border-radius: 3px 3px 0 0;
       -moz-border-radius: 3px 3px 0 0;
@@ -66,7 +66,9 @@
     display: none; }
 .meditor .meditor-area .meditor-block {
   position: relative;
-  min-height: 70px; }
+  min-height: 95px;
+  /* Plug. ex: Click here to edit text / upload image */
+  /* Height resizer */ }
   .meditor .meditor-area .meditor-block.meditor-moving {
     opacity: 0.3; }
   .meditor .meditor-area .meditor-block .plug {
@@ -77,7 +79,7 @@
     bottom: 0;
     top: 0;
     display: none;
-    line-height: 70px;
+    line-height: 95px;
     text-align: center;
     color: #CECECE;
     font-size: 14px; }
@@ -86,8 +88,27 @@
       line-height: 1.2; }
   .meditor .meditor-area .meditor-block.plugged .plug {
     display: block; }
-  .meditor .meditor-area .meditor-block:hover:after {
-    border: 1px solid #ccc;
+  .meditor .meditor-area .meditor-block .meditor-height-resizer {
+    display: none;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -11.5px;
+    width: 23px;
+    height: 18px;
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    -ms-border-radius: 3px 3px 0 0;
+    -o-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+    cursor: row-resize;
+    border: 1px solid #cccccc;
+    background-color: #fff;
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px; }
+  .meditor .meditor-area .meditor-block:hover:after, .meditor .meditor-area .meditor-block.height-block-resizing:after {
+    border: 1px solid #cccccc;
     content: ' ';
     display: block;
     position: absolute;
@@ -96,10 +117,12 @@
     top: -10px;
     bottom: -10px;
     z-index: -10; }
+  .meditor .meditor-area .meditor-block:hover .meditor-height-resizer, .meditor .meditor-area .meditor-block.height-block-resizing .meditor-height-resizer {
+    display: block; }
   .meditor .meditor-area .meditor-block * {
     outline: none; }
 .meditor .meditor-highlighter {
-  background-color: #555;
+  background-color: #555555;
   z-index: 100;
   display: block;
   position: absolute; }
@@ -144,6 +167,9 @@
 
 .resizing {
   cursor: col-resize !important; }
+
+.height-resizing {
+  cursor: row-resize !important; }
 
 .image-block img {
   width: 100%; }

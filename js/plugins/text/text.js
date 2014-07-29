@@ -38,6 +38,7 @@
         },
         // TODO refactoring
         render: function () {
+            var $me = this;
             var block = this.getHtmlBlock(),
                 $editable = $('<div/>'),
                 html = $(block).html();
@@ -46,9 +47,16 @@
             $editable.addClass(this.editableClass(false)).css('width', '100%').attr('contenteditable', true).html(html);
             var id = 'text-'+$(block).attr('rel');
             $editable.attr('id', id);
-
+            $editable.on('blur', function () {
+                var editableText = $editable.text();
+                if (!editableText){
+                    $me.showPlug();
+                }
+            });
             $(block).append($editable);
             $(block).append(this.renderPlug());
+            $(block).append(this.renderHeightResizer());
+
             if (!html){
                 this.showPlug();
             }

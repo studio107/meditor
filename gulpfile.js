@@ -4,7 +4,7 @@ var concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     minifyCSS = require('gulp-minify-css'),
-    sass = require('gulp-sass'),
+    sass = require('gulp-ruby-sass'),
     changed = require('gulp-changed'),
     clean = require('gulp-clean'),
     cache = require('gulp-cached'),
@@ -23,7 +23,7 @@ var imagesOpts = {
 };
 
 var sassOpts = {
-    includePaths: [
+    loadPath: [
         '/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets',
         'bower_components/foundation/scss',
         'bower_components/mindy-sass/mindy'
