@@ -61,7 +61,8 @@
                 onResize: $.noop,
                 // TODO event on close (remove || delete) current block
                 onClose: $.noop,
-                onAfterRender: $.noop
+                onAfterRender: $.noop,
+                onHeightResize: $.noop
             }
         },
 
@@ -357,18 +358,19 @@
          * Make height resizer
          * @returns {*|jQuery}
          */
-        makeHeightResizer: function() {
+        makeHeightResizer: function(type) {
             var $heightResizer = $('<div/>');
             $heightResizer.append('<i class="fa fa-sort"></i>');
-            return $heightResizer.addClass(this._parent.heightResizerClass(false));
+            return $heightResizer.data('type', type).addClass(this._parent.heightResizerClass(false));
         },
 
         /**
          * Render plug for block
          * @returns {string} html
          */
-        renderHeightResizer: function () {
-            return this.makeHeightResizer();
+        renderHeightResizer: function (type) {
+            type = type || 'min-height';
+            return this.makeHeightResizer(type);
         },
 
         /**

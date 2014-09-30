@@ -53,9 +53,10 @@
                     $me.showPlug();
                 }
             });
+
             $(block).append($editable);
             $(block).append(this.renderPlug());
-            $(block).append(this.renderHeightResizer());
+            $(block).append(this.renderHeightResizer('min-height'));
 
             if (!html){
                 this.showPlug();
@@ -76,8 +77,8 @@
             CKEDITOR.disableAutoInline = true;
             $('.text-block').each(function(){
                 var editable = $(this).find(me.editableClass(true));
-                if (editable.length && !editable.hasClass('enabled')){
-                    editable.addClass('enabled');
+                if (editable.length && !editable.data('enabled')){
+                    editable.data('enabled', true);
                     CKEDITOR.inline( editable.attr('id') );
                 }
             });

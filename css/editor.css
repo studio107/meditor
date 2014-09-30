@@ -36,6 +36,8 @@
     cursor: move; }
   .meditor .meditor-helpers .meditor-delete {
     cursor: pointer; }
+  .meditor .meditor-helpers .meditor-settings {
+    cursor: pointer; }
 .meditor .meditor-area .row {
   min-height: 20px;
   padding-top: 10px;
@@ -181,7 +183,8 @@
   -moz-border-radius: 0px;
   -ms-border-radius: 0px;
   -o-border-radius: 0px;
-  border-radius: 0px; }
+  border-radius: 0px;
+  box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.1); }
 .meditor-settings-modal.mmodal-container .mmodal-close {
   height: 30px;
   width: 30px;

@@ -653,12 +653,16 @@ EditorCore.prototype = {
     },
     heightResize: function (offset) {
         var height = this.options.minHeightBlock;
+        var resizer = this.resizable.find(this.heightResizerClass(true));
+        var type = resizer.data('type');
+        if (!type) {
+            type = 'min-height';
+        }
         if (offset.top >= this.options.minHeightBlock) {
             height = offset.top;
         }
-        $(this.resizable).css({
-            'min-height': height
-        });
+        $(this.resizable).css(type, height);
+        this.blockHeightResize(this.resizable);
     },
     stopHeightResize: function () {
         $('body').removeClass('unselectable').removeClass(this.heightResizingClass(false));
@@ -957,6 +961,13 @@ EditorCore.prototype = {
     },
     pluginAfterRender: function (plugin) {
         plugin.fireEvent('onAfterRender');
+    },
+    blockHeightResize: function (block) {
+        var plugin = this.getBlockPlugin(block);
+        this.pluginHeightResize(plugin);
+    },
+    pluginHeightResize: function (plugin) {
+        plugin.fireEvent('onHeightResize');
     },
     /**
      * Получение очищенного контента из блока

@@ -2,6 +2,11 @@
     "use strict";
 
     var ImageBlock = meditorBlock.extend({
+        events: function () {
+            return {
+                onHeightResize: this.onHeightResize
+            }
+        },
         getI18nName: function () {
             return this.t('Image block');
         },
@@ -38,6 +43,7 @@
             if ($(block).find('img').length <= 0) {
                 this.showPlug();
             }
+            $(block).append(this.renderHeightResizer('height'));
             return this._render()[0]
         },
         droppedFiles: function(files, block){
@@ -67,6 +73,9 @@
                     }
                 }).readAsDataURL(file);
             }).promise();
+        },
+        onHeightResize: function(){
+            console.log(this);
         }
     });
 

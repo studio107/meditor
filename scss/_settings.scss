@@ -3,6 +3,7 @@
     padding: 0;
     width: 500px;
     @include border-radius(0px);
+    box-shadow: 0 0 8px 1px rgba(0,0,0,0.1);
   }
 
   .mmodal-close{
