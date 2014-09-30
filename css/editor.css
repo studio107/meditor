@@ -93,6 +93,7 @@
   .meditor .meditor-area .meditor-block .meditor-height-resizer {
     display: none;
     position: absolute;
+    z-index: 10;
     bottom: -10px;
     left: 50%;
     margin-left: -11.5px;

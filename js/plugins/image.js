@@ -2,9 +2,23 @@
     "use strict";
 
     var ImageBlock = meditorBlock.extend({
+        defaultHolderOptions: {
+            'background-position': '50% 50%',
+            'background-size': 'cover',
+            'position': 'absolute',
+            'top': 0,
+            'left': 0,
+            'right': 0,
+            'bottom': 0
+        },
+        holderClass: function (dotted) {
+            var cn = 'meditor-image-holder';
+            return dotted ? '.' + cn : cn;
+        },
         events: function () {
             return {
-                onHeightResize: this.onHeightResize
+                onColumnChangeSize: this.correctBlock,
+                onAfterMove: this.correctBlock
             }
         },
         getI18nName: function () {
@@ -56,10 +70,29 @@
             }
         },
         insertFile: function(file, data, block){
+            var $me = this;
             this.hidePlug();
-            block.find('img').remove();
-            var $img = $('<img/>').attr('src', data);
-            block.append($img);
+            block.find(this.holderClass(true)).remove();
+            var $img = $('<img/>').attr('src', data).css({'display': 'none'});
+            var imgOptions = $.extend(this.defaultHolderOptions, {'background-image': 'url(' + data + ')'});
+
+            $img[0].onload = function(){
+                $me.correctImageBlock(block);
+            };
+
+            var $imageHolder = $('<div/>').addClass(this.holderClass(false)).css(imgOptions).append($img);
+            block.append($imageHolder);
+        },
+        correctImageBlock: function(block){
+            var $img = block.find('img');
+            if ($img.length) {
+                var img = $img[0];
+                var blockWidth = block.width();
+                var ratio = img.height / img.width;
+                var blockHeight = blockWidth * ratio;
+
+                block.css({'height': blockHeight});
+            }
         },
         readFileAsDataURL: function (file) {
             return $.Deferred(function (deferred) {
@@ -74,8 +107,9 @@
                 }).readAsDataURL(file);
             }).promise();
         },
-        onHeightResize: function(){
-            console.log(this);
+        correctBlock: function(){
+            var block = this.getHtmlBlock();
+            this.correctImageBlock(block);
         }
     });
 

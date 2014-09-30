@@ -62,7 +62,9 @@
                 // TODO event on close (remove || delete) current block
                 onClose: $.noop,
                 onAfterRender: $.noop,
-                onHeightResize: $.noop
+                onHeightResize: $.noop,
+                onAfterMove: $.noop,
+                onColumnChangeSize: $.noop
             }
         },
 

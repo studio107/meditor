@@ -365,6 +365,7 @@ EditorCore.prototype = {
         if (dropped_to.length) {
             var drop_from = this.findColumn(this.movable);
             this.dropped($(this.movable), drop_from, dropped_to, this.getDirection(dropped_to, offset, direction));
+            this.blockAfterMove($(this.movable));
         }
 
         this.movable = false;
@@ -698,8 +699,12 @@ EditorCore.prototype = {
     setColumnValue: function (block, value) {
         var $block = $(block);
         var current = this.getColumnValue(block);
+        var $me = this;
         $block.removeClass(this.colClass(false, current));
         $block.addClass(this.colClass(false, value));
+        $block.find(this.blockClass(true)).each(function(){
+            $me.blockColumnChangeSize($(this));
+        });
         return $block;
     },
 
@@ -968,6 +973,20 @@ EditorCore.prototype = {
     },
     pluginHeightResize: function (plugin) {
         plugin.fireEvent('onHeightResize');
+    },
+    blockAfterMove: function (block) {
+        var plugin = this.getBlockPlugin(block);
+        this.pluginAfterMove(plugin);
+    },
+    pluginAfterMove: function (plugin) {
+        plugin.fireEvent('onAfterMove');
+    },
+    blockColumnChangeSize: function (block) {
+        var plugin = this.getBlockPlugin(block);
+        this.pluginColumnChangeSize(plugin);
+    },
+    pluginColumnChangeSize: function (plugin) {
+        plugin.fireEvent('onColumnChangeSize');
     },
     /**
      * Получение очищенного контента из блока
