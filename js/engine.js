@@ -182,6 +182,10 @@ EditorCore.prototype = {
         var cn = 'resizing';
         return dotted ? '.' + cn : cn;
     },
+    resizingSiblingClass: function (dotted) {
+        var cn = 'resizing-sibling';
+        return dotted ? '.' + cn : cn;
+    },
     heightResizerClass: function (dotted) {
         var cn = this.cn + '-height-resizer';
         return dotted ? '.' + cn : cn;
@@ -599,7 +603,11 @@ EditorCore.prototype = {
 
         $(this.resizable).addClass(this.resizingClass(false));
         $(this.resizable).on('mousemove', move_function);
-        $($(this.resizable).prev()).on('mousemove', move_function);
+
+        var $prev = $(this.resizable).prev();
+        if ($prev.length) {
+            $prev.addClass(this.resizingSiblingClass(false)).on('mousemove', move_function);
+        }
     },
 
     stopResize: function (target, offset) {
@@ -609,7 +617,10 @@ EditorCore.prototype = {
 
         $(this.resizable).removeClass(this.resizingClass(false));
         $(this.resizable).off('mousemove');
-        $($(this.resizable).prev()).off('mousemove');
+        var $prev = $(this.resizable).prev();
+        if ($prev.length) {
+            $prev.removeClass(this.resizingSiblingClass(false)).off('mousemove');
+        }
     },
 
     resizing: function (target, offset) {

@@ -66,15 +66,15 @@
     position: relative; }
     .meditor .meditor-area .row .column.resizing .meditor-resizer:after {
       display: block; }
-    .meditor .meditor-area .row .column.resizing:after {
-      content: '';
-      position: absolute;
-      display: block;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 100; }
+  .meditor .meditor-area .row .column.resizing:after, .meditor .meditor-area .row .column.resizing-sibling:after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; }
   .meditor .meditor-area .row .column:first-child .meditor-resizer {
     display: none; }
 .meditor .meditor-area .meditor-block {
