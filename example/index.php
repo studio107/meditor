@@ -19,6 +19,7 @@
     <script type="text/javascript" src="../js/editor.js"></script>
     <script type="text/javascript" src="../js/block.js"></script>
     <script type="text/javascript" src="../js/plugins/text/text.js"></script>
+    <script type="text/javascript" src="../js/plugins/video.js"></script>
     <script type="text/javascript" src="../js/plugins/lost.js"></script>
     <script type="text/javascript" src="../js/plugins/space.js"></script>
     <script type="text/javascript" src="../js/plugins/image.js"></script>
@@ -51,7 +52,7 @@
 <script>
     var editor = meditor.init('#meditor', {
         language: 'ru',
-        plugins: ['space', 'text', 'image']
+        plugins: ['space', 'text', 'image', 'video']
     });
 </script>
 

@@ -73,8 +73,11 @@
          * @returns {string} html
          */
         renderSettings: function () {
-            var fieldsets = this.getFieldsets();
-            var fields = this.getFields();
+            var fieldsets = this.getMainFieldsets();
+            $.merge(fieldsets, this.getFieldsets());
+
+            var fields = this.getMainFields();
+            $.extend(fields, this.getFields());
 
             var $form = $('<form></form>').addClass(this._parent.settingsClass(false, 'form'));
 
@@ -109,6 +112,9 @@
                         multiple = field.multiple;
                     }
                     input = this.renderSelect(name, field.getValue(), field.values, multiple);
+                    break;
+                case 'text':
+                    input = this.renderTextInput(name, field.getValue());
                     break;
             }
 
@@ -152,7 +158,16 @@
             return $select;
         },
 
-        getFieldsets: function () {
+        renderTextInput: function(name, value) {
+            var $input = $('<input type="text" />');
+            $input.attr('name', name);
+            if (value) {
+                $input.val(value);
+            }
+            return $input;
+        },
+
+        getMainFieldsets: function () {
             return [
                 {
                     name: this.t('Main settings'),
@@ -164,7 +179,11 @@
             ];
         },
 
-        getFields: function () {
+        getFieldsets: function() {
+            return [];
+        },
+
+        getMainFields: function () {
             var me = this;
             return {
                 small: {
@@ -258,13 +277,20 @@
             };
         },
 
+        getFields: function() {
+            return [];
+        },
+
         showSettings: function () {
             var me = this;
             this._parent.hideHelper();
             $(this.renderSettings()).mmodal({
                 onSubmit: function(element) {
                     var form = $(element).closest('form');
-                    var fields = me.getFields();
+
+                    var fields = me.getMainFields();
+                    $.extend(fields, me.getFields());
+
                     var data = form.serializeArray();
                     var errors = me.validateSettings(data, fields);
                     if (errors === false) {
