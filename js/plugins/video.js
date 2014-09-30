@@ -88,9 +88,9 @@
 
             return url;
         },
-        insertVideo: function(url) {
+        insertVideo: function(url, objectUrl) {
             var block = this.getHtmlBlock();
-            var object = this.makeObject(url);
+            var object = this.makeObject(objectUrl);
             $(block).find('iframe').remove();
             $(block).append(object);
             $(block).attr('data-url', url).data('url', url);
@@ -111,7 +111,9 @@
                     multiple: false,
                     label: this.t('Video url'),
                     getValue: function () {
-                        return '';
+                        var block = me.getHtmlBlock();
+                        var url = $(block).data('url') ? $(block).data('url') : '';
+                        return url;
                     },
                     setValue: function(value){
                         for (var key in me.types) {
@@ -119,7 +121,7 @@
                             var rez  = value.match( item.matcher );
                             if (rez) {
                                 var url = me.format( item.url, rez, item.params);
-                                me.insertVideo(url);
+                                me.insertVideo(value, url);
                                 break;
                             }
                         }
@@ -147,11 +149,11 @@
                 if (width && height) {
                     $iframe.css('height', height);
                 }else{
-                    var blockWidth = block.width();
+                    var blockWidth = $(block).width();
                     var ratio = 0.6;
                     var blockHeight = blockWidth * ratio;
                     $iframe.css('height', blockHeight);
-                    block.css('height', blockHeight);
+                    $(block).css('height', blockHeight);
                 }
             }
         },
