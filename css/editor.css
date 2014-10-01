@@ -1,177 +1,181 @@
-.meditor p {
-  margin: 0;
-  padding: 0; }
-.meditor .meditor-controls {
-  margin-bottom: 15px; }
-.meditor .meditor-helpers {
-  display: none;
-  z-index: 2000;
-  position: absolute;
-  width: 25px;
-  text-align: center;
-  margin-top: 10px;
-  margin-left: -3px; }
-  .meditor .meditor-helpers > span {
-    display: block;
-    padding: 0;
-    height: 25px;
-    line-height: 25px;
-    font-size: 13px;
-    background-color: #e6e6e6;
-    border-bottom: 1px solid #d5d5d5; }
-    .meditor .meditor-helpers > span:first-child {
+.meditor {
+  position: relative; }
+  .meditor p {
+    margin: 0;
+    padding: 0; }
+  .meditor .meditor-controls {
+    margin-bottom: 15px; }
+    .meditor .meditor-controls ul {
+      height: 38px; }
+      .meditor .meditor-controls ul li {
+        margin-right: 10px;
+        border: 1px solid #d5d5d5;
+        padding: 5px;
+        float: left;
+        display: inline-block;
+        width: 100px; }
+  .meditor .meditor-helpers {
+    display: none;
+    z-index: 2000;
+    position: absolute;
+    width: 25px;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: -3px; }
+    .meditor .meditor-helpers > span {
+      display: block;
+      padding: 0;
+      height: 25px;
+      line-height: 25px;
+      font-size: 13px;
+      background-color: #e6e6e6;
+      border-bottom: 1px solid #d5d5d5; }
+      .meditor .meditor-helpers > span:first-child {
+        -webkit-border-radius: 3px 3px 0 0;
+        -moz-border-radius: 3px 3px 0 0;
+        -ms-border-radius: 3px 3px 0 0;
+        -o-border-radius: 3px 3px 0 0;
+        border-radius: 3px 3px 0 0; }
+      .meditor .meditor-helpers > span:last-child {
+        -webkit-border-radius: 0 0 3px 3px;
+        -moz-border-radius: 0 0 3px 3px;
+        -ms-border-radius: 0 0 3px 3px;
+        -o-border-radius: 0 0 3px 3px;
+        border-radius: 0 0 3px 3px;
+        border-bottom: none; }
+    .meditor .meditor-helpers .meditor-move {
+      cursor: move; }
+    .meditor .meditor-helpers .meditor-delete {
+      cursor: pointer; }
+    .meditor .meditor-helpers .meditor-settings {
+      cursor: pointer; }
+  .meditor .meditor-area .row {
+    min-height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative; }
+    .meditor .meditor-area .row .column .meditor-resizer {
+      cursor: col-resize;
+      display: block;
+      position: absolute;
+      margin-left: -15px;
+      width: 30px;
+      top: -10px;
+      left: 0px;
+      bottom: -10px; }
+      .meditor .meditor-area .row .column .meditor-resizer:after {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        border-left: 1px dashed #cacaca;
+        display: none;
+        content: ' '; }
+      .meditor .meditor-area .row .column .meditor-resizer:hover:after {
+        display: block; }
+    .meditor .meditor-area .row .column.resizing {
+      position: relative; }
+      .meditor .meditor-area .row .column.resizing .meditor-resizer:after {
+        display: block; }
+    .meditor .meditor-area .row .column.resizing:after, .meditor .meditor-area .row .column.resizing-sibling:after {
+      content: '';
+      position: absolute;
+      display: block;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 100; }
+    .meditor .meditor-area .row .column:first-child .meditor-resizer {
+      display: none; }
+  .meditor .meditor-area .meditor-block {
+    position: relative;
+    min-height: 95px;
+    /* Plug. ex: Click here to edit text / upload image */
+    /* Height resizer */ }
+    .meditor .meditor-area .meditor-block iframe {
+      border: none;
+      display: block; }
+    .meditor .meditor-area .meditor-block.meditor-moving {
+      opacity: 0.3; }
+    .meditor .meditor-area .meditor-block .plug {
+      background-color: #F8F8F8;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      display: none;
+      line-height: 95px;
+      text-align: center;
+      color: #CECECE;
+      font-size: 14px; }
+      .meditor .meditor-area .meditor-block .plug .plug-info {
+        display: inline-block;
+        line-height: 1.2; }
+    .meditor .meditor-area .meditor-block.plugged .plug {
+      display: block; }
+    .meditor .meditor-area .meditor-block .meditor-height-resizer {
+      display: none;
+      position: absolute;
+      z-index: 10;
+      bottom: -15px;
+      left: 50%;
+      margin-left: -11.5px;
+      width: 23px;
+      height: 18px;
       -webkit-border-radius: 3px 3px 0 0;
       -moz-border-radius: 3px 3px 0 0;
       -ms-border-radius: 3px 3px 0 0;
       -o-border-radius: 3px 3px 0 0;
-      border-radius: 3px 3px 0 0; }
-    .meditor .meditor-helpers > span:last-child {
-      -webkit-border-radius: 0 0 3px 3px;
-      -moz-border-radius: 0 0 3px 3px;
-      -ms-border-radius: 0 0 3px 3px;
-      -o-border-radius: 0 0 3px 3px;
-      border-radius: 0 0 3px 3px;
-      border-bottom: none; }
-  .meditor .meditor-helpers .meditor-move {
-    cursor: move; }
-  .meditor .meditor-helpers .meditor-delete {
-    cursor: pointer; }
-  .meditor .meditor-helpers .meditor-settings {
-    cursor: pointer; }
-.meditor .meditor-area .row {
-  min-height: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  position: relative; }
-  .meditor .meditor-area .row .column .meditor-resizer {
-    cursor: col-resize;
-    display: block;
-    position: absolute;
-    margin-left: -15px;
-    width: 30px;
-    top: -10px;
-    left: 0px;
-    bottom: -10px; }
-    .meditor .meditor-area .row .column .meditor-resizer:after {
+      border-radius: 3px 3px 0 0;
+      cursor: row-resize;
+      border: 1px solid #cccccc;
+      background-color: #fff;
+      text-align: center;
+      font-size: 12px;
+      line-height: 18px; }
+    .meditor .meditor-area .meditor-block:hover, .meditor .meditor-area .meditor-block.height-block-resizing {
+      outline: 1px solid #cccccc;
+      outline-offset: 14px; }
+      .meditor .meditor-area .meditor-block:hover .meditor-height-resizer, .meditor .meditor-area .meditor-block.height-block-resizing .meditor-height-resizer {
+        display: block; }
+    .meditor .meditor-area .meditor-block.height-block-resizing:before {
+      content: ' ';
+      display: block;
       position: absolute;
-      left: 50%;
+      left: 0;
+      right: 0;
       top: 0;
       bottom: 0;
-      border-left: 1px dashed #cacaca;
-      display: none;
-      content: ' '; }
-    .meditor .meditor-area .row .column .meditor-resizer:hover:after {
-      display: block; }
-  .meditor .meditor-area .row .column.resizing {
-    position: relative; }
-    .meditor .meditor-area .row .column.resizing .meditor-resizer:after {
-      display: block; }
-  .meditor .meditor-area .row .column.resizing:after, .meditor .meditor-area .row .column.resizing-sibling:after {
-    content: '';
-    position: absolute;
+      z-index: 100; }
+    .meditor .meditor-area .meditor-block * {
+      outline: none; }
+  .meditor .meditor-highlighter {
+    background-color: #555555;
+    z-index: 100;
     display: block;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100; }
-  .meditor .meditor-area .row .column:first-child .meditor-resizer {
-    display: none; }
-.meditor .meditor-area .meditor-block {
-  position: relative;
-  min-height: 95px;
-  /* Plug. ex: Click here to edit text / upload image */
-  /* Height resizer */ }
-  .meditor .meditor-area .meditor-block iframe {
-    border: none;
-    display: block; }
-  .meditor .meditor-area .meditor-block.meditor-moving {
-    opacity: 0.3; }
-  .meditor .meditor-area .meditor-block .plug {
-    background-color: #F8F8F8;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    display: none;
-    line-height: 95px;
-    text-align: center;
-    color: #CECECE;
-    font-size: 14px; }
-    .meditor .meditor-area .meditor-block .plug .plug-info {
-      display: inline-block;
-      line-height: 1.2; }
-  .meditor .meditor-area .meditor-block.plugged .plug {
-    display: block; }
-  .meditor .meditor-area .meditor-block .meditor-height-resizer {
-    display: none;
-    position: absolute;
-    z-index: 10;
-    bottom: -10px;
-    left: 50%;
-    margin-left: -11.5px;
-    width: 23px;
-    height: 18px;
-    -webkit-border-radius: 3px 3px 0 0;
-    -moz-border-radius: 3px 3px 0 0;
-    -ms-border-radius: 3px 3px 0 0;
-    -o-border-radius: 3px 3px 0 0;
-    border-radius: 3px 3px 0 0;
-    cursor: row-resize;
-    border: 1px solid #cccccc;
-    background-color: #fff;
-    text-align: center;
-    font-size: 12px;
-    line-height: 18px; }
-  .meditor .meditor-area .meditor-block:hover:after, .meditor .meditor-area .meditor-block.height-block-resizing:after {
-    border: 1px solid #cccccc;
-    content: ' ';
-    display: block;
-    position: absolute;
-    left: -10px;
-    right: -10px;
-    top: -10px;
-    bottom: -10px;
-    z-index: -10; }
-  .meditor .meditor-area .meditor-block:hover .meditor-height-resizer, .meditor .meditor-area .meditor-block.height-block-resizing .meditor-height-resizer {
-    display: block; }
-  .meditor .meditor-area .meditor-block.height-block-resizing:before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 100; }
-  .meditor .meditor-area .meditor-block * {
-    outline: none; }
-.meditor .meditor-highlighter {
-  background-color: #555555;
-  z-index: 100;
-  display: block;
-  position: absolute; }
-  .meditor .meditor-highlighter.top {
-    height: 3px;
-    left: 0;
-    right: 0;
-    top: 0; }
-  .meditor .meditor-highlighter.left {
-    width: 3px;
-    left: 0;
-    top: 0;
-    bottom: 0; }
-  .meditor .meditor-highlighter.bottom {
-    height: 3px;
-    left: 0;
-    right: 0;
-    bottom: 0; }
-  .meditor .meditor-highlighter.right {
-    width: 3px;
-    right: 0;
-    top: 0;
-    bottom: 0; }
+    position: absolute; }
+    .meditor .meditor-highlighter.top {
+      height: 3px;
+      left: 0;
+      right: 0;
+      top: 0; }
+    .meditor .meditor-highlighter.left {
+      width: 3px;
+      left: 0;
+      top: 0;
+      bottom: 0; }
+    .meditor .meditor-highlighter.bottom {
+      height: 3px;
+      left: 0;
+      right: 0;
+      bottom: 0; }
+    .meditor .meditor-highlighter.right {
+      width: 3px;
+      right: 0;
+      top: 0;
+      bottom: 0; }
 
 .unselectable {
   -webkit-touch-callout: none;

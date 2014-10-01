@@ -1,4 +1,5 @@
 .idea
+.bower.json
 .sass-cache
 *.swp
 .tern-port

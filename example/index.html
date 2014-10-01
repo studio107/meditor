@@ -29,15 +29,14 @@
 
 <textarea name="editor" id="meditor" cols="30" rows="10"></textarea>
 
-<script>
+<script type="text/javascript">
     var editor = meditor.init('#meditor', {
         language: 'ru',
         plugins: ['space', 'text', 'image', 'video']
     });
-</script>
-
-<script>
-    $(document).foundation();
+    $(function() {
+        $(document).foundation();
+    });
 </script>
 
 </body>
