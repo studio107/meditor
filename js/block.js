@@ -19,6 +19,13 @@
         _htmlBlock: '',
         _htmlToolbar: '',
 
+        /**
+         * Plugin initialization
+         * Инициализация плагина
+         *
+         * @param name
+         * @param parent
+         */
         initialize: function (name, parent) {
             this._name = name;
             this._parent = parent;
@@ -27,34 +34,74 @@
             parent._i18n.addToDictionary(this.i18n, this.name);
         },
 
+        /**
+         * Current number of plugin
+         * Текущий номер плагина
+         *
+         * @returns {*}
+         */
         getNumber: function () {
             return this._number;
         },
 
+        /**
+         * Plugin short name (ex: 'text', 'video', etc)
+         * Короткое имя плагина (например: 'text', 'video' ...)
+         * @returns {*}
+         */
         getName: function () {
             return this._name;
         },
 
+        /**
+         * Setting content to html block
+         * Устанавливаем контент в html блок
+         *
+         * @param html
+         * @returns {Block}
+         */
         setHtmlBlock: function (html) {
             this._htmlBlock = html;
             this.attachHandlers();
             return this;
         },
-        attachHandlers: function(){
-            // Uses after setting content
-        },
+        /**
+         * Getting html block content
+         * Получение контента html блока
+         *
+         * @returns {string}
+         */
         getHtmlBlock: function () {
             return this._htmlBlock;
+        },
+
+        /**
+         * Handlers initialization
+         * Инициализация обработчиков
+         */
+        attachHandlers: function(){
+            // Uses after setting content
         },
 
         getI18nName: function () {
             throw "Not implemented error";
         },
 
+        /**
+         * Internalization
+         *
+         * @param source
+         * @param params
+         * @returns {*}
+         */
         t: function (source, params) {
             return this._parent.t(source, this.name, params);
         },
 
+        /**
+         * Block events
+         * События блока
+         */
         events: function () {
             return {
                 onClick: $.noop,
@@ -70,6 +117,8 @@
 
         /**
          * Render html content for settings
+         * Создание html-формы настроек
+         *
          * @returns {string} html
          */
         renderSettings: function () {
@@ -92,6 +141,14 @@
             return $form;
         },
 
+        /**
+         * Render html fieldset for settings
+         * Создание html-fieldset настроек
+         *
+         * @param fieldset
+         * @param fields
+         * @returns {*|jQuery|HTMLElement}
+         */
         renderFieldset: function (fieldset, fields) {
             var $fieldset = $('<fieldset></fieldset>');
             $fieldset.append( $('<legend></legend>').html(fieldset.name));
@@ -103,6 +160,14 @@
             return $fieldset;
         },
 
+        /**
+         * Render field for settings
+         * Создание поля настроек
+         *
+         * @param name
+         * @param field
+         * @returns {*|jQuery}
+         */
         renderField: function (name, field) {
             var input = '';
             switch (field.type) {
@@ -132,6 +197,16 @@
             return row;
         },
 
+        /**
+         * Render "select" field
+         * Создание поля типа "select"
+         *
+         * @param name
+         * @param value
+         * @param values
+         * @param multiple
+         * @returns {*|jQuery|HTMLElement}
+         */
         renderSelect: function (name, value, values, multiple) {
             var $select = $('<select></select>');
 
@@ -158,6 +233,14 @@
             return $select;
         },
 
+        /**
+         * Render "text" input
+         * Создание поля типа "text"
+         *
+         * @param name
+         * @param value
+         * @returns {*|jQuery|HTMLElement}
+         */
         renderTextInput: function(name, value) {
             var $input = $('<input type="text" />');
             $input.attr('name', name);
@@ -167,6 +250,10 @@
             return $input;
         },
 
+        /**
+         * Default main fieldsets
+         * Группы полей по умолчанию
+         */
         getMainFieldsets: function () {
             return [
                 {
@@ -179,10 +266,18 @@
             ];
         },
 
+        /**
+         * Plugin custom fieldsets
+         * Группы полей плагина
+         */
         getFieldsets: function() {
             return [];
         },
 
+        /**
+         * Default main fields
+         * Поля по умолчанию
+         */
         getMainFields: function () {
             var me = this;
             return {
@@ -277,10 +372,18 @@
             };
         },
 
+        /**
+         * Plugin custom fields
+         * Поля плагина
+         */
         getFields: function() {
             return [];
         },
 
+        /**
+         * Show settings form
+         * Отобразить форму настроек
+         */
         showSettings: function () {
             var me = this;
             this._parent.hideHelper();
@@ -305,6 +408,10 @@
             });
         },
 
+        /**
+         * Show settings form errors
+         * Показать ошибки в настройках
+         */
         showSettingsErrors: function (errors) {
             for (var name in errors) {
                 var id = this._parent.settingsId(name);
@@ -321,6 +428,10 @@
             }
         },
 
+        /**
+         * Apply settings
+         * Применить настройки
+         */
         setSettings: function (data, fields) {
             for (var key in data) {
                 var field_data = data[key];
@@ -332,6 +443,10 @@
             }
         },
 
+        /**
+         * Validate settings
+         * Проверить настройки на ошибки
+         */
         validateSettings: function (data, fields) {
             var errors = {};
 
@@ -354,6 +469,8 @@
 
         /**
          * Make clean plug
+         * Создать объект-заглушку
+         *
          * @returns {*|jQuery}
          */
         makePlug: function() {
@@ -362,6 +479,8 @@
 
         /**
          * Render plug for block
+         * Получение объекта-заглушки
+         *
          * @returns {string} html
          */
         renderPlug: function () {
@@ -370,6 +489,7 @@
 
         /**
          * Show plug for block
+         * Отобразить заглушку для блока
          */
         showPlug: function() {
             $(this._htmlBlock).addClass('plugged');
@@ -377,6 +497,7 @@
 
         /**
          * Hide plug
+         * Скрыть заглушку для блока
          */
         hidePlug: function() {
             $(this._htmlBlock).removeClass('plugged');
@@ -384,6 +505,8 @@
 
         /**
          * Make height resizer
+         * Создать элемент изменения высоты блока
+         *
          * @returns {*|jQuery}
          */
         makeHeightResizer: function(type) {
@@ -393,7 +516,9 @@
         },
 
         /**
-         * Render plug for block
+         * Render height resizer element
+         * Получение элемента для изменения высоты блока
+         *
          * @returns {string} html
          */
         renderHeightResizer: function (type) {
@@ -403,18 +528,30 @@
 
         /**
          * Render html content of htmlblock for view
+         * Получение контента блока для просмотра
+         *
          * @returns {string}
          */
         getContent: function () {
             // TODO remove plugin data for clear html
             return this.getHtmlBlock();
         },
+
+        /**
+         * Getting html block
+         * Получение html block
+         *
+         * @returns {*|jQuery|HTMLElement}
+         * @private
+         */
         _render: function() {
             var block = this.getHtmlBlock();
             return $(block);
         },
         /**
          * Render html content of htmlblock for editing
+         * Получение контента блока для редактирования
+         *
          * @returns {string}
          */
         render: function () {

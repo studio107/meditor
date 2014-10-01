@@ -141,7 +141,7 @@
             return iframe;
         },
         correctVideoBlock: function(block, width, height){
-            var $iframe = block.find('iframe');
+            var $iframe = $(block).find('iframe');
             width = width || false;
             height = height || false;
 
@@ -163,7 +163,7 @@
         },
         onHeightResize: function(){
             var block = this.getHtmlBlock();
-            this.correctVideoBlock(block, block.width(), block.height());
+            this.correctVideoBlock(block, $(block).width(), $(block).height());
         }
 
     });
