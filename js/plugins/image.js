@@ -82,6 +82,7 @@
 
             var $imageHolder = $('<div/>').addClass(this.holderClass(false)).css(imgOptions).append($img);
             block.append($imageHolder);
+            this.saveState();
         },
         correctImageBlock: function(block){
             var $img = block.find('img');
@@ -93,6 +94,7 @@
 
                 block.css({'height': blockHeight});
             }
+            this.saveState();
         },
         readFileAsDataURL: function (file) {
             return $.Deferred(function (deferred) {

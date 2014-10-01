@@ -533,8 +533,7 @@
          * @returns {string}
          */
         getContent: function () {
-            // TODO remove plugin data for clear html
-            return this.getHtmlBlock();
+            return $(this._htmlBlock).clone()[0];
         },
 
         /**
@@ -556,6 +555,12 @@
          */
         render: function () {
             return this._render()[0];
+        },
+        /**
+         * Some changes! Update content in element!
+         */
+        saveState: function() {
+            this._parent.saveState();
         }
     });
 

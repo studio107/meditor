@@ -222,10 +222,6 @@ EditorCore.prototype = {
     bindEvents: function () {
         var me = this;
 
-        this.$element.closest('form').on('submit', function () {
-            me.$element.val(me.getContent());
-        });
-
         $(document).on('click', me.deleteClass(true), function () {
             var confirmMessage = me.t('You really want to remove this block?');
 
@@ -584,6 +580,8 @@ EditorCore.prototype = {
                 $(this).remove();
             }
         });
+
+        this.saveState();
     },
 
     /**
@@ -642,6 +640,7 @@ EditorCore.prototype = {
         }
 
         this.movable = false;
+        this.saveState();
     },
     /**
      * Calculating changes after drop
@@ -843,6 +842,7 @@ EditorCore.prototype = {
         if ($prev.length) {
             $prev.removeClass(this.resizingSiblingClass(false)).off('mousemove');
         }
+        this.saveState();
     },
 
     /**
@@ -930,6 +930,7 @@ EditorCore.prototype = {
         $(document).off('mousemove');
         $(this.resizable).removeClass(this.heightBlockResizingClass(false));
         this.resizable = undefined;
+        this.saveState();
     },
 
 
@@ -1051,6 +1052,7 @@ EditorCore.prototype = {
         row.append(column);
         $(this.areaClass(true)).append(row);
         this.blockAfterRender(block);
+        this.saveState();
     },
 
     /**
@@ -1207,7 +1209,6 @@ EditorCore.prototype = {
      * Events
      * События
      */
-
     blockAfterRender: function (block) {
         var plugin = this.getBlockPlugin(block);
         this.pluginAfterRender(plugin);
@@ -1242,7 +1243,13 @@ EditorCore.prototype = {
     pluginColumnChangeSize: function (plugin) {
         plugin.fireEvent('onColumnChangeSize');
     },
-
+    /**
+     * Some changes! Update content in element!
+     */
+    saveState: function(){
+        console.log('State saved');
+        this.$element.val(this.getContent());
+    },
     /**
      * Прочие сервисные функции
      */

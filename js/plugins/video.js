@@ -156,6 +156,7 @@
                     $(block).css('height', blockHeight);
                 }
             }
+            this.saveState();
         },
         correctBlock: function(){
             var block = this.getHtmlBlock();
@@ -165,7 +166,6 @@
             var block = this.getHtmlBlock();
             this.correctVideoBlock(block, $(block).width(), $(block).height());
         }
-
     });
 
     meditor.pluginAdd('video', VideoBlock);

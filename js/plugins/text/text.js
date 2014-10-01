@@ -80,6 +80,9 @@
                 if (editable.length && !editable.data('enabled')){
                     editable.data('enabled', true);
                     CKEDITOR.inline( editable.attr('id') );
+                    CKEDITOR.instances[editable.attr('id')].on('change', function() {
+                        me.saveState();
+                    });
                 }
             });
         }
