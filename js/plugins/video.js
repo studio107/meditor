@@ -30,8 +30,25 @@
         defaultIFrameOptions: {
             'width': '100%'
         },
+        format: function( url, rez, params ) {
+            params = params || '';
+
+            if ( $.type( params ) === "object" ) {
+                params = $.param(params, true);
+            }
+
+            $.each(rez, function(key, value) {
+                url = url.replace( '$' + key, value || '' );
+            });
+
+            if (params.length) {
+                url += ( url.indexOf('?') > 0 ? '&' : '?' ) + params;
+            }
+
+            return url;
+        },
         holderClass: function (dotted) {
-            var cn = 'meditor-image-holder';
+            var cn = 'meditor-video-holder';
             return dotted ? '.' + cn : cn;
         },
         events: function () {
@@ -71,38 +88,6 @@
                 }
             ];
         },
-        format: function( url, rez, params ) {
-            params = params || '';
-
-            if ( $.type( params ) === "object" ) {
-                params = $.param(params, true);
-            }
-
-            $.each(rez, function(key, value) {
-                url = url.replace( '$' + key, value || '' );
-            });
-
-            if (params.length) {
-                url += ( url.indexOf('?') > 0 ? '&' : '?' ) + params;
-            }
-
-            return url;
-        },
-        insertVideo: function(url, objectUrl) {
-            var block = this.getHtmlBlock();
-            var object = this.makeObject(objectUrl);
-            $(block).find('iframe').remove();
-            $(block).append(object);
-            $(block).attr('data-url', url).data('url', url);
-            this.hidePlug();
-            this.correctBlock();
-            return block;
-        },
-        makeObject: function(url){
-            var iframe = $('<iframe/></iframe>').css(this.defaultIFrameOptions);
-            iframe.attr('src', url);
-            return iframe;
-        },
         getFields: function(){
             var me = this;
             return {
@@ -139,6 +124,21 @@
                     }
                 }
             }
+        },
+        insertVideo: function(url, objectUrl) {
+            var block = this.getHtmlBlock();
+            var object = this.makeObject(objectUrl);
+            $(block).find('iframe').remove();
+            $(block).append(object);
+            $(block).attr('data-url', url).data('url', url);
+            this.hidePlug();
+            this.correctBlock();
+            return block;
+        },
+        makeObject: function(url){
+            var iframe = $('<iframe/></iframe>').css(this.defaultIFrameOptions);
+            iframe.attr('src', url);
+            return iframe;
         },
         correctVideoBlock: function(block, width, height){
             var $iframe = block.find('iframe');

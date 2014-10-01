@@ -227,7 +227,7 @@
                         }
                     },
                     validate: function (value) {
-                        return false;
+                        return true;
                     }
                 },
                 medium: {
@@ -271,7 +271,7 @@
                         }
                     },
                     validate: function (value) {
-                        return false;
+                        return true;
                     }
                 }
             };
@@ -344,7 +344,7 @@
                 var field = fields[name];
 
                 var field_errors = field.validate(value);
-                if (field_errors !== false) {
+                if (field_errors !== true) {
                     errors[name] = field_errors;
                 }
             }

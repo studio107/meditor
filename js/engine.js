@@ -23,6 +23,7 @@ var EditorCore = function ($element, options, i18n) {
 
 EditorCore.prototype = {
     /**
+     * Default settings
      * Настройки по умолчанию
      */
     options: {
@@ -36,9 +37,6 @@ EditorCore.prototype = {
         minHeightBlock: 95
     },
 
-    /**
-     * Элемент, над которым выполняются действия
-     */
     $element: undefined,
     $controls: undefined,
 
@@ -65,6 +63,12 @@ EditorCore.prototype = {
 
     counter: 0,
 
+    /**
+     * Editor initialization
+     * Инициализация редактора
+     *
+     * @returns {EditorCore}
+     */
     init: function () {
         // @TODO move to external i18n language file
         this._i18n.addToDictionary({
@@ -76,7 +80,7 @@ EditorCore.prototype = {
 
         this.bindEvents();
 
-        this.$element.hide();
+        this.$element.hide(0);
 
         var editor = $('<div/>', {class: this.cn}),
             area = $('<div/>', {class: this.areaClass(false)});
@@ -95,6 +99,10 @@ EditorCore.prototype = {
         return this;
     },
 
+    /**
+     * Plugins initialization
+     * Инициализация плагинов
+     */
     pluginsInit: function () {
         // TODO refactoring
         var name;
@@ -108,6 +116,12 @@ EditorCore.prototype = {
     t: function (source, category, params) {
         return this._i18n.t(source, category || 'core', params || {}, this._language);
     },
+
+    /**
+     * Classes
+     * Используемые классы
+     */
+
     blockClass: function (dotted) {
         var cn = this.cn + '-block';
         return dotted ? '.' + cn : cn;
@@ -202,6 +216,7 @@ EditorCore.prototype = {
         return 'settings-' + name;
     },
     /**
+     * Binding events
      * "Навешиваем" события
      */
     bindEvents: function () {
@@ -249,6 +264,12 @@ EditorCore.prototype = {
             }
         });
     },
+    /**
+     * Show block settings panel
+     * Отобразить панель настроек блока
+     *
+     * @param element
+     */
     showHelper: function (element) {
         var helpers = $(this.editor).find(this.helpersClass(true));
 
@@ -264,6 +285,10 @@ EditorCore.prototype = {
         });
         this.helperable = element;
     },
+    /**
+     * Hide settings panel
+     * Скрыть панель настроек
+     */
     hideHelper: function () {
         var helpers = $(this.editor).find(this.helpersClass(true));
         helpers.css({
@@ -271,6 +296,10 @@ EditorCore.prototype = {
         });
         this.helperable = undefined;
     },
+    /**
+     * Grid initialization
+     * Инициализация грида (расположения блоков)
+     */
     initGrid: function () {
         var $me = this;
         var moving_selector = this.moveClass(true);
@@ -293,42 +322,62 @@ EditorCore.prototype = {
             $me.startHeightResize();
         });
     },
+    /**
+     * Get plugin by name
+     * Получить плагин по имени
+     *
+     * @param name
+     * @returns {plugin}
+     */
     getPlugin: function (name) {
         var plugin = this.options.plugins[name];
         if (!plugin) {
+            /**
+             * If requested block not found show special "Lost block"
+             * Если запрашиваемый блок не найден - отображаем специальный "Утерянный блок"
+             */
             plugin = this.options.plugins['lost'];
         }
         return new plugin(name, this);
     },
+    /**
+     * Get block plugin
+     * Получить плагин по блоку
+     *
+     * @param block
+     * @returns {*}
+     */
     getBlockPlugin: function (block) {
         return this.plugins[parseInt($(block).attr('rel'))];
     },
+    /**
+     * Set body as unselectable
+     * Отключаем выделение текста на странице
+     */
     setUnselectable: function () {
         $('body').addClass('unselectable');
     },
+    /**
+     * Unset body as unselectable
+     * Влючаем выделение текста на странице
+     */
     setSelectable: function () {
         $('body').removeClass('unselectable');
     },
+
     /**
-     * Начали перетаскивать
+     * Service functions to simplify the calculations
+     * Сервисные функции для упрощения расчетов
      */
-    startMove: function () {
-        var $me = this;
-        $($me.movable).addClass($me.movingClass(false));
-        $me.setUnselectable();
-        $('body').addClass('moving');
-        $(document).on('mouseup', function (e) {
-            var offset = $me.calculateOffset(e.target, e);
-            $me.stopMove($(e.target), offset);
-        });
-        $(this.movingClasses()).on('mouseout', function () {
-            $me.clearHighlight();
-        });
-        $(this.movingClasses()).on('mousemove', function (e) {
-            var offset = $me.calculateOffset(e.target, e);
-            $me.highlightBlock($(e.target), offset);
-        });
-    },
+
+    /**
+     * Calculating offset of mouse cursor inset element
+     * Расчет смещения курсора мыши внутри элемента
+     *
+     * @param elem
+     * @param e
+     * @returns {{left: Number, top: Number}}
+     */
     calculateOffset: function (elem, e) {
         var event = e.originalEvent;
 
@@ -345,159 +394,157 @@ EditorCore.prototype = {
         }
         return {'left': left, 'top': top};
     },
-    /**
-     * Закончили перетаскивать
-     * @param drop_to
-     * @param offset
-     */
-    stopMove: function (drop_to, offset) {
-        drop_to = $(drop_to);
-        $(this.movable).removeClass(this.movingClass(false));
-        this.setSelectable();
-        $('body').removeClass('moving');
-        this.clearHighlight();
-        $(this.movingClasses()).off('mousemove');
-        $(this.movingClasses()).off('mouseout');
-        $(document).off('mouseup');
 
-        var dropped_to = this.findColumn(drop_to);
-        var direction = drop_to.is($(this.movable)) ? 'y' : 'xy';
-        if (!dropped_to.length && this.isRow(drop_to)) {
-            dropped_to = drop_to;
-            direction = 'y';
-        }
-        if (dropped_to.length) {
-            var drop_from = this.findColumn(this.movable);
-            this.dropped($(this.movable), drop_from, dropped_to, this.getDirection(dropped_to, offset, direction));
-            this.blockAfterMove($(this.movable));
+    /**
+     * Get direction
+     * Получить направление движения
+     */
+    getDirection: function (elem, offset, only) {
+        var direction = 'top';
+
+        if (only == 'y') {
+            direction = (offset.top / elem.height() > 0.5) ? 'bottom' : 'top';
+            return direction;
+        } else if (only == 'x') {
+            direction = (offset.left / elem.width() > 0.5) ? 'right' : 'left';
+            return direction;
         }
 
-        this.movable = false;
-    },
-    /**
-     * Расчет изменений
-     * @param element
-     * @param drop_from
-     * @param drop_to (element column or row only)
-     * @param direction
-     */
-    dropped: function (element, drop_from, drop_to, direction) {
-        var $me = this;
+        var nw = {'x': 0, 'y': 0};
+        var ne = {'x': elem.width(), 'y': 0};
+        var sw = {'x': 0, 'y': elem.height()};
+        var se = {'x': elem.width(), 'y': elem.height()};
 
-        var col_to = this.isRow(drop_to) ? 12 : this.getColumnValue(drop_to);
+        var x = offset.left;
+        var y = offset.top;
 
-        if (direction == 'top' || direction == 'bottom') {
+        var nw_se = ((x - nw.x) / (se.x - nw.x)) - ((y - nw.y) / (se.y - nw.y));
+        var ne_sw = ((x - ne.x) / (sw.x - ne.x)) - ((y - ne.y) / (sw.y - ne.y));
 
-            // Добавляем новую строку
-            if (col_to == this.options.columns) {
-                var to_row = this.isRow(drop_to) ? drop_to : drop_to.closest(this.rowClass(true));
-                var row = this.wrapToRowColumn(element);
-
-                if (direction == 'top') {
-                    to_row.before(row);
-                } else if (direction == 'bottom') {
-                    to_row.after(row);
-                }
-                // Добавляем в хвост или голову столбца
-            } else {
-                if (direction == 'top') {
-                    drop_to.prepend(element);
-                } else if (direction == 'bottom') {
-                    drop_to.append(element);
-                }
-            }
-
-        } else if (direction == 'left' || direction == 'right') {
-            if (col_to > 3) {
-                var new_col_element = Math.round(col_to / 2);
-                var new_col_to = col_to - new_col_element;
-
-                this.setColumnValue(drop_to, new_col_to);
-
-                var $newColumn = this.wrapToColumn(element);
-                $newColumn = $me.setColumnValue($newColumn, new_col_element);
-
-                if (direction == 'left') {
-                    $(drop_to).before($newColumn);
-                } else if (direction == 'right') {
-                    $(drop_to).after($newColumn)
-                }
-            }
-        }
-
-        this.clearStrings();
-    },
-    /**
-     * Подсветить блок
-     * @param element // HTMLElement
-     * @param offset // {'left': int,'top': int}
-     */
-    highlightBlock: function (element, offset) {
-        this.clearHighlight();
-        var $column = this.findColumn(element);
-        if ($column.length) {
-            var direction = 'top';
-            if (!$column.is($(this.movable))) {
-                direction = this.getDirection($column, offset);
-            } else if ($column.hasClass(this.colClass(false, this.options.columns))) {
-                direction = this.getDirection($column, offset, 'y');
-            } else {
-                return false;
-            }
-
-            var col_to = this.getColumnValue($column);
-
-            if (direction == 'top' || direction == 'bottom') {
-                if (col_to == this.options.columns) {
-                    var $element = $column.closest(this.rowClass(true));
-                    this.highlightElement($element, direction);
-                } else {
-                    this.highlightElement($column, direction);
-                }
-            } else {
-                if (col_to > 3) {
-                    this.highlightElement($column, direction);
-                }
-            }
-        } else if (this.isRow(element)) {
-            direction = this.getDirection(element, offset, 'y');
-            this.highlightElement(element, direction);
-        }
-        return false;
-    },
-    /**
-     * Подсветить конкретный элемент
-     * @param element // HTMLElement
-     * @param direction // string left|top|right|bottom
-     */
-    highlightElement: function (element, direction) {
-        // Меняем подсветку текущего блока на следующий (дабы выделение не скакало как бешеное)
-        if (this.isRow(element) && direction == 'bottom') {
-            var next = element.next(this.rowClass(true));
-            if (next.length > 0) {
-                element = $(next[0]);
+        if (nw_se > 0) {
+            if (ne_sw > 0)
                 direction = 'top';
-            }
-        }
-
-        if (this.isColumn(element) && direction == 'right') {
-            var next = element.next(this.columnClass(true));
-            if (next.length > 0) {
-                element = $(next[0]);
+            else
+                direction = 'right';
+        } else {
+            if (ne_sw > 0)
                 direction = 'left';
-            }
+            else
+                direction = 'bottom';
         }
 
-        var highlighter = $('<div/>').addClass(this.highlighterClass(false)).addClass(direction);
-        element.append(highlighter);
+        return direction;
     },
+
     /**
-     * Убрать подсветку блоков
+     * Service functions for the Grid
+     * Сервисные функции для работы с гридом
      */
-    clearHighlight: function () {
-        $(this.highlighterClass(true)).remove();
-    },
+
     /**
+     * Getting the width of a column
+     * Получение ширины колонки
+     */
+    getColumnValue: function (block) {
+        var classes = block[0].classList;
+
+        var cn = '';
+        var colClass = this.colClass(false);
+
+        var i = 0;
+        for (i = 0; i < classes.length; i++) {
+            cn = classes[i];
+            if (cn.indexOf(colClass) == 0) {
+                return parseInt(cn.substr(colClass.length))
+            }
+        }
+        return 0;
+    },
+
+    /**
+     * Setting the width of a column
+     * Установка ширины колонки
+     *
+     * @param block
+     * @param value
+     */
+    setColumnValue: function (block, value) {
+        var $block = $(block);
+        var current = this.getColumnValue(block);
+        var $me = this;
+        $block.removeClass(this.colClass(false, current));
+        $block.addClass(this.colClass(false, value));
+        $block.find(this.blockClass(true)).each(function(){
+            $me.blockColumnChangeSize($(this));
+        });
+        return $block;
+    },
+
+    /**
+     * Increasing the block size
+     * Увеличение размера блока
+     *
+     * @param block
+     * @param value
+     */
+    incColumnValue: function (block, value) {
+        var curr = this.getColumnValue(block);
+        this.setColumnValue(block, curr + value);
+    },
+
+    /**
+     * Decreasing the block size
+     * Уменьшение размера блока
+     *
+     * @param block
+     * @param value
+     */
+    decColumnValue: function (block, value) {
+        var curr = this.getColumnValue(block);
+        if (curr - value > 1) {
+            this.setColumnValue(block, curr - value);
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    /**
+     * Column searching
+     * Поиск колонки
+     *
+     * @returns HTMLElement
+     */
+    findColumn: function (element) {
+        var $element = $(element);
+        if ($element && $element.length > 0) {
+            return $element.closest(this.columnClass(true));
+        }
+        return $();
+    },
+
+    /**
+     * Check is line
+     * Проверка на строку
+     *
+     * @returns bool
+     */
+    isRow: function (element) {
+        return $(element).hasClass(this.rowClass(false));
+    },
+
+    /**
+     * Check is column
+     * Проверка на столбец
+     *
+     * @returns bool
+     */
+    isColumn: function (element) {
+        return $(element).hasClass(this.columnClass(false));
+    },
+
+    /**
+     * Clean up the lines
      * Прибираемся в строчках
      */
     clearStrings: function () {
@@ -538,47 +585,215 @@ EditorCore.prototype = {
             }
         });
     },
+
     /**
-     * Получить направление движения
+     * Drag and drop blocks
+     * Перетаскивания блоков
      */
-    getDirection: function (elem, offset, only) {
-        var direction = 'top';
 
-        if (only == 'y') {
-            direction = (offset.top / elem.height() > 0.5) ? 'bottom' : 'top';
-            return direction;
-        } else if (only == 'x') {
-            direction = (offset.left / elem.width() > 0.5) ? 'right' : 'left';
-            return direction;
-        }
-
-        var nw = {'x': 0, 'y': 0};
-        var ne = {'x': elem.width(), 'y': 0};
-        var sw = {'x': 0, 'y': elem.height()};
-        var se = {'x': elem.width(), 'y': elem.height()};
-
-        var x = offset.left;
-        var y = offset.top;
-
-        var nw_se = ((x - nw.x) / (se.x - nw.x)) - ((y - nw.y) / (se.y - nw.y));
-        var ne_sw = ((x - ne.x) / (sw.x - ne.x)) - ((y - ne.y) / (sw.y - ne.y));
-
-        if (nw_se > 0) {
-            if (ne_sw > 0)
-                direction = 'top';
-            else
-                direction = 'right';
-        } else {
-            if (ne_sw > 0)
-                direction = 'left';
-            else
-                direction = 'bottom';
-        }
-
-        return direction;
+    /**
+     * Started drag
+     * Начали перетаскивать
+     */
+    startMove: function () {
+        var $me = this;
+        $($me.movable).addClass($me.movingClass(false));
+        $me.setUnselectable();
+        $('body').addClass('moving');
+        $(document).on('mouseup', function (e) {
+            var offset = $me.calculateOffset(e.target, e);
+            $me.stopMove($(e.target), offset);
+        });
+        $(this.movingClasses()).on('mouseout', function () {
+            $me.clearHighlight();
+        });
+        $(this.movingClasses()).on('mousemove', function (e) {
+            var offset = $me.calculateOffset(e.target, e);
+            $me.highlightBlock($(e.target), offset);
+        });
     },
     /**
-     * Начали ресайз
+     * Finished drag
+     * Закончили перетаскивать
+     *
+     * @param drop_to
+     * @param offset
+     */
+    stopMove: function (drop_to, offset) {
+        drop_to = $(drop_to);
+        $(this.movable).removeClass(this.movingClass(false));
+        this.setSelectable();
+        $('body').removeClass('moving');
+        this.clearHighlight();
+        $(this.movingClasses()).off('mousemove');
+        $(this.movingClasses()).off('mouseout');
+        $(document).off('mouseup');
+
+        var dropped_to = this.findColumn(drop_to);
+        var direction = drop_to.is($(this.movable)) ? 'y' : 'xy';
+        if (!dropped_to.length && this.isRow(drop_to)) {
+            dropped_to = drop_to;
+            direction = 'y';
+        }
+        if (dropped_to.length) {
+            var drop_from = this.findColumn(this.movable);
+            this.dropped($(this.movable), drop_from, dropped_to, this.getDirection(dropped_to, offset, direction));
+            this.blockAfterMove($(this.movable));
+        }
+
+        this.movable = false;
+    },
+    /**
+     * Calculating changes after drop
+     * Расчет изменений после перетаскивания
+     *
+     * @param element
+     * @param drop_from
+     * @param drop_to (element column or row only)
+     * @param direction
+     */
+    dropped: function (element, drop_from, drop_to, direction) {
+        var $me = this;
+
+        var col_to = this.isRow(drop_to) ? 12 : this.getColumnValue(drop_to);
+
+        if (direction == 'top' || direction == 'bottom') {
+
+            /**
+             * Append new row
+             * Добавляем новую строку
+             */
+            if (col_to == this.options.columns) {
+                var to_row = this.isRow(drop_to) ? drop_to : drop_to.closest(this.rowClass(true));
+                var row = this.wrapToRowColumn(element);
+
+                if (direction == 'top') {
+                    to_row.before(row);
+                } else if (direction == 'bottom') {
+                    to_row.after(row);
+                }
+            } else {
+                /**
+                 * Add to the tail or the head of the column
+                 * Добавляем в хвост или голову столбца
+                 */
+                if (direction == 'top') {
+                    drop_to.prepend(element);
+                } else if (direction == 'bottom') {
+                    drop_to.append(element);
+                }
+            }
+
+        } else if (direction == 'left' || direction == 'right') {
+            if (col_to > 3) {
+                var new_col_element = Math.round(col_to / 2);
+                var new_col_to = col_to - new_col_element;
+
+                this.setColumnValue(drop_to, new_col_to);
+
+                var $newColumn = this.wrapToColumn(element);
+                $newColumn = $me.setColumnValue($newColumn, new_col_element);
+
+                if (direction == 'left') {
+                    $(drop_to).before($newColumn);
+                } else if (direction == 'right') {
+                    $(drop_to).after($newColumn)
+                }
+            }
+        }
+
+        this.clearStrings();
+    },
+
+    /**
+     * Highlighting blocks
+     * Подсвечивание блоков
+     */
+
+    /**
+     * Highlight the block
+     * Подсветить блок
+     *
+     * @param element // HTMLElement
+     * @param offset // {'left': int,'top': int}
+     */
+    highlightBlock: function (element, offset) {
+        this.clearHighlight();
+        var $column = this.findColumn(element);
+        if ($column.length) {
+            var direction = 'top';
+            if (!$column.is($(this.movable))) {
+                direction = this.getDirection($column, offset);
+            } else if ($column.hasClass(this.colClass(false, this.options.columns))) {
+                direction = this.getDirection($column, offset, 'y');
+            } else {
+                return false;
+            }
+
+            var col_to = this.getColumnValue($column);
+
+            if (direction == 'top' || direction == 'bottom') {
+                if (col_to == this.options.columns) {
+                    var $element = $column.closest(this.rowClass(true));
+                    this.highlightElement($element, direction);
+                } else {
+                    this.highlightElement($column, direction);
+                }
+            } else {
+                if (col_to > 3) {
+                    this.highlightElement($column, direction);
+                }
+            }
+        } else if (this.isRow(element)) {
+            direction = this.getDirection(element, offset, 'y');
+            this.highlightElement(element, direction);
+        }
+        return false;
+    },
+    /**
+     * Highlight a specific element
+     * Подсветить конкретный элемент
+     *
+     * @param element // HTMLElement
+     * @param direction // string left|top|right|bottom
+     */
+    highlightElement: function (element, direction) {
+        // Меняем подсветку текущего блока на следующий (дабы выделение не скакало как бешеное)
+        if (this.isRow(element) && direction == 'bottom') {
+            var next = element.next(this.rowClass(true));
+            if (next.length > 0) {
+                element = $(next[0]);
+                direction = 'top';
+            }
+        }
+
+        if (this.isColumn(element) && direction == 'right') {
+            var next = element.next(this.columnClass(true));
+            if (next.length > 0) {
+                element = $(next[0]);
+                direction = 'left';
+            }
+        }
+
+        var highlighter = $('<div/>').addClass(this.highlighterClass(false)).addClass(direction);
+        element.append(highlighter);
+    },
+    /**
+     * Remove the highlight blocks
+     * Убрать подсветку блоков
+     */
+    clearHighlight: function () {
+        $(this.highlighterClass(true)).remove();
+    },
+
+    /**
+     * Change the size of columns
+     * Изменение ширины столбцов
+     */
+
+    /**
+     * Started resizing
+     * Начали изменение размера
      */
     startResize: function () {
         var $me = this;
@@ -610,6 +825,13 @@ EditorCore.prototype = {
         }
     },
 
+    /**
+     * Finished resizing
+     * Закончили изменение размера
+     *
+     * @param target
+     * @param offset
+     */
     stopResize: function (target, offset) {
         $('body').removeClass('unselectable').removeClass(this.resizingClass(false));
 
@@ -623,6 +845,13 @@ EditorCore.prototype = {
         }
     },
 
+    /**
+     * Resizing
+     * Изменение размера
+     *
+     * @param target
+     * @param offset
+     */
     resizing: function (target, offset) {
         var displacement = 0;
         var $target = $(target);
@@ -630,20 +859,29 @@ EditorCore.prototype = {
         if ($target.is($(this.resizable))) {
             displacement = offset.left;
             if (displacement > this.options.colmargin) {
-                if (this.dec_column_value($target, 1)) {
+                if (this.decColumnValue($target, 1)) {
                     this.incColumnValue($(this.resizable_prev), 1);
                 }
             }
         } else if ($target.is($(this.resizable_prev))) {
             displacement = $target.width() - offset.left;
             if (displacement > this.options.colmargin) {
-                if (this.dec_column_value($target, 1)) {
+                if (this.decColumnValue($target, 1)) {
                     this.incColumnValue($(this.resizable), 1);
                 }
             }
         }
     },
 
+    /**
+     * Change the height of blocks
+     * Изменение высоты блоков
+     */
+
+    /**
+     * Start change the height of block
+     * Начали изменение высоты блока
+     */
     startHeightResize: function () {
         var $me = this;
         $('body').addClass('unselectable').addClass(this.heightResizingClass(false));
@@ -663,6 +901,12 @@ EditorCore.prototype = {
             $me.stopHeightResize();
         });
     },
+    /**
+     * Change the height of block
+     * Изменение высоты блока
+     *
+     * @param offset
+     */
     heightResize: function (offset) {
         var height = this.options.minHeightBlock;
         var resizer = this.resizable.find(this.heightResizerClass(true));
@@ -676,6 +920,10 @@ EditorCore.prototype = {
         $(this.resizable).css(type, height);
         this.blockHeightResize(this.resizable);
     },
+    /**
+     * Finish change the height of block
+     * Закончили изменение высоты блока
+     */
     stopHeightResize: function () {
         $('body').removeClass('unselectable').removeClass(this.heightResizingClass(false));
         $(document).off('mouseup');
@@ -683,73 +931,27 @@ EditorCore.prototype = {
         $(this.resizable).removeClass(this.heightBlockResizingClass(false));
         this.resizable = undefined;
     },
-    /**
-     * Получение ширины колонки
-     */
-    getColumnValue: function (block) {
-        var classes = block[0].classList;
 
-        var cn = '';
-        var colClass = this.colClass(false);
-
-        var i = 0;
-        for (i = 0; i < classes.length; i++) {
-            cn = classes[i];
-            if (cn.indexOf(colClass) == 0) {
-                return parseInt(cn.substr(colClass.length))
-            }
-        }
-        return 0;
-    },
 
     /**
-     * Установка ширины колонки
-     * @param block
-     * @param value
+     * Creation functions
+     * Функции создания элементов
      */
-    setColumnValue: function (block, value) {
-        var $block = $(block);
-        var current = this.getColumnValue(block);
-        var $me = this;
-        $block.removeClass(this.colClass(false, current));
-        $block.addClass(this.colClass(false, value));
-        $block.find(this.blockClass(true)).each(function(){
-            $me.blockColumnChangeSize($(this));
-        });
-        return $block;
-    },
 
     /**
-     * Увеличение блока
-     * @param block
-     * @param value
+     * Create an element that changes the column width
+     * Создать элемент изменения ширины колонки
+     *
+     * @returns {*|jQuery}
      */
-    incColumnValue: function (block, value) {
-        var curr = this.getColumnValue(block);
-        this.setColumnValue(block, curr + value);
-    },
-
-    /**
-     * Уменьшение блока
-     * @param block
-     * @param value
-     */
-    dec_column_value: function (block, value) {
-        var curr = this.getColumnValue(block);
-        if (curr - value > 1) {
-            this.setColumnValue(block, curr - value);
-            return true;
-        } else {
-            return false;
-        }
-    },
-
     createResizeHandler: function () {
         return $('<span/>').addClass(this.resizerClass(false));
     },
 
     /**
-     * Cоздание чистой строки
+     * Create clean (empty) row
+     * Создать чистую (пустую) строку
+     *
      * @returns HTMLElement
      */
     createPureRow: function () {
@@ -759,7 +961,9 @@ EditorCore.prototype = {
     },
 
     /**
-     * Cоздание чистого блока
+     * Create clean (empty) column
+     * Создать чистый (пустой) столбец
+     *
      * @returns HTMLElement
      */
     createPureColumn: function () {
@@ -769,7 +973,9 @@ EditorCore.prototype = {
     },
 
     /**
+     * Wrap the element in the row and column
      * Обернуть элемент в строку и столбец
+     *
      * @returns HTMLElement
      */
     wrapToRowColumn: function ($element) {
@@ -778,7 +984,9 @@ EditorCore.prototype = {
     },
 
     /**
+     * Wrap the element in column
      * Обернуть элемент в столбец
+     *
      * @returns HTMLElement
      */
     wrapToColumn: function ($element) {
@@ -786,36 +994,11 @@ EditorCore.prototype = {
     },
 
     /**
-     * Поиск колонки
-     * @returns HTMLElement
-     */
-    findColumn: function (element) {
-        var $element = $(element);
-        if ($element && $element.length > 0) {
-            return $element.closest(this.columnClass(true));
-        }
-        return $();
-    },
-
-    /**
-     * Проверка на строку
-     * @returns bool
-     */
-    isRow: function (element) {
-        return $(element).hasClass(this.rowClass(false));
-    },
-
-    /**
-     * Проверка на столбец
-     * @returns bool
-     */
-    isColumn: function (element) {
-        return $(element).hasClass(this.columnClass(false));
-    },
-    /**
-     * Добавляем контролы к редактору
+     * Adding controls to the editor
+     * Добавляем элементы управления к редактору
      */
     createControls: function () {
+        // TODO to the current step has to be initialized plugins
         // TODO к текущему шагу уже должны быть инициализированы плагины
 
         var $controls = $('<div/>', {class: this.controlsClass(false)}),
@@ -837,6 +1020,232 @@ EditorCore.prototype = {
 
         return this.$controls = $controls;
     },
+
+    /**
+     * Functions for working with blocks
+     * Функции для работы с блоками
+     */
+
+    /**
+     * Creating a new block
+     * Создание нового блока
+     */
+    createBlock: function (data) {
+        var $block = $('<div/>', {
+            'data-plugin': data['plugin']
+        });
+        $block.addClass(this.blockClass(false));
+        this.addBlock($block);
+    },
+    /**
+     * Добавление блока на страницу
+     * Adding the block to the page
+     *
+     * @param block
+     */
+    addBlock: function (block) {
+        var row = this.createPureRow();
+        var column = this.createPureColumn();
+        var maked = this.makeBlock(block);
+        column.append(maked);
+        row.append(column);
+        $(this.areaClass(true)).append(row);
+        this.blockAfterRender(block);
+    },
+
+    /**
+     * Initialization of the grid elements
+     * Инициализация элементов грида
+     */
+
+    /**
+     * Setting old content
+     * Установка прошлого контента
+     */
+    setContent: function () {
+        var content = this.$element.val();
+        if (!content) {
+            var block = $('<div/>', {
+                'data-plugin': 'text'
+            });
+            block.addClass(this.blockClass(false)).addClass('text-block');
+
+            var row = this.createPureRow();
+            var column = this.createPureColumn();
+            column.append(block);
+            row.append(column);
+
+            content = $('<div/>').append(row);
+        } else {
+            content = $('<div/>').html(content);
+        }
+        this.setContentByRows(content);
+    },
+    /**
+     * Splitting a clean block content in rows
+     * Разбиваем чистый блочный контент по строкам
+     *
+     * @param content
+     * @returns html
+     */
+    setContentByRows: function (content) {
+        var $me = this;
+        var row = this.createPureRow();
+        $(content).find($me.rowClass(true)).each(function (index) {
+            row = $me.createPureRow();
+            $(this).find($me.columnClass(true)).each(function (index) {
+                $(this).find($me.resizerClass(true)).remove();
+                var column = $(this).append($me.createResizeHandler());
+                $(this).find($me.blockClass(true)).each(function (index) {
+                    column.append($me.makeBlock(this));
+                });
+                row.append(column);
+            });
+            $($me.area).append(row);
+        });
+    },
+    /**
+     * Preparing block to add to the page
+     * Подготовка блока к добавлению на страницу
+     *
+     * @param element
+     */
+    makeBlock: function (element) {
+        var name = $(element).data('plugin'),
+            plugin = this.getPlugin(name);
+
+        return this.initPlugin(plugin, element, name);
+    },
+    /**
+     * Initialize the plugin when adding block
+     * Инициализация плагина при добавлении блока
+     *
+     * @param plugin
+     * @param element
+     * @param name
+     * @returns {*|string}
+     */
+    initPlugin: function (plugin, element, name) {
+        this.plugins.push(plugin);
+
+        // TODO ugly, refactor it.
+        $(element).attr('rel', plugin.getNumber());
+        if (!$(element).hasClass(name + '-block')) {
+            $(element).addClass(name + '-block');
+        }
+        $(element).attr('data-plugin', name);
+        $(element).data('plugin', name);
+
+        return plugin.setHtmlBlock(element).render();
+    },
+
+    /**
+     * Saving
+     * Сохранение
+     */
+
+    /**
+     * Getting clean content
+     * Получение очищенного контента
+     *
+     * @returns {*}
+     */
+    getContent: function () {
+        var $me = this;
+        var out = $('<div/>');
+        $(this.area).find(this.rowClass(true)).each(function () {
+            var cleared = $me.getRowContent($(this));
+            out.append(cleared);
+        });
+        return out.html();
+    },
+    /**
+     * Getting clean content from row
+     * Получение очищенного контента из строки
+     *
+     * @param row
+     * @returns {*|jQuery}
+     */
+    getRowContent: function (row) {
+        var $me = this;
+        var out = $('<div/>').addClass($me.rowClass(false));
+        row.find($me.columnClass(true)).each(function () {
+            var out_column = $(this).clone().html('');
+            $(this).find($me.blockClass(true)).each(function () {
+                var cleared = $me.cleanBlock($(this));
+                out_column.append(cleared);
+            });
+            out.append(out_column);
+        });
+        return out;
+    },
+    /**
+     * Cleaning the block. Used before saving.
+     * Очистка блока от данных редактора. Используется перед сохранением.
+     *
+     * @param block
+     * @returns {*|string}
+     */
+    cleanBlock: function (block) {
+        var plugin = this.getBlockPlugin(block);
+
+        block = plugin.getContent();
+
+        var $block = $(block);
+
+        $block.find(this.helpersClass(true)).remove();
+        $block.find(this.resizerClass(true)).remove();
+        $block.find(this.plugClass(true)).remove();
+        $block.find(this.heightResizerClass(true)).remove();
+
+        $block.removeAttr('rel');
+
+        return block;
+    },
+
+    /**
+     * Events
+     * События
+     */
+
+    blockAfterRender: function (block) {
+        var plugin = this.getBlockPlugin(block);
+        this.pluginAfterRender(plugin);
+    },
+    pluginsAfterRender: function () {
+        var key = 0;
+        for (key in this.plugins) {
+            this.pluginAfterRender(this.plugins[key]);
+        }
+    },
+    pluginAfterRender: function (plugin) {
+        plugin.fireEvent('onAfterRender');
+    },
+    blockHeightResize: function (block) {
+        var plugin = this.getBlockPlugin(block);
+        this.pluginHeightResize(plugin);
+    },
+    pluginHeightResize: function (plugin) {
+        plugin.fireEvent('onHeightResize');
+    },
+    blockAfterMove: function (block) {
+        var plugin = this.getBlockPlugin(block);
+        this.pluginAfterMove(plugin);
+    },
+    pluginAfterMove: function (plugin) {
+        plugin.fireEvent('onAfterMove');
+    },
+    blockColumnChangeSize: function (block) {
+        var plugin = this.getBlockPlugin(block);
+        this.pluginColumnChangeSize(plugin);
+    },
+    pluginColumnChangeSize: function (plugin) {
+        plugin.fireEvent('onColumnChangeSize');
+    },
+
+    /**
+     * Прочие сервисные функции
+     */
 
     getBaseUrl: function () {
         var i, match, path = this.options.baseUrl || undefined, scripts;
@@ -874,176 +1283,6 @@ EditorCore.prototype = {
         data = data || {};
         data['i18n'] = this._i18n.getDictionary(this._language);
         return compiled(data);
-    },
-
-    /**
-     * Создание нового блока
-     */
-    createBlock: function (data) {
-        var $block = $('<div/>', {
-            'data-plugin': data['plugin']
-        });
-        $block.addClass(this.blockClass(false));
-        this.addBlock($block);
-    },
-    /**
-     * Добавление нового блока на страничку
-     * @param block
-     */
-    addBlock: function (block) {
-        var row = this.createPureRow();
-        var column = this.createPureColumn();
-        var maked = this.makeBlock(block);
-        column.append(maked);
-        row.append(column);
-        $(this.areaClass(true)).append(row);
-        this.blockAfterRender(block);
-    },
-    /**
-     * Установка прошлого контента
-     */
-    setContent: function () {
-        var content = this.$element.val();
-        if (!content) {
-            var block = $('<div/>', {
-                'data-plugin': 'text'
-            });
-            block.addClass(this.blockClass(false)).addClass('text-block');
-
-            var row = this.createPureRow();
-            var column = this.createPureColumn();
-            column.append(block);
-            row.append(column);
-
-            content = $('<div/>').append(row);
-        } else {
-            content = $('<div/>').html(content);
-        }
-        this.setContentByRows(content);
-    },
-    /**
-     * Разбиваем чистый блочный контент по строкам
-     * @param content
-     * @returns html
-     */
-    setContentByRows: function (content) {
-        var $me = this;
-        var row = this.createPureRow();
-        $(content).find($me.rowClass(true)).each(function (index) {
-            row = $me.createPureRow();
-            $(this).find($me.columnClass(true)).each(function (index) {
-                $(this).find($me.resizerClass(true)).remove();
-                var column = $(this).append($me.createResizeHandler());
-                $(this).find($me.blockClass(true)).each(function (index) {
-                    column.append($me.makeBlock(this));
-                });
-                row.append(column);
-            });
-            $($me.area).append(row);
-        });
-    },
-    /**
-     * Подготовка блока к добавлению на страницу
-     * @param element
-     */
-    makeBlock: function (element) {
-        var name = $(element).data('plugin'),
-            plugin = this.getPlugin(name);
-
-        return this.initPlugin(plugin, element, name);
-    },
-    initPlugin: function (plugin, element, name) {
-        this.plugins.push(plugin);
-
-        // TODO ugly, refactor it.
-        $(element).attr('rel', plugin.getNumber());
-        if (!$(element).hasClass(name + '-block')) {
-            $(element).addClass(name + '-block');
-        }
-        $(element).attr('data-plugin', name);
-        $(element).data('plugin', name);
-
-        return plugin.setHtmlBlock(element).render();
-    },
-    blockAfterRender: function (block) {
-        var plugin = this.getBlockPlugin(block);
-        this.pluginAfterRender(plugin);
-    },
-    pluginsAfterRender: function () {
-        var key = 0;
-        for (key in this.plugins) {
-            this.pluginAfterRender(this.plugins[key]);
-        }
-    },
-    pluginAfterRender: function (plugin) {
-        plugin.fireEvent('onAfterRender');
-    },
-    blockHeightResize: function (block) {
-        var plugin = this.getBlockPlugin(block);
-        this.pluginHeightResize(plugin);
-    },
-    pluginHeightResize: function (plugin) {
-        plugin.fireEvent('onHeightResize');
-    },
-    blockAfterMove: function (block) {
-        var plugin = this.getBlockPlugin(block);
-        this.pluginAfterMove(plugin);
-    },
-    pluginAfterMove: function (plugin) {
-        plugin.fireEvent('onAfterMove');
-    },
-    blockColumnChangeSize: function (block) {
-        var plugin = this.getBlockPlugin(block);
-        this.pluginColumnChangeSize(plugin);
-    },
-    pluginColumnChangeSize: function (plugin) {
-        plugin.fireEvent('onColumnChangeSize');
-    },
-    /**
-     * Получение очищенного контента из блока
-     * @returns {*}
-     */
-    getContent: function () {
-        var $me = this;
-        var out = $('<div/>');
-        $(this.area).find(this.rowClass(true)).each(function () {
-            var cleared = $me.getRowContent($(this));
-            out.append(cleared);
-        });
-        return out.html();
-    },
-    getRowContent: function (row) {
-        var $me = this;
-        var out = $('<div/>').addClass($me.rowClass(false));
-        row.find($me.columnClass(true)).each(function () {
-            var out_column = $(this).clone().html('');
-            $(this).find($me.blockClass(true)).each(function () {
-                var cleared = $me.cleanBlock($(this));
-                out_column.append(cleared);
-            });
-            out.append(out_column);
-        });
-        return out;
-    },
-    /**
-     * Очистка блока от данных редактора. Используется перед сохранением.
-     *
-     * @param block
-     * @returns {*|string}
-     */
-    cleanBlock: function (block) {
-        var plugin = this.getBlockPlugin(block);
-
-        block = plugin.getContent();
-
-        $(block).find(this.helpersClass(true)).remove();
-        $(block).find(this.resizerClass(true)).remove();
-        $(block).find(this.plugClass(true)).remove();
-        $(block).find(this.heightResizerClass(true)).remove();
-
-        $(block).removeAttr('rel');
-
-        return block;
     },
 
     loader: {
