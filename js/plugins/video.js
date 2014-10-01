@@ -116,7 +116,7 @@
                             var item = me.types[key];
                             var rez  = value.match( item.matcher );
                             if (rez) {
-                                return false;
+                                return true;
                             }
 
                         }

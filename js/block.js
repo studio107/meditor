@@ -293,7 +293,7 @@
 
                     var data = form.serializeArray();
                     var errors = me.validateSettings(data, fields);
-                    if (errors === false) {
+                    if (errors === true) {
                         me.setSettings(data, fields);
                         $('.mmodal-close').trigger('click');
                     }else{
@@ -349,7 +349,7 @@
                 }
             }
 
-            return _.size(errors) == 0 ? false : errors;
+            return _.size(errors) == 0 ? true : errors;
         },
 
         /**
