@@ -13,6 +13,10 @@
             className: ''
         },
 
+        settings: {
+
+        },
+
         _parent: undefined,
         _name: undefined,
         _number: undefined,
@@ -25,11 +29,13 @@
          *
          * @param name
          * @param parent
+         * @param settings
          */
-        initialize: function (name, parent) {
+        initialize: function (name, parent, settings) {
             this._name = name;
             this._parent = parent;
             this._number = parent.plugins.length;
+            this.settings = _.extend(this.settings, settings);
 
             parent._i18n.addToDictionary(this.i18n, this.name);
         },
@@ -212,7 +218,7 @@
 
             $select.attr('name', name);
 
-            if( !Object.prototype.toString.call( value ) === '[object Array]' ) {
+            if ((value instanceof Array) === false) {
                 value = [value];
             }
 

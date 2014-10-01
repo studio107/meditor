@@ -108,8 +108,9 @@ EditorCore.prototype = {
         var name;
 
         for (name in this.options.plugins) {
-            var plugin = this.options.plugins[name];
-            this._plugins[name] = new plugin(name, this);
+            var plugin = this.options.plugins[name],
+                pluginOptions = this.options[name] || {};
+            this._plugins[name] = new plugin(name, this, pluginOptions);
         }
     },
 
@@ -268,16 +269,13 @@ EditorCore.prototype = {
      */
     showHelper: function (element) {
         var helpers = $(this.editor).find(this.helpersClass(true));
+        helpers.css({'display': 'block'});
+
+        var $me = $(this.editor);
 
         helpers.css({
-            'display': 'block'
-        });
-
-        var element_width = element.width();
-
-        helpers.css({
-            'top': element.offset().top,
-            'left': element.offset().left + element_width
+            'top': element.offset().top - $me.offset().top,
+            'left': (element.offset().left - $me.offset().left) + element.width()
         });
         this.helperable = element;
     },
@@ -470,7 +468,7 @@ EditorCore.prototype = {
         var $me = this;
         $block.removeClass(this.colClass(false, current));
         $block.addClass(this.colClass(false, value));
-        $block.find(this.blockClass(true)).each(function(){
+        $block.find(this.blockClass(true)).each(function () {
             $me.blockColumnChangeSize($(this));
         });
         return $block;
@@ -1130,14 +1128,12 @@ EditorCore.prototype = {
     initPlugin: function (plugin, element, name) {
         this.plugins.push(plugin);
 
-        // TODO ugly, refactor it.
-        $(element).attr('rel', plugin.getNumber());
-        if (!$(element).hasClass(name + '-block')) {
-            $(element).addClass(name + '-block');
+        var $element = $(element);
+        $element.attr('rel', plugin.getNumber());
+        if (!$element.hasClass(name + '-block')) {
+            $element.addClass(name + '-block');
         }
-        $(element).attr('data-plugin', name);
-        $(element).data('plugin', name);
-
+        $element.attr('data-plugin', name).data('plugin', name);
         return plugin.setHtmlBlock(element).render();
     },
 
@@ -1153,8 +1149,9 @@ EditorCore.prototype = {
      * @returns {*}
      */
     getContent: function () {
-        var $me = this;
-        var out = $('<div/>');
+        var $me = this,
+            out = $('<div/>');
+
         $(this.area).find(this.rowClass(true)).each(function () {
             var cleared = $me.getRowContent($(this));
             out.append(cleared);
@@ -1246,103 +1243,38 @@ EditorCore.prototype = {
     /**
      * Some changes! Update content in element!
      */
-    saveState: function(){
+    saveState: function () {
         this.$element.val(this.getContent());
     },
     /**
      * Прочие сервисные функции
      */
-
-    getBaseUrl: function () {
-        var i, match, path = this.options.baseUrl || undefined, scripts;
-
-        if (!path) {
-            scripts = document.getElementsByTagName("script");
-            i = 0;
-            while (i < scripts.length) {
-                match = scripts[i].src.match(/(^|.*[\\\/])editor(?:.min)?.js(?:\?.*)?$/i);
-                if (match) {
-                    path = match[1];
-                    break;
-                }
-                i++;
-            }
-        }
-        if (path && path.indexOf(":/") === -1) {
-            if (path.indexOf("/") === 0) {
-                path = location.href.match(/^.*?:\/\/[^\/]*/)[0] + path;
-            } else {
-                path = location.href.match(/^[^\?]*\/(?:)/)[0] + path;
-            }
-        }
-
-        if (!path) {
-            throw "The Mindy Editor installation path could not be automatically detected. " +
-                "Please set 'baseUrl' in options before creating editor instances.";
-        }
-        return path;
-    },
-
     renderTemplate: function (src, data) {
-        var tpl = this.loader.template(this.getBaseUrl() + src),
-            compiled = _.template(tpl);
+        var compiled = _.template('' +
+            '<nav class="meditor-controls">' +
+            '<ul class="no-bullet">' +
+            '<% _.each(plugins, function(plugin) { %>' +
+            '<li>' +
+            '<a class="add-block" data-popup="<%= plugin.options.hasPopup %>" href="#" data-plugin="<%= plugin.getName() %>" rel="<%= plugin.getNumber() %>">' +
+            '<%= plugin.getI18nName() %>' +
+            '</a>' +
+            '</li>' +
+            '<% }); %>' +
+            '</ul>' +
+            '</nav>' +
+            '<div class="meditor-helpers">' +
+            '<span class="meditor-move">' +
+            '<i class="fa fa-arrows"></i>' +
+            '</span>' +
+            '<span class="meditor-settings">' +
+            '<i class="fa fa-gear"></i>' +
+            '</span>' +
+            '<span class="meditor-delete">' +
+            '<i class="fa fa-trash-o"></i>' +
+            '</span>' +
+            '</div>');
         data = data || {};
         data['i18n'] = this._i18n.getDictionary(this._language);
         return compiled(data);
-    },
-
-    loader: {
-        _templates: {},
-        css: function (url, media, ie) {
-            // TODO ie conditional comments support
-
-            var link = document.createElement("link");
-            link.type = "text/css";
-            link.rel = "stylesheet";
-            if (media) {
-                link.media = media;
-            }
-            link.href = url;
-            document.getElementsByTagName("head")[0].appendChild(link);
-        },
-        js: function (url, callback) {
-            var script = document.getElementsByTagName('script')[0],
-                newjs = document.createElement('script');
-
-            // IE
-            newjs.onreadystatechange = function () {
-                if (newjs.readyState === 'loaded' || newjs.readyState === 'complete') {
-                    newjs.onreadystatechange = null;
-                    callback();
-                }
-            };
-            // others
-            newjs.onload = function () {
-                callback();
-            };
-            newjs.src = url;
-            script.parentNode.insertBefore(newjs, script);
-        },
-        template: function (src) {
-            var name = src.split('/').pop().replace('.jst', ''), tpl;
-
-            if ((name in this._templates) == false) {
-                $.ajax({
-                    url: src,
-                    method: 'GET',
-                    dataType: 'html',
-                    async: false,
-                    contentType: 'text',
-                    success: function (data) {
-                        tpl = data;
-                    }
-                });
-
-                $('head').append('<script id="meditor_tpl_' + name + '" type="text/template">' + tpl + '<\/script>');
-                this._templates[name] = tpl;
-            }
-
-            return this._templates[name];
-        }
     }
 };
