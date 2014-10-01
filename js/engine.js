@@ -1247,7 +1247,6 @@ EditorCore.prototype = {
      * Some changes! Update content in element!
      */
     saveState: function(){
-        console.log('State saved');
         this.$element.val(this.getContent());
     },
     /**
