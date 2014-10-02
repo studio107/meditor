@@ -32,7 +32,7 @@ class WysiwygField extends TextAreaField
             ]
         ]);
         $js = "<script type='text/javascript'>var editor = meditor.init('#{$this->getId()}', $options);</script>";
-        return htmlentities($this->getValue()) . parent::render() . $js;
+        return parent::render() . $js;
     }
 }
 ```
