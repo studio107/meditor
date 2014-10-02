@@ -447,6 +447,7 @@
 
                 field.setValue(field_data.value);
             }
+            this.saveState();
         },
 
         /**
