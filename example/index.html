@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../dist/css/1.0.0.all.css" />
     <script type="text/javascript" src="../dist/js/1.0.0.all.js"></script>
 
-    <script type="text/javascript" src="../vendors/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="../bower_components/ckeditor/ckeditor.js"></script>
 
     <script type="text/javascript" src="../js/utils.js"></script>
     <script type="text/javascript" src="../js/core.js"></script>
