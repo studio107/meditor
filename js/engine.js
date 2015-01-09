@@ -74,7 +74,13 @@ EditorCore.prototype = {
         this._i18n.addToDictionary({
             ru: {
                 'Add block': 'Добавить блок',
-                'You really want to remove this block?': 'Вы действительно хотите удалить данный блок?'
+                'You really want to remove this block?': 'Вы действительно хотите удалить данный блок?',
+                'Main settings': 'Основные настройки',
+                'Small screen': 'Маленький экран',
+                'Medium screen': 'Средний экран',
+                'Default action': 'Действие по-умолчанию',
+                'Columns: ': 'Колонок: ',
+                'Save': 'Сохранить'
             }
         }, 'core');
 
@@ -92,7 +98,7 @@ EditorCore.prototype = {
         this.pluginsInit();
 
         this.setContent();
-        $(editor).append(this.createControls(), area);
+        $(editor).append(area, this.createControls());
         this.$element.after(this.editor);
         this.initGrid();
         this.pluginsAfterRender();
@@ -1244,15 +1250,22 @@ EditorCore.prototype = {
      * Some changes! Update content in element!
      */
     saveState: function () {
+        console.log(this.getContent());
         this.$element.val(this.getContent());
     },
     /**
      * Прочие сервисные функции
      */
     renderTemplate: function (src, data) {
+        var appendBlock = this.t('Add block');
         var compiled = _.template('' +
+            '<div class="row">' +
+            '<div class="column large-12">' +
             '<nav class="meditor-controls">' +
             '<ul class="no-bullet">' +
+            '<li class="append">' +
+            '<span>' + appendBlock + '</span>' +
+            '</li>' +
             '<% _.each(plugins, function(plugin) { %>' +
             '<li>' +
             '<a class="add-block" data-popup="<%= plugin.options.hasPopup %>" href="#" data-plugin="<%= plugin.getName() %>" rel="<%= plugin.getNumber() %>">' +
@@ -1262,15 +1275,17 @@ EditorCore.prototype = {
             '<% }); %>' +
             '</ul>' +
             '</nav>' +
+            '</div>' +
+            '</div>' +
             '<div class="meditor-helpers">' +
             '<span class="meditor-move">' +
-            '<i class="fa fa-arrows"></i>' +
+            '<i class="move-icon"></i>' +
             '</span>' +
             '<span class="meditor-settings">' +
-            '<i class="fa fa-gear"></i>' +
+            '<i class="gear-icon"></i>' +
             '</span>' +
             '<span class="meditor-delete">' +
-            '<i class="fa fa-trash-o"></i>' +
+            '<i class="delete-icon"></i>' +
             '</span>' +
             '</div>');
         data = data || {};

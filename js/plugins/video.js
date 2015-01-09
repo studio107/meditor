@@ -2,6 +2,11 @@
     "use strict";
 
     var VideoBlock = meditorBlock.extend({
+        i18n: {
+            'ru': {
+                'Video block': 'Видео'
+            }
+        },
         types: {
             youtube : {
                 matcher : /(youtube\.com|youtu\.be|youtube-nocookie\.com)\/(watch\?v=|v\/|u\/|embed\/?)?(videoseries\?list=(.*)|[\w-]{11}|\?listType=(.*)&list=(.*)).*/i,

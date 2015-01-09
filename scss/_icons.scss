@@ -1,0 +1,32 @@
+.delete-icon, .move-icon, .gear-icon, .updown-icon {
+  display: inline-block;
+  vertical-align: middle;
+  zoom: 1;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.delete-icon {
+  background-image: url('../images/meditor-delete.png');
+  width: 12px;
+  height: 12px;
+}
+
+.move-icon {
+  background-image: url('../images/meditor-move.png');
+  width: 14px;
+  height: 14px;
+}
+
+.gear-icon {
+  background-image: url('../images/meditor-cog.png');
+  width: 17px;
+  height: 16px;
+}
+
+.updown-icon {
+  background-image: url('../images/meditor-updown.png');
+  width: 5px;
+  height: 8px;
+}

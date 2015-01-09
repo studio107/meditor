@@ -1,0 +1,43 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9" lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9" lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9>" lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>meditor</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="dist/css/1.0.0.all.css" />
+    <script type="text/javascript" src="dist/js/1.0.0.all.js"></script>
+
+    <script type="text/javascript" src="bower_components/ckeditor/ckeditor.js"></script>
+
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/core.js"></script>
+    <script type="text/javascript" src="js/engine.js"></script>
+    <script type="text/javascript" src="js/editor.js"></script>
+    <script type="text/javascript" src="js/block.js"></script>
+    <script type="text/javascript" src="js/plugins/text/text.js"></script>
+    <script type="text/javascript" src="js/plugins/video.js"></script>
+    <script type="text/javascript" src="js/plugins/lost.js"></script>
+    <script type="text/javascript" src="js/plugins/space.js"></script>
+    <script type="text/javascript" src="js/plugins/image.js"></script>
+    <script type="text/javascript" src="js/plugins/map/map.js"></script>
+</head>
+<body>
+
+<textarea name="editor" id="meditor" cols="30" rows="10"></textarea>
+
+<script type="text/javascript">
+    var editor = meditor.init('#meditor', {
+        language: 'ru',
+        plugins: ['space', 'text', 'video']
+    });
+    $(function() {
+        $(document).foundation();
+    });
+</script>
+
+</body>
+</html>

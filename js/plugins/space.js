@@ -4,7 +4,7 @@
     var SpaceBlock = meditorBlock.extend({
         i18n: {
             'ru': {
-                'Space block': 'Блок отступ'
+                'Space block': 'Отступ'
             }
         },
         getI18nName: function() {

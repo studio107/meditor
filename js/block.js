@@ -2,7 +2,7 @@
     var Block = Class.extend({
         i18n: {
             'ru': {
-                'Abstract block': 'Служебный блок'
+                'Abstract block': 'Служебный блок',
             }
         },
 
@@ -37,7 +37,7 @@
             this._number = parent.plugins.length;
             this.settings = _.extend(this.settings, settings);
 
-            parent._i18n.addToDictionary(this.i18n, this.name);
+            parent._i18n.addToDictionary(this.i18n, this.getName());
         },
 
         /**
@@ -98,10 +98,11 @@
          *
          * @param source
          * @param params
+         * @param name
          * @returns {*}
          */
-        t: function (source, params) {
-            return this._parent.t(source, this.name, params);
+        t: function (source, params, name) {
+            return this._parent.t(source, name || this.getName(), params);
         },
 
         /**
@@ -141,7 +142,7 @@
             }
 
             var $buttons = $('<div></div>').addClass(this._parent.settingsClass(false, 'buttons'));
-            $buttons.append($('<button type="submit"></button>').html(this.t('Save')));
+            $buttons.append($('<button type="submit"></button>').html(this.t('Save', {}, 'core')));
 
             $form.append($buttons);
             return $form;
@@ -263,7 +264,7 @@
         getMainFieldsets: function () {
             return [
                 {
-                    name: this.t('Main settings'),
+                    name: this.t('Main settings', {}, 'core'),
                     fields: [
                         'small',
                         'medium'
@@ -290,21 +291,21 @@
                 small: {
                     type: 'select',
                     multiple: false,
-                    label: this.t('Small screen'),
+                    label: this.t('Small screen', {}, 'core'),
                     values: {
-                        'default': this.t('Default action'),
-                        'small-1': this.t('Columns: ') + 1,
-                        'small-2': this.t('Columns: ') + 2,
-                        'small-3': this.t('Columns: ') + 3,
-                        'small-4': this.t('Columns: ') + 4,
-                        'small-5': this.t('Columns: ') + 5,
-                        'small-6': this.t('Columns: ') + 6,
-                        'small-7': this.t('Columns: ') + 7,
-                        'small-8': this.t('Columns: ') + 8,
-                        'small-9': this.t('Columns: ') + 9,
-                        'small-10': this.t('Columns: ') + 10,
-                        'small-11': this.t('Columns: ') + 11,
-                        'small-12': this.t('Columns: ') + 12
+                        'default': this.t('Default action', {}, 'core'),
+                        'small-1': this.t('Columns: ', {}, 'core') + 1,
+                        'small-2': this.t('Columns: ', {}, 'core') + 2,
+                        'small-3': this.t('Columns: ', {}, 'core') + 3,
+                        'small-4': this.t('Columns: ', {}, 'core') + 4,
+                        'small-5': this.t('Columns: ', {}, 'core') + 5,
+                        'small-6': this.t('Columns: ', {}, 'core') + 6,
+                        'small-7': this.t('Columns: ', {}, 'core') + 7,
+                        'small-8': this.t('Columns: ', {}, 'core') + 8,
+                        'small-9': this.t('Columns: ', {}, 'core') + 9,
+                        'small-10': this.t('Columns: ', {}, 'core') + 10,
+                        'small-11': this.t('Columns: ', {}, 'core') + 11,
+                        'small-12': this.t('Columns: ', {}, 'core') + 12
                     },
                     getValue: function () {
                         var value = 'default';
@@ -334,21 +335,21 @@
                 medium: {
                     type: 'select',
                     multiple: false,
-                    label: this.t('Medium screen'),
+                    label: this.t('Medium screen', {}, 'core'),
                     values: {
-                        'default': this.t('Default action'),
-                        'medium-1': this.t('Columns: ') + 1,
-                        'medium-2': this.t('Columns: ') + 2,
-                        'medium-3': this.t('Columns: ') + 3,
-                        'medium-4': this.t('Columns: ') + 4,
-                        'medium-5': this.t('Columns: ') + 5,
-                        'medium-6': this.t('Columns: ') + 6,
-                        'medium-7': this.t('Columns: ') + 7,
-                        'medium-8': this.t('Columns: ') + 8,
-                        'medium-9': this.t('Columns: ') + 9,
-                        'medium-10': this.t('Columns: ') + 10,
-                        'medium-11': this.t('Columns: ') + 11,
-                        'medium-12': this.t('Columns: ') + 12
+                        'default': this.t('Default action', {}, 'core'),
+                        'medium-1': this.t('Columns: ', {}, 'core') + 1,
+                        'medium-2': this.t('Columns: ', {}, 'core') + 2,
+                        'medium-3': this.t('Columns: ', {}, 'core') + 3,
+                        'medium-4': this.t('Columns: ', {}, 'core') + 4,
+                        'medium-5': this.t('Columns: ', {}, 'core') + 5,
+                        'medium-6': this.t('Columns: ', {}, 'core') + 6,
+                        'medium-7': this.t('Columns: ', {}, 'core') + 7,
+                        'medium-8': this.t('Columns: ', {}, 'core') + 8,
+                        'medium-9': this.t('Columns: ', {}, 'core') + 9,
+                        'medium-10': this.t('Columns: ', {}, 'core') + 10,
+                        'medium-11': this.t('Columns: ', {}, 'core') + 11,
+                        'medium-12': this.t('Columns: ', {}, 'core') + 12
                     },
                     getValue: function () {
                         var value = 'default';
@@ -518,7 +519,7 @@
          */
         makeHeightResizer: function(type) {
             var $heightResizer = $('<div/>');
-            $heightResizer.append('<i class="fa fa-sort"></i>');
+            $heightResizer.append('<i class="updown-icon"></i>');
             return $heightResizer.data('type', type).addClass(this._parent.heightResizerClass(false));
         },
 

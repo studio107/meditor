@@ -45,7 +45,8 @@ var paths = {
         'bower_components/fastclick/lib/fastclick.js',
         'bower_components/foundation/js/foundation.min.js',
         'bower_components/underscore/underscore.js',
-        'bower_components/mmodal/js/jquery.mindy.modal.js'
+        'bower_components/mmodal/js/jquery.mindy.modal.js',
+        'bower_components/flow.js/dist/flow.min.js'
     ],
 
     images: 'images/**/*',

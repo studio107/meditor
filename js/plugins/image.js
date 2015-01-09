@@ -2,6 +2,17 @@
     "use strict";
 
     var ImageBlock = meditorBlock.extend({
+        i18n: {
+            'ru': {
+                'Image block': 'Картинка',
+                'Image settings': 'Настройки изображения',
+                'Image cover': 'Вывод изображения',
+                'Default': 'По-умолчанию',
+                'Cover': 'Адаптивный',
+                'Drop files here to upload or': 'Перетащите файлы сюда или',
+                'select images': 'выберите изображение'
+            }
+        },
         settings: {
             uploadUrl: ''
         },
@@ -12,10 +23,23 @@
             'top': 0,
             'left': 0,
             'right': 0,
-            'bottom': 0
+            'bottom': 0,
+            'z-index': 1
+        },
+        flowHandlerOptions: {
+            'position': 'absolute',
+            'top': 0,
+            'left': 0,
+            'right': 0,
+            'bottom': 0,
+            'z-index': 10
         },
         holderClass: function (dotted) {
             var cn = 'meditor-image-holder';
+            return dotted ? '.' + cn : cn;
+        },
+        flowHandlerClass: function (dotted) {
+            var cn = 'meditor-image-flow-handler';
             return dotted ? '.' + cn : cn;
         },
         events: function () {
@@ -33,7 +57,7 @@
         getFieldsets: function () {
             return [
                 {
-                    name: this.t('Video settings'),
+                    name: this.t('Image settings'),
                     fields: [
                         'cover'
                     ]
@@ -69,6 +93,10 @@
             var $me = this,
                 $block = $(this._htmlBlock);
 
+            var $flowHandler = this.getFlowHandler();
+            $block.append($flowHandler);
+
+
             var r = new Flow({
                 target: this.settings.uploadUrl,
                 chunkSize: 1024 * 1024,
@@ -78,8 +106,8 @@
             if (!r.support) {
                 $block.html('Your browser, unfortunately, is not supported <a href="http://www.w3.org/TR/FileAPI/">the HTML5 File API</a> along with <a href="http://www.w3.org/TR/FileAPI/#normalization-of-params">file slicing</a>.');
             } else {
-                r.assignDrop($block[0]);
-                r.assignBrowse($block[0], false, false, {accept: 'image/*'});
+                r.assignDrop($flowHandler[0]);
+                r.assignBrowse($flowHandler[0], false, false, {accept: 'image/*'});
                 r.on('filesSubmitted', function (file) {
                     r.upload();
                 });
@@ -91,9 +119,14 @@
                 });
             }
         },
+        getFlowHandler: function(){
+            return $('<div/>').addClass(this.flowHandlerClass(false)).css(this.flowHandlerOptions);
+        },
         flowTemplate: function () {
+            var drop = this.t('Drop files here to upload or');
+            var select = this.t('select images');
             return '<div class="flow-drop" ondragenter="$(this).addClass(\'flow-dragover\');" ondragend="$(this).removeClass(\'flow-dragover\');" ondrop="$(this).removeClass(\'flow-dragover\');">' +
-                'Drop files here to upload or <a class="flow-browse-image"><u>select images</u></a>' +
+                drop + ' <a class="flow-browse-image"><u>' + select + '</u></a>' +
                 '</div>';
         },
         renderPlug: function () {
@@ -115,7 +148,6 @@
             var $me = this;
             if (files.length > 0) {
                 var file = files[0];
-                console.log(file);
                 this.readFileAsDataURL(file).then(function (data) {
                     $me.insertFile(file, data, block);
                 })
@@ -127,7 +159,7 @@
             $block.find(this.holderClass(true)).remove();
             var $img = $('<img/>').attr('src', data).css({'display': 'none'});
             var imgOptions = $.extend(this.defaultHolderOptions, {
-                'background-image': 'url(' + data + ')'
+                'background-image': "url('" + data + "')"
             });
 
             $img[0].onload = function () {
@@ -137,6 +169,11 @@
             var $imageHolder = $('<div/>').addClass(this.holderClass(false)).css(imgOptions).append($img);
             block.append($imageHolder);
             this.saveState();
+        },
+        getContent: function () {
+            var $htmlBlock = $(this._htmlBlock).clone();
+            $htmlBlock.find(this.flowHandlerClass(true)).remove();
+            return $htmlBlock;
         },
         correctImageBlock: function (block) {
             var $block = $(block);

@@ -2,6 +2,12 @@
     "use strict";
 
     var TextBlock = meditorBlock.extend({
+        i18n: {
+            'ru': {
+                'Text block': 'Текст',
+                'Click here to edit text': 'Щелкните для редактирования текста'
+            }
+        },
         editableClass: function(dotted){
             var cn = 'text-editable';
             return dotted ? '.' + cn : cn;

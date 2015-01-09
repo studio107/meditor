@@ -36,6 +36,12 @@
     .meditor-settings-row {
       margin-bottom: 10px;
 
+      label {
+        font-size: 12px;
+        color: #9b9b9b;
+        margin-bottom: 3px;
+      }
+
       .meditor-settings-input {
         margin: 0;
       }
@@ -54,10 +60,15 @@
   }
 
   .meditor-settings-buttons {
-    padding: 20px;
+    padding: 20px 30px;
 
     button {
       margin: 0;
+      background-color: #297fb9;
+      @include border-radius(3px);
+      color: #fff;
+      font-size: 14px;
+      padding: 10px 20px;
     }
   }
 }

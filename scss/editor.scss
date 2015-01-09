@@ -22,6 +22,9 @@ $heightResizerWidth: 23px;
 
 $meditorMinHeightBlock: 95px;
 
+$meditorControlsHeight: 70px;
+$meditorControlsWidth: 90px;
+
 $column-gutter: 30px;
 
 .meditor {
@@ -33,16 +36,52 @@ $column-gutter: 30px;
   }
 
   .meditor-controls {
-    margin-bottom: 15px;
+    margin-top: 15px;
+    height: $meditorControlsHeight;
+    line-height: $meditorControlsHeight;
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+
     ul {
-      height: 38px;
+      display: table-row;
+
       li {
-        margin-right: 10px;
+        display: table-cell;
+        margin: 0;
         border: 1px solid $meditorHelperBorder;
+        width: $meditorControlsWidth;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 1.2;
         padding: 5px;
-        float: left;
-        display: inline-block;
-        width: 100px;
+
+        &.append {
+          width: auto;
+          padding: 10px 20px;
+          vertical-align: middle;
+          text-align: left;
+
+          span {
+            text-transform: uppercase;
+            font-size: 14px;
+            color: #9b9b9b;
+            font-weight: bold;
+
+            &:after {
+              content: ':';
+              padding-left: 2px;
+            }
+          }
+        }
+
+        a {
+          line-height: 1.3;
+          color: #979797;
+          font-size: 12px;
+          height: $meditorControlsHeight;
+        }
       }
     }
   }
@@ -62,7 +101,7 @@ $column-gutter: 30px;
       display: block;
       padding: 0;
       height: $helperHeight;
-      line-height: $helperHeight;
+      line-height: $helperHeight - 1px;
 
       font-size: 13px;
 
@@ -220,7 +259,7 @@ $column-gutter: 30px;
 
         text-align: center;
         font-size: 12px;
-        line-height: $heightResizerHeight;
+        line-height: $heightResizerHeight - 2px;
       }
 
       &:hover, &.height-block-resizing {
@@ -319,4 +358,5 @@ $column-gutter: 30px;
 
 @import "imageblock";
 @import "textblock";
+@import "icons";
 @import "settings";
