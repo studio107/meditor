@@ -1,4 +1,10 @@
-### Mindy field example
+# Installation
+
+```bash
+bower install meditor --save
+```
+
+# Mindy field example
 
 ```php
 <?php
