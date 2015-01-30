@@ -54,8 +54,8 @@
             var id = 'text-'+$(block).attr('rel');
             $editable.attr('id', id);
             $editable.on('blur', function () {
-                var editableText = $editable.text();
-                if (!editableText){
+                // Empty html - Ckeditor
+                if ($me.isEmpty($editable)) {
                     $me.showPlug();
                 }
             });
@@ -69,6 +69,9 @@
             }
 
             return this._render()[0];
+        },
+        isEmpty: function($editable) {
+            return !$editable.html() || ($editable.html() == '<p><br></p>');
         },
         events: function () {
             return {
@@ -88,6 +91,9 @@
                     CKEDITOR.inline( editable.attr('id') );
                     CKEDITOR.instances[editable.attr('id')].on('change', function() {
                         me.saveState();
+                        if (!me.isEmpty(editable)) {
+                            me.hidePlug();
+                        }
                     });
                 }
             });
