@@ -82,6 +82,7 @@
                     setValue: function (value) {
                         var block = me.getHtmlBlock();
                         $(block).find(me.holderClass(true)).css('background-size', value);
+                        me.correctBlock();
                     },
                     validate: function (value) {
                         return true;
@@ -180,7 +181,11 @@
             var $img = $block.find('img');
             if ($img.length) {
                 var img = $img[0];
-                $block.css({'height': $block.width() * (img.height / img.width)});
+                if (this.isCover()) {
+                    $block.css({'height': $block.width() * (img.height / img.width)});
+                } else {
+                    $block.css({'height': img.height});
+                }
             }
             this.saveState();
         },
@@ -200,6 +205,13 @@
         correctBlock: function () {
             var block = this.getHtmlBlock();
             this.correctImageBlock(block);
+        },
+        getBackgroundSize: function() {
+            var block = this.getHtmlBlock();
+            return $(block).find(this.holderClass(true)).css('background-size');
+        },
+        isCover: function(){
+            return this.getBackgroundSize() == 'cover';
         }
     });
 
