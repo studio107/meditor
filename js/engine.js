@@ -219,6 +219,11 @@ EditorCore.prototype = {
         var cn = 'height-block-resizing';
         return dotted ? '.' + cn : cn;
     },
+    helperableClass: function(dotted)
+    {
+        var cn = 'helperable';
+        return dotted ? '.' + cn : cn;
+    },
     settingsId: function (name) {
         return 'settings-' + name;
     },
@@ -259,6 +264,12 @@ EditorCore.prototype = {
             }
         });
 
+        $(document).on('mouseout', 'body:not(.height-resizing) ' + me.helpersClass(true), function (e) {
+            if ($(e.relatedTarget).closest(me.helpersClass(true)).length <= 0) {
+                me.hideHelper();
+            }
+        });
+
         $(document).on('selectstart', me.blockClass(true), function (e) {
             if ($('body').hasClass('unselectable')) {
                 e.preventDefault();
@@ -278,7 +289,7 @@ EditorCore.prototype = {
         helpers.css({'display': 'block'});
 
         var $me = $(this.editor);
-
+        $(element).addClass(this.helperableClass(false));
         helpers.css({
             'top': element.offset().top - $me.offset().top,
             'left': (element.offset().left - $me.offset().left) + element.width()
@@ -294,6 +305,7 @@ EditorCore.prototype = {
         helpers.css({
             'display': 'none'
         });
+        $(this.helperable).removeClass(this.helperableClass(false));
         this.helperable = undefined;
     },
     /**

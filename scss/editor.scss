@@ -262,7 +262,7 @@ $column-gutter: 30px;
         line-height: $heightResizerHeight - 2px;
       }
 
-      &:hover, &.height-block-resizing {
+      &:hover, &.helperable, &.height-block-resizing {
         outline: 1px solid $meditorBorderColor;
         outline-offset: 14px;
 

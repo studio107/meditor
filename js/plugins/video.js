@@ -4,7 +4,11 @@
     var VideoBlock = meditorBlock.extend({
         i18n: {
             'ru': {
-                'Video block': 'Видео'
+                'Video block': 'Видео',
+                'This video hosting is not supported!': 'Данный видеохостинг не поддерживается',
+                'Set video url in settings': 'Укажите URL видео в настройках',
+                'Video settings': 'Настройки видео',
+                'Video url': 'URL видео'
             }
         },
         types: {
