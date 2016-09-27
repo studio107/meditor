@@ -1,5 +1,6 @@
-@import "compass/utilities";
-@import "compass/css3";
+@import "mindy/normalize";
+@import "mindy/mindy";
+@import "settings";
 
 @mixin line-gradient($colors...) {
   background: -moz-linear-gradient(top, $colors);

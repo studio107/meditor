@@ -1,8 +1,8 @@
-$(function(){
+$(function () {
     var register_desktop = {};
     var register_pad = {};
     var current_statement = 'desktop'; // or pad
-    var getCol = function($block) {
+    var getCol = function ($block) {
         var classes = $block[0].classList;
 
         var cn = '';
@@ -18,7 +18,7 @@ $(function(){
         return 0;
     };
 
-    var removeCls = function($block) {
+    var removeCls = function ($block) {
         var classes = $block[0].classList;
 
         var cn = '';
@@ -33,16 +33,16 @@ $(function(){
         }
     };
 
-    function resize(register){
+    function resize(register) {
         $('.row').each(function (t, row) {
             var sum = 0;
             var $items = $(row).find('[class*="col-"]');
-            for(var i = 0; i < $items.length; i++) {
+            for (var i = 0; i < $items.length; i++) {
                 var $block = $($items[i]);
                 $block.removeClass('first');
                 //sum += register[t][i];
 
-                if (sum <= 0){
+                if (sum <= 0) {
                     $block.addClass('first');
                     sum = 12;
                 }
@@ -66,12 +66,12 @@ $(function(){
         var tail = undefined;
         var append = undefined;
 
-        for(var i = 0; i < $items.length; i++) {
+        for (var i = 0; i < $items.length; i++) {
             var $col = $($items[i]);
             register_desktop[t][i] = getCol($col);
 
             // Достигли экватора
-            if ((summ + getCol($col) >= 6) && (summ < 6)){
+            if ((summ + getCol($col) >= 6) && (summ < 6)) {
                 if ((summ + getCol($col)) == 6)
                     half = true;
                 middleitem = i;
@@ -84,16 +84,16 @@ $(function(){
 
                 var to = (half) ? i : i - 1;
 
-                if (to > 0){
+                if (to > 0) {
                     csumm = 12 - (csumm * 2);
                     tail = csumm % (to + 1);
                     append = Math.floor(csumm / (to + 1));
-                    for (var j = 0; j <= to; j++){
+                    for (var j = 0; j <= to; j++) {
                         register_pad[t][j] = register_desktop[t][j] * 2 + append;
                         if (j == to)
                             register_pad[t][j] = register_desktop[t][j] * 2 + append + tail;
                     }
-                }else if(to == 0){
+                } else if (to == 0) {
                     register_pad[t][to] = 12;
                 }
                 if (!half)
@@ -105,12 +105,12 @@ $(function(){
 
         var count = ($items.length) - (middleitem + 1);
 
-        if (count){
+        if (count) {
             csumm = 12 - (sum_after_middle * 2);
             tail = csumm % (count);
             append = Math.floor(csumm / (count));
 
-            for(j = middleitem + 1; j < $items.length; j++) {
+            for (j = middleitem + 1; j < $items.length; j++) {
                 register_pad[t][j] = register_desktop[t][j] * 2 + append;
                 if (j == $items.length - 1)
                     register_pad[t][j] = register_desktop[t][j] * 2 + append + tail;
@@ -118,22 +118,22 @@ $(function(){
         }
     });
 
-    handle_resize = function(event){
+    var handle_resize = function (event) {
         var width = $(window).width();
-        if (width < 978){
-            if (current_statement != 'pad'){
+        if (width < 978) {
+            if (current_statement != 'pad') {
                 current_statement = 'pad';
                 resize(register_pad);
             }
-        }else{
-            if (current_statement != 'desktop'){
+        } else {
+            if (current_statement != 'desktop') {
                 current_statement = 'desktop';
                 resize(register_desktop);
             }
         }
     };
 
-    $(window).on('resize',handle_resize);
-    $(window).on('orientationchange',handle_resize);
+    $(window).on('resize', handle_resize);
+    $(window).on('orientationchange', handle_resize);
     handle_resize();
 });

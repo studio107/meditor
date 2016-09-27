@@ -1,22 +1,24 @@
 {
-    "name": "meditor",
-    "version": "0.0.2",
-    "main": ["./dist/all.1.0.0.js", "./dist/all.1.0.0.css"],
-    "ignore": [
-        "**/.*",
-        "*.yml",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "mindy-sass": "*",
-        "jquery": ">= 1.9.0",
-        "underscore": ">= 1.6.0",
-        "foundation": ">= 5.3.0",
-        "mmodal": ">= 1.0.1",
-        "ckeditor": "4",
-        "flow.js": ">= 2"
-    }
+  "name": "meditor",
+  "version": "0.0.2",
+  "main": [
+    "./dist/all.1.0.0.js",
+    "./dist/all.1.0.0.css"
+  ],
+  "ignore": [
+    "**/.*",
+    "*.yml",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mindy-sass": "*"
+  },
+  "devDependencies": {
+    "mindy-sass": "*",
+    "jquery": "^3.1.1",
+    "underscore": "^1.8.3"
+  }
 }
