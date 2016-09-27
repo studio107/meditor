@@ -17,23 +17,26 @@
 </head>
 <body>
 
-<textarea name="editor" id="meditor" cols="30" rows="10"></textarea>
+<div id="editor"></div>
+
+<!-- <textarea name="editor" id="meditor" cols="30" rows="10"></textarea> -->
 
 <script type="text/javascript" src="vendors/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="dist/js/1.0.0.all.js"></script>
 <script type="text/javascript" src="dist/js/1.0.0.editor.js"></script>
 <script type="text/javascript">
-    console.log(meditor);
-    var editor = meditor.init('#meditor', {
-        language: 'ru',
-        plugins: [
-            'space',
-            'text',
-            'video'
-//            'image',
-//            'map'
-        ]
+    MediaEditor.loadTranslate('example', { 'foo': 'bar' });
+
+    let editor = new MediaEditor({
+        element: document.getElementById('editor')
     });
+
+    /*
+     var editor = meditor.init('#meditor', {
+     language: 'ru',
+     plugins: ['space', 'text', 'video', 'image', 'map']
+     });
+     */
 </script>
 
 </body>

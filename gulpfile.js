@@ -19,6 +19,7 @@ var dst = {
 };
 
 var paths = {
+    editor_webpack: 'js/**/*.js',
     editor: [
         "js/utils.js",
         "js/core.js",
@@ -50,7 +51,6 @@ gulp.task('ckeditor', function () {
 
 gulp.task('js', function () {
     return gulp.src(paths.js)
-        // .pipe(webpack(require('./webpack.config.js')))
         .pipe(concat(version + '.all.js'))
         .pipe(gulp.dest(dst.js));
 });
@@ -58,6 +58,13 @@ gulp.task('js', function () {
 gulp.task('editor', function () {
     return gulp.src(paths.editor)
         .pipe(babel())
+        .pipe(concat(version + '.editor.js'))
+        .pipe(gulp.dest(dst.js));
+});
+
+gulp.task('editor:webpack', function () {
+    return gulp.src(paths.editor)
+        .pipe(webpack(require('./webpack.config.js')))
         .pipe(concat(version + '.editor.js'))
         .pipe(gulp.dest(dst.js));
 });
@@ -79,7 +86,7 @@ gulp.task('css', function () {
 gulp.task('watch', function () {
     livereload.listen();
 
-    gulp.watch(paths.editor, ['editor']);
+    gulp.watch(paths.editor_webpack, ['editor:webpack']);
     gulp.watch(paths.js, ['js']);
     gulp.watch(paths.images, ['images']);
     gulp.watch(paths.css, ['css']);
